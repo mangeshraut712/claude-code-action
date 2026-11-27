@@ -12,7 +12,16 @@ import { spawn } from "child_process";
 import { appendFile } from "fs/promises";
 import { existsSync, readFileSync } from "fs";
 import { setupGitHubToken, WorkflowValidationSkipError } from "../github/token";
-import { checkWritePermissions } from "../github/validation/permissions";
+import {
+  checkBotActorPullRequestAuthor,
+  checkWritePermissions,
+} from "../github/validation/permissions";
+import { checkHumanActor } from "../github/validation/actor";
+import {
+  isCommentOnRefusedForkPr,
+  isRefusedForkEvent,
+} from "../github/validation/fork-pr";
+import { getUntrustedPrDisallowedTools } from "../github/validation/untrusted-pr";
 import { createOctokit } from "../github/api/client";
 import type { Octokits } from "../github/api/client";
 import {
@@ -27,10 +36,35 @@ import type { GitHubContext } from "../github/context";
 import { detectMode } from "../modes/detector";
 import { prepareTagMode } from "../modes/tag";
 import { prepareAgentMode } from "../modes/agent";
-import { checkContainsTrigger } from "../github/validation/trigger";
-import { restoreConfigFromBase } from "../github/operations/restore-config";
+import {
+  checkContainsTrigger,
+  isModeration,
+} from "../github/validation/trigger";
+import {
+  clearSessionState,
+  disableGitPrograms,
+  pinRestoredPaths,
+  prepareGitForSession,
+  snapshotSessionFiles,
+} from "../github/operations/session-guard";
+import { chooseConfigBranch } from "../github/operations/config-branch";
+import {
+  fetchBranch,
+  keepHeadHistory,
+  restoreConfigFromBase,
+} from "../github/operations/restore-config";
+import {
+  restoreToolConfigFromBase,
+  toolConfigDenyRules,
+} from "../github/operations/tool-config";
+import {
+  namedConfigPaths,
+  restoreConfigPathsFromBase,
+} from "../github/operations/config-paths";
 import { validateBranchName } from "../github/operations/branch";
+import type { BranchInfo } from "../github/operations/branch";
 import { collectActionInputsPresence } from "./collect-inputs";
+import { postBufferedInlineComments } from "./post-buffered-inline-comments";
 import { updateCommentLink } from "./update-comment-link";
 import { formatTurnsFromData } from "./format-turns";
 import type { Turn } from "./format-turns";
@@ -42,6 +76,8 @@ import { validateEnvironmentVariables } from "../../base-action/src/validate-env
 import { setupClaudeCodeSettings } from "../../base-action/src/setup-claude-code-settings";
 import { installPlugins } from "../../base-action/src/install-plugins";
 import { preparePrompt } from "../../base-action/src/prepare-prompt";
+import { onCancel } from "../../base-action/src/cancel";
+import { escapeConsoleOutput } from "../../base-action/src/log";
 import { runClaude } from "../../base-action/src/run-claude";
 import type { ClaudeRunResult } from "../../base-action/src/run-claude-sdk";
 import { setExecutionFileOutputIfPresent } from "../../base-action/src/execution-file";
@@ -77,7 +113,7 @@ async function installClaudeCode(): Promise<string> {
     return customExecutable;
   }
 
-  const claudeCodeVersion = "2.1.268";
+  const claudeCodeVersion = "2.1.332";
   console.log(`Installing Claude Code v${claudeCodeVersion}...`);
 
   for (let attempt = 1; attempt <= 3; attempt++) {
@@ -147,7 +183,13 @@ async function writeStepSummary(executionFile: string): Promise<void> {
   }
 }
 
+const FORK_REFUSED =
+  "Skipped, because allow_fork_prs is not true and this pull request or workflow run is from a fork. To allow forks, read 'Pull requests from forks' in docs/security.md in anthropics/claude-code-action, then set allow_fork_prs: \"true\".";
+
 async function run() {
+  // Bun has read this by now, and it's only for the action's own scripts
+  delete process.env.BUN_RUNTIME_TRANSPILER_CACHE_PATH;
+
   let githubToken: string | undefined;
   let commentId: number | undefined;
   let claudeBranch: string | undefined;
@@ -164,10 +206,58 @@ async function run() {
   let restoredConfigPaths: string[] = [];
   // Track whether we've completed prepare phase, so we can attribute errors correctly
   let prepareCompleted = false;
+  // Set while a session could be running
+  let restoreSessionFiles: (() => void) | undefined;
+  let hadSession = false;
+  let isFinishing = false;
+
+  // Revoking the app token depends on this output. A session can write it, and what it
+  // wrote is still there if the file could not be restored.
+  const keepRevocationOn = () =>
+    core.setOutput("skipped_due_to_workflow_validation_mismatch", "false");
+
+  onCancel(
+    [
+      () => restoreSessionFiles?.(),
+      () => restoreSessionFiles && keepRevocationOn(),
+      // The step that revokes the app token reads it from here.
+      () => githubToken && core.setOutput("github_token", githubToken),
+      () => core.setOutput("branch_name", claudeBranch),
+      // The same goes for this one.
+      () => core.setOutput("conclusion", claudeSuccess ? "success" : "failure"),
+      clearSessionState,
+      () => workloadIdentity?.stop(),
+    ],
+    () => isFinishing,
+  );
+
   try {
     // Phase 1: Prepare
     const actionInputsPresent = collectActionInputsPresence();
     context = parseGitHubContext();
+
+    // A fork's event with no credentials is skipped before a token is needed. One that
+    // has them goes through the actor checks first: a run those refuse must fail, as
+    // later steps in the job could use the credentials. pull_request_target and
+    // workflow_run always have them. Other events from forks can have them only in a
+    // private repository, depending on its settings.
+    const isRefusedFork = isRefusedForkEvent(context);
+    const hasRepositoryCredentials =
+      isWorkflowRunEvent(context) ||
+      process.env.GITHUB_EVENT_NAME === "pull_request_target" ||
+      ((context.payload.repository as { private?: boolean } | undefined)
+        ?.private === true &&
+        !!(
+          process.env.OVERRIDE_GITHUB_TOKEN ||
+          process.env.ACTIONS_ID_TOKEN_REQUEST_URL ||
+          process.env.ANTHROPIC_API_KEY ||
+          process.env.CLAUDE_CODE_OAUTH_TOKEN
+        ));
+    if (isRefusedFork && !hasRepositoryCredentials) {
+      core.warning(FORK_REFUSED);
+      return;
+    }
+
     const modeName = detectMode(context);
     console.log(
       `Auto-detected mode: ${modeName} for event: ${context.eventName}`,
@@ -211,9 +301,9 @@ async function run() {
     const containsTrigger =
       modeName === "tag"
         ? isEntityContext(context) && checkContainsTrigger(context)
-        : !!context.inputs?.prompt;
+        : !!context.inputs?.prompt &&
+          !(isEntityContext(context) && isModeration(context));
     console.log(`Mode: ${modeName}`);
-    console.log(`Context prompt: ${context.inputs?.prompt || "NO PROMPT"}`);
     console.log(`Trigger result: ${containsTrigger}`);
 
     if (!containsTrigger) {
@@ -222,13 +312,51 @@ async function run() {
       return;
     }
 
+    const botActorAllowed = await checkBotActorPullRequestAuthor(
+      octokit.rest,
+      context,
+      context.inputs.allowedNonWriteUsers,
+      !!process.env.OVERRIDE_GITHUB_TOKEN,
+    );
+    if (!botActorAllowed) {
+      throw new Error(
+        "A bot acted on this pull request, but its author does not have write access",
+      );
+    }
+
+    // Before the action checks anything out
+    if (
+      isRefusedFork ||
+      (await isCommentOnRefusedForkPr(octokit.rest, context))
+    ) {
+      // Prepare would have refused a bot that isn't allowed
+      await checkHumanActor(octokit.rest, context);
+      core.warning(FORK_REFUSED);
+      return;
+    }
+
     // Run prepare
+    // Commands that run checkout code are denied on PRs from authors without write
+    // access. Hooks go off here, before the action checks out such a PR's head, and
+    // keep running for trusted authors, whose repositories may rely on them.
+    const untrustedPrDisallowedTools = isEntityContext(context)
+      ? await getUntrustedPrDisallowedTools(octokit.rest, context)
+      : [];
+    const hooksOff = untrustedPrDisallowedTools.length > 0;
+    disableGitPrograms({ hooks: hooksOff });
+    clearSessionState();
+
     console.log(
       `Preparing with mode: ${modeName} for event: ${context.eventName}`,
     );
     const prepareResult =
       modeName === "tag"
-        ? await prepareTagMode({ context, octokit, githubToken })
+        ? await prepareTagMode({
+            context,
+            octokit,
+            githubToken,
+            skipLfsDownloads: hooksOff,
+          })
         : await prepareAgentMode({ context, octokit, githubToken });
 
     commentId = prepareResult.commentId;
@@ -251,8 +379,16 @@ async function run() {
 
     validateEnvironmentVariables();
 
+    // Tag mode sets claudeBranch only when it branched from the base instead of
+    // checking out the PR's head, as for a closed or merged PR.
+    const checkedOutPrHead = modeName !== "tag" || !claudeBranch;
+    const isUntrustedCheckout =
+      checkedOutPrHead && untrustedPrDisallowedTools.length > 0;
+    let restoredToolConfig: string[] = [];
+    let configPathDenyRules: string[] = [];
+
     // On PRs, .claude/ and .mcp.json in the checkout are attacker-controlled.
-    // Restore them from the base branch before the CLI reads them.
+    // Restore them from a trusted branch before the CLI reads them.
     //
     // We read pull_request.base.ref from the payload directly because agent
     // mode's branchInfo.baseBranch defaults to the repo's default branch rather
@@ -271,7 +407,43 @@ async function run() {
         validateBranchName(restoreBase);
       }
       if (restoreBase) {
-        restoredConfigPaths = restoreConfigFromBase(restoreBase);
+        const { isFork }: BranchInfo = prepareResult.branchInfo;
+        const configBranch = chooseConfigBranch(
+          context,
+          restoreBase,
+          untrustedPrDisallowedTools.length > 0,
+          isFork,
+        );
+        const isOtherBranch = configBranch !== restoreBase;
+        if (isOtherBranch) {
+          core.warning(
+            `Claude's config comes from ${configBranch}, not from the base branch ${restoreBase}, because the pull request's author is not confirmed to have write access. See docs/security.md in anthropics/claude-code-action.`,
+          );
+        }
+        const restoreHeadHistory = isOtherBranch
+          ? keepHeadHistory()
+          : undefined;
+        restoredConfigPaths = restoreConfigFromBase(configBranch);
+        // Before plugins are installed, which can already start package managers here.
+        if (isUntrustedCheckout) {
+          restoredToolConfig = restoreToolConfigFromBase(configBranch);
+          const configPaths = restoreConfigPathsFromBase(
+            configBranch,
+            namedConfigPaths(prepareResult.claudeArgs),
+          );
+          configPathDenyRules = configPaths.denyRules;
+          restoredConfigPaths.push(
+            ...restoredToolConfig,
+            ...configPaths.replaced,
+          );
+        }
+        if (isOtherBranch) {
+          // A branch from the base has none of the pull request's version of them.
+          if (checkedOutPrHead) pinRestoredPaths(restoredConfigPaths);
+          // Claude still compares the pull request with its base.
+          restoreHeadHistory?.();
+          fetchBranch(restoreBase);
+        }
       }
     }
 
@@ -291,13 +463,47 @@ async function run() {
       promptFile,
     });
 
-    const claudeResult: ClaudeRunResult = await runClaude(promptConfig.path, {
-      claudeArgs: prepareResult.claudeArgs,
-      appendSystemPrompt: process.env.APPEND_SYSTEM_PROMPT,
-      model: process.env.ANTHROPIC_MODEL,
-      pathToClaudeCodeExecutable: claudeExecutable,
-      showFullOutput: process.env.INPUT_SHOW_FULL_OUTPUT,
-    });
+    // Passed separately because text added to claudeArgs can be lost: a comment at
+    // the end of the user's claude_args would swallow it.
+    const disallowedTools = isUntrustedCheckout
+      ? [
+          ...untrustedPrDisallowedTools,
+          ...toolConfigDenyRules(restoredToolConfig),
+          ...configPathDenyRules,
+        ]
+      : [];
+
+    // A hook runs in the session's current directory, and only the repository root's tool
+    // config comes from the base branch. This keeps Bash from moving the session.
+    if (isUntrustedCheckout) {
+      process.env.CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR = "1";
+    }
+
+    restoreSessionFiles = snapshotSessionFiles(() =>
+      prepareGitForSession({ hooks: hooksOff }),
+    );
+
+    let claudeResult: ClaudeRunResult;
+    hadSession = true;
+    try {
+      claudeResult = await runClaude(promptConfig.path, {
+        claudeArgs: prepareResult.claudeArgs,
+        disallowedTools: disallowedTools.join(","),
+        appendSystemPrompt: process.env.APPEND_SYSTEM_PROMPT,
+        model: process.env.ANTHROPIC_MODEL,
+        pathToClaudeCodeExecutable: claudeExecutable,
+        showFullOutput: process.env.INPUT_SHOW_FULL_OUTPUT,
+        // Tag mode has no allow rules for file edits, so it needs a mode that allows them.
+        ...(modeName === "tag" && { fallbackPermissionMode: "acceptEdits" }),
+      });
+    } finally {
+      restoreSessionFiles();
+      // The action's own git commands from here on hold the job's credentials,
+      // and the session could have edited a tracked hook.
+      disableGitPrograms({ hooks: true });
+      keepRevocationOn();
+      restoreSessionFiles = undefined;
+    }
 
     claudeSuccess = claudeResult.conclusion === "success";
     executionFile = claudeResult.executionFile;
@@ -324,6 +530,8 @@ async function run() {
     core.setFailed(`Action failed with error: ${redactSecrets(errorMessage)}`);
   } finally {
     // Phase 4: Cleanup (always runs)
+    isFinishing = true;
+    clearSessionState();
 
     // Stop refreshing the workload identity token file and delete the token
     // material so it doesn't outlive this step
@@ -370,9 +578,22 @@ async function run() {
     // Set remaining action-level outputs
     core.setOutput("branch_name", claudeBranch);
     core.setOutput("github_token", githubToken);
+
+    // Last, because the step that revokes the app token needs the outputs. This isn't a
+    // step of its own, so that only the run step is given the API key.
+    if (hadSession && context?.inputs.classifyInlineComments && githubToken) {
+      try {
+        await postBufferedInlineComments({ context, githubToken });
+      } catch (error) {
+        core.setFailed(
+          `Posting buffered inline comments failed: ${redactSecrets(String(error))}`,
+        );
+      }
+    }
   }
 }
 
 if (import.meta.main) {
+  escapeConsoleOutput();
   run();
 }

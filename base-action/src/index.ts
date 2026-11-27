@@ -6,12 +6,25 @@ import { runClaude } from "./run-claude";
 import { setupClaudeCodeSettings } from "./setup-claude-code-settings";
 import { validateEnvironmentVariables } from "./validate-env";
 import { installPlugins } from "./install-plugins";
+import { onCancel } from "./cancel";
+import { escapeConsoleOutput } from "./log";
 import { setExecutionFileOutputIfPresent } from "./execution-file";
 import { setupWorkloadIdentity } from "./workload-identity";
 import type { WorkloadIdentityHandle } from "./workload-identity";
 
 async function run() {
+  // Bun has read this by now, and it's only for the action's own script
+  delete process.env.BUN_RUNTIME_TRANSPILER_CACHE_PATH;
+
   let workloadIdentity: WorkloadIdentityHandle | undefined;
+  let isFinishing = false;
+  onCancel(
+    [
+      () => workloadIdentity?.stop(),
+      () => isFinishing || core.setOutput("conclusion", "failure"),
+    ],
+    () => isFinishing,
+  );
   try {
     // When workload identity federation is configured, fetch the GitHub OIDC
     // identity token and expose it to the CLI before validating auth env vars.
@@ -59,6 +72,7 @@ async function run() {
     });
 
     // Set outputs for the standalone base-action
+    isFinishing = true;
     core.setOutput("conclusion", result.conclusion);
     if (result.executionFile) {
       core.setOutput("execution_file", result.executionFile);
@@ -82,5 +96,6 @@ async function run() {
 }
 
 if (import.meta.main) {
+  escapeConsoleOutput();
   run();
 }
