@@ -1,24 +1,35 @@
-import type { Device, Orientation, Platform, ScreenshotFontId, SlideLayout, Theme, ThemeId } from "./types";
+import type {
+  Device,
+  Orientation,
+  Platform,
+  ScreenshotFontId,
+  SlideLayout,
+  Theme,
+  ThemeId,
+} from "./types";
 
 // ---------- Canvas dimensions (design at largest required resolution) ----------
-export const CANVAS: Record<Device, { w: number; h: number; wL?: number; hL?: number }> = {
-  iphone:        { w: 1320, h: 2868 },
-  ipad:          { w: 2064, h: 2752 },
+export const CANVAS: Record<
+  Device,
+  { w: number; h: number; wL?: number; hL?: number }
+> = {
+  iphone: { w: 1320, h: 2868 },
+  ipad: { w: 2064, h: 2752 },
   // Apple TV is 16:9 landscape-only. Design at 4K; 1920x1080 is a clean 2x downscale.
-  tvos:          { w: 3840, h: 2160 },
+  tvos: { w: 3840, h: 2160 },
   // Apple Watch: design at the largest slot Apple accepts (Ultra 422x514) so every
   // smaller size is a downscale rather than an upscale.
-  watchos:       { w: 422, h: 514 },
+  watchos: { w: 422, h: 514 },
   // CarPlay has NO App Store screenshot slot of its own - see EXPORT_SIZES below.
   // It is submitted in an iPhone slot, which accepts landscape, so the canvas is
   // the 6.9" iPhone size turned sideways to fit a wide head unit.
-  carplay:       { w: 2868, h: 1320 },
+  carplay: { w: 2868, h: 1320 },
   // Mac App Store is landscape-only 16:10. Design at 2880x1800; every other Mac
   // slot is an exact 16:10 downscale.
-  mac:           { w: 2880, h: 1800 },
-  android:       { w: 1080, h: 1920 },
-  "android-7":   { w: 1200, h: 1920, wL: 1920, hL: 1200 },
-  "android-10":  { w: 1600, h: 2560, wL: 2560, hL: 1600 },
+  mac: { w: 2880, h: 1800 },
+  android: { w: 1080, h: 1920 },
+  "android-7": { w: 1200, h: 1920, wL: 1920, hL: 1200 },
+  "android-10": { w: 1600, h: 2560, wL: 2560, hL: 1600 },
   "feature-graphic": { w: 1024, h: 500 },
 };
 
@@ -33,7 +44,7 @@ export const EXPORT_SIZES: Record<Device, ExportSize[]> = {
     { label: '6.1"', w: 1125, h: 2436 },
   ],
   ipad: [
-    { label: '13" iPad',       w: 2064, h: 2752 },
+    { label: '13" iPad', w: 2064, h: 2752 },
     { label: '12.9" iPad Pro', w: 2048, h: 2732 },
   ],
   // App Store Connect display type APP_APPLE_TV. Verified 18 Aug 2026 via
@@ -46,9 +57,9 @@ export const EXPORT_SIZES: Record<Device, ExportSize[]> = {
   //   APP_WATCH_ULTRA 410x502 + 422x514 | SERIES_10 416x496
   //   SERIES_7 396x484 | SERIES_4 368x448 | SERIES_3 312x390
   watchos: [
-    { label: "Ultra (422 x 514)",    w: 422, h: 514 },
-    { label: "Ultra (410 x 502)",    w: 410, h: 502 },
-    { label: "Series 10 (416x496)",  w: 416, h: 496 },
+    { label: "Ultra (422 x 514)", w: 422, h: 514 },
+    { label: "Ultra (410 x 502)", w: 410, h: 502 },
+    { label: "Series 10 (416x496)", w: 416, h: 496 },
     { label: "Series 7 (396 x 484)", w: 396, h: 484 },
     { label: "Series 4 (368 x 448)", w: 368, h: 448 },
     { label: "Series 3 (312 x 390)", w: 312, h: 390 },
@@ -70,18 +81,18 @@ export const EXPORT_SIZES: Record<Device, ExportSize[]> = {
   mac: [
     { label: "2880 x 1800", w: 2880, h: 1800 },
     { label: "2560 x 1600", w: 2560, h: 1600 },
-    { label: "1440 x 900",  w: 1440, h: 900 },
-    { label: "1280 x 800",  w: 1280, h: 800 },
+    { label: "1440 x 900", w: 1440, h: 900 },
+    { label: "1280 x 800", w: 1280, h: 800 },
   ],
-  android:       [{ label: "Phone",          w: 1080, h: 1920 }],
-  "android-7":   [{ label: '7" Portrait',    w: 1200, h: 1920 }],
-  "android-10":  [{ label: '10" Portrait',   w: 1600, h: 2560 }],
+  android: [{ label: "Phone", w: 1080, h: 1920 }],
+  "android-7": [{ label: '7" Portrait', w: 1200, h: 1920 }],
+  "android-10": [{ label: '10" Portrait', w: 1600, h: 2560 }],
   "feature-graphic": [{ label: "Feature Graphic", w: 1024, h: 500 }],
 };
 
 // Landscape sizes (tablets only)
 export const EXPORT_SIZES_LANDSCAPE: Partial<Record<Device, ExportSize[]>> = {
-  "android-7":  [{ label: '7" Landscape',  w: 1920, h: 1200 }],
+  "android-7": [{ label: '7" Landscape', w: 1920, h: 1200 }],
   "android-10": [{ label: '10" Landscape', w: 2560, h: 1600 }],
 };
 
@@ -89,7 +100,10 @@ export function supportsLandscape(device: Device): boolean {
   return device in EXPORT_SIZES_LANDSCAPE;
 }
 
-export function getExportSizes(device: Device, orientation: Orientation): ExportSize[] {
+export function getExportSizes(
+  device: Device,
+  orientation: Orientation,
+): ExportSize[] {
   if (orientation === "landscape") {
     return EXPORT_SIZES_LANDSCAPE[device] || EXPORT_SIZES[device];
   }
@@ -97,12 +111,12 @@ export function getExportSizes(device: Device, orientation: Orientation): Export
 }
 
 // ---------- Frame aspect ratios ----------
-export const MK_RATIO    = 1022 / 2082; // iPhone PNG mockup
-export const TAB_P_RATIO = 0.667;        // tablet portrait
-export const TAB_L_RATIO = 1.5;          // tablet landscape
-export const IPAD_RATIO  = 0.770;        // iPad
-export const TV_RATIO    = 16 / 9;       // Apple TV - landscape only
-export const WATCH_RATIO = 422 / 514;    // Apple Watch Ultra, the largest accepted slot
+export const MK_RATIO = 1022 / 2082; // iPhone PNG mockup
+export const TAB_P_RATIO = 0.667; // tablet portrait
+export const TAB_L_RATIO = 1.5; // tablet landscape
+export const IPAD_RATIO = 0.77; // iPad
+export const TV_RATIO = 16 / 9; // Apple TV - landscape only
+export const WATCH_RATIO = 422 / 514; // Apple Watch Ultra, the largest accepted slot
 // CarPlay head units vary by vehicle and Apple ships five presets in CarPlay
 // Simulator.app/Contents/Resources/VehicleConfigs: Minimum 748x456, Standard 800x480,
 // Widescreen 1920x720, Portrait 900x1200, Standard Video Playback 1920x1080.
@@ -131,7 +145,7 @@ export function phoneW(cW: number, cH: number, clamp = 0.84) {
 export function phoneWSmall(cW: number, cH: number) {
   return phoneW(cW, cH, 0.66);
 }
-export function tabletPW(cW: number, cH: number, clamp = 0.80) {
+export function tabletPW(cW: number, cH: number, clamp = 0.8) {
   return Math.min(clamp, 0.72 * (cH / cW) * TAB_P_RATIO);
 }
 export function tabletLW(cW: number, cH: number, clamp = 0.62) {
@@ -167,26 +181,51 @@ export const DEFAULT_SCREENSHOT_FONT_ID: ScreenshotFontId = "template-default";
 // in document.styleSheets where html-to-image can embed it into exports.
 export const IMPORTED_FONT_FAMILY = "ImportedScreenshotFont";
 
-export const SCREENSHOT_FONTS: Record<ScreenshotFontId, { name: string; family: string }> = {
+export const SCREENSHOT_FONTS: Record<
+  ScreenshotFontId,
+  { name: string; family: string }
+> = {
   // Inherit the editor's Inter (next/font in app/layout.tsx), which is what the
   // canvas rendered before fonts were selectable, so existing decks don't shift.
   "template-default": { name: "Inter (default)", family: "inherit" },
   "system-sans": {
     name: "System Sans",
-    family: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    family:
+      'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
   },
-  "template-serif": { name: "Georgia", family: "Georgia, 'Times New Roman', serif" },
+  "template-serif": {
+    name: "Georgia",
+    family: "Georgia, 'Times New Roman', serif",
+  },
   // Named system fonts ship with macOS; elsewhere they fall back to the listed
   // alternatives, so export on the machine whose fonts you designed with.
-  "avenir-next": { name: "Avenir Next", family: '"Avenir Next", Avenir, sans-serif' },
-  "helvetica-neue": { name: "Helvetica Neue", family: '"Helvetica Neue", Helvetica, Arial, sans-serif' },
-  "futura": { name: "Futura", family: "Futura, 'Trebuchet MS', sans-serif" },
-  "baskerville": { name: "Baskerville", family: "Baskerville, 'Baskerville Old Face', Georgia, serif" },
-  "palatino": { name: "Palatino", family: "Palatino, 'Palatino Linotype', 'Book Antiqua', serif" },
-  "optima": { name: "Optima", family: "Optima, Candara, 'Segoe UI', sans-serif" },
-  "american-typewriter": { name: "American Typewriter", family: '"American Typewriter", "Courier New", serif' },
+  "avenir-next": {
+    name: "Avenir Next",
+    family: '"Avenir Next", Avenir, sans-serif',
+  },
+  "helvetica-neue": {
+    name: "Helvetica Neue",
+    family: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+  },
+  futura: { name: "Futura", family: "Futura, 'Trebuchet MS', sans-serif" },
+  baskerville: {
+    name: "Baskerville",
+    family: "Baskerville, 'Baskerville Old Face', Georgia, serif",
+  },
+  palatino: {
+    name: "Palatino",
+    family: "Palatino, 'Palatino Linotype', 'Book Antiqua', serif",
+  },
+  optima: { name: "Optima", family: "Optima, Candara, 'Segoe UI', sans-serif" },
+  "american-typewriter": {
+    name: "American Typewriter",
+    family: '"American Typewriter", "Courier New", serif',
+  },
   // Only offered once a font has been imported; the name shown comes from the file.
-  "self-hosted": { name: "Imported font", family: `"${IMPORTED_FONT_FAMILY}", sans-serif` },
+  "self-hosted": {
+    name: "Imported font",
+    family: `"${IMPORTED_FONT_FAMILY}", sans-serif`,
+  },
 };
 
 export const THEMES: Record<string, Theme> = {

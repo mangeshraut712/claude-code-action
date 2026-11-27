@@ -23,32 +23,32 @@ feel: slow, grounded, tactile, "take a breath, this app is kind to you"
 
 ## Vibe summary
 
-This style sells calm. Every slide feels like a hand-built diorama photographed in soft afternoon light: matte clay pebbles, a low sun disc, rolling hills pressed from plasticine, and a tall arched window — the kind of niche you'd find in a Mediterranean wall — cradling the phone. The palette is borrowed from the earth (oat, bone, sage, terracotta, dusk plum, deep moss), never from a screen. Headlines are set in a soft, round-shouldered serif at a generous size, spoken in a gentle second-person present tense: "Taste each bag at its *peak*." Nothing is loud; the drama comes from volume and light on the clay, not from colour or motion. If a slide feels like it's asking for attention, it's wrong — it should feel like it's offering a seat.
+This style sells calm. Every slide feels like a hand-built diorama photographed in soft afternoon light: matte clay pebbles, a low sun disc, rolling hills pressed from plasticine, and a tall arched window — the kind of niche you'd find in a Mediterranean wall — cradling the phone. The palette is borrowed from the earth (oat, bone, sage, terracotta, dusk plum, deep moss), never from a screen. Headlines are set in a soft, round-shouldered serif at a generous size, spoken in a gentle second-person present tense: "Taste each bag at its _peak_." Nothing is loud; the drama comes from volume and light on the clay, not from colour or motion. If a slide feels like it's asking for attention, it's wrong — it should feel like it's offering a seat.
 
 ## Global palette
 
-| Token | Hex | Use |
-|---|---|---|
-| `--oat` | `#EFE7DA` | Primary light background (mid stop) |
-| `--bone` | `#F6F0E6` | Light bg highlight stop, arch rim, bone pebbles |
-| `--oat-deep` | `#E6DACA` | Light bg edge stop |
-| `--sage` | `#A9B79C` | Arch interior, hills, sage pebbles |
-| `--sage-light` | `#B7C3A9` | Closer / sage slide background mid stop |
-| `--sage-lo` | `#7F8F72` | Sage shadow side |
-| `--clay` | `#C7765A` | Terracotta clay objects (sun disc, hills, pebbles) — **never text on oat** |
-| `--clay-hi` | `#EDB195` | Clay highlight stop |
-| `--clay-lo` | `#94492F` | Clay shadow stop |
-| `--clay-ink` | `#9A4B31` | Emphasis word on oat (5.0:1) |
-| `--clay-ink-deep` | `#6E2F1D` | Emphasis word on sage (5.5:1 on `#B7C3A9`) |
-| `--clay-light` | `#E6A585` | Emphasis word on plum / deep moss (6.4:1 on `#3A2B3A`) |
-| `--plum` | `#3A2B3A` | Dark slide background core |
-| `--plum-hi` | `#5E4254` | Dusk band, plum hills and pebbles |
-| `--moss` | `#3E4A35` | Front hill on dark/sage slides, cream text ground |
-| `--moss-lo` | `#2A3323` | Headline ink on sage |
-| `--ink` | `#3A2E27` | Headline ink on oat (10.7:1) |
-| `--ink-soft` | `#6E5A4C` | Labels / subheads on oat (5.3:1) |
-| `--cream` | `#F3EBDD` | Headline on plum/moss (11.2:1 on plum) |
-| `--cream-dim` | `#D9C8BA` | Subheads / labels on plum/moss (5.8:1 on moss) |
+| Token             | Hex       | Use                                                                        |
+| ----------------- | --------- | -------------------------------------------------------------------------- |
+| `--oat`           | `#EFE7DA` | Primary light background (mid stop)                                        |
+| `--bone`          | `#F6F0E6` | Light bg highlight stop, arch rim, bone pebbles                            |
+| `--oat-deep`      | `#E6DACA` | Light bg edge stop                                                         |
+| `--sage`          | `#A9B79C` | Arch interior, hills, sage pebbles                                         |
+| `--sage-light`    | `#B7C3A9` | Closer / sage slide background mid stop                                    |
+| `--sage-lo`       | `#7F8F72` | Sage shadow side                                                           |
+| `--clay`          | `#C7765A` | Terracotta clay objects (sun disc, hills, pebbles) — **never text on oat** |
+| `--clay-hi`       | `#EDB195` | Clay highlight stop                                                        |
+| `--clay-lo`       | `#94492F` | Clay shadow stop                                                           |
+| `--clay-ink`      | `#9A4B31` | Emphasis word on oat (5.0:1)                                               |
+| `--clay-ink-deep` | `#6E2F1D` | Emphasis word on sage (5.5:1 on `#B7C3A9`)                                 |
+| `--clay-light`    | `#E6A585` | Emphasis word on plum / deep moss (6.4:1 on `#3A2B3A`)                     |
+| `--plum`          | `#3A2B3A` | Dark slide background core                                                 |
+| `--plum-hi`       | `#5E4254` | Dusk band, plum hills and pebbles                                          |
+| `--moss`          | `#3E4A35` | Front hill on dark/sage slides, cream text ground                          |
+| `--moss-lo`       | `#2A3323` | Headline ink on sage                                                       |
+| `--ink`           | `#3A2E27` | Headline ink on oat (10.7:1)                                               |
+| `--ink-soft`      | `#6E5A4C` | Labels / subheads on oat (5.3:1)                                           |
+| `--cream`         | `#F3EBDD` | Headline on plum/moss (11.2:1 on plum)                                     |
+| `--cream-dim`     | `#D9C8BA` | Subheads / labels on plum/moss (5.8:1 on moss)                             |
 
 Color philosophy: everything is earth, clay or dusk. No saturated hue, no blue, no neon, no pure white, no pure black. Terracotta is an **object** colour; when it becomes text it darkens to `--clay-ink`.
 
@@ -70,7 +70,7 @@ Exactly **one** word (occasionally a two-word phrase) per headline is set in Fra
 - On plum / moss: italic + `--clay-light #E6A585`.
 - Never underline it, never add a squiggle, never change size or weight beyond the italic cut. The soft italic's curl IS the decoration.
 
-Examples: "Taste each bag at its *peak*." · "Sip, then *sleep* easy." · "Every cup, *savored*."
+Examples: "Taste each bag at its _peak_." · "Sip, then _sleep_ easy." · "Every cup, _savored_."
 
 ## Phone / device frame treatment
 
@@ -93,13 +93,37 @@ Examples: "Taste each bag at its *peak*." · "Sip, then *sleep* easy." · "Every
 All accents are built from one CSS recipe so they look like the same material:
 
 ```css
-.clay{border-radius:50% 48% 46% 52%/56% 54% 46% 44%;
-  background:radial-gradient(120% 110% at 30% 24%,var(--hi) 0%,var(--base) 46%,var(--lo) 100%);
-  box-shadow:inset -26px -38px 64px rgba(70,35,20,.30), inset 22px 26px 44px rgba(255,248,236,.50),
-    0 60px 80px -24px rgba(95,60,40,.38), 0 14px 22px -6px rgba(95,60,40,.22)}
-.clay::after{/* specular */ left:18%;top:12%;width:34%;height:22%;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(255,252,245,.75),transparent);filter:blur(6px);transform:rotate(-24deg)}
+.clay {
+  border-radius: 50% 48% 46% 52%/56% 54% 46% 44%;
+  background: radial-gradient(
+    120% 110% at 30% 24%,
+    var(--hi) 0%,
+    var(--base) 46%,
+    var(--lo) 100%
+  );
+  box-shadow:
+    inset -26px -38px 64px rgba(70, 35, 20, 0.3),
+    inset 22px 26px 44px rgba(255, 248, 236, 0.5),
+    0 60px 80px -24px rgba(95, 60, 40, 0.38),
+    0 14px 22px -6px rgba(95, 60, 40, 0.22);
+}
+.clay::after {
+  /* specular */
+  left: 18%;
+  top: 12%;
+  width: 34%;
+  height: 22%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgba(255, 252, 245, 0.75),
+    transparent
+  );
+  filter: blur(6px);
+  transform: rotate(-24deg);
+}
 ```
+
 Tones (`--hi / --base / --lo`): terracotta `#EDB195 / #C7765A / #94492F`, sage `#DCE4D1 / #A9B79C / #6F7F63`, bone `#FFFBF4 / #E9DECC / #BFAE95`, plum `#9A7486 / #6A4A5B / #3F2A37`, moss `#8C9A78 / #5B6A4C / #343F2B`.
 
 - **Sun disc:** perfect circle, 340–400px (hero) or 700–1040px (dusk slide, partly hidden behind the phone), terracotta or bone. Sits behind the arch or phone, never overlapping headline letters.
@@ -124,18 +148,19 @@ Tones (`--hi / --base / --lo`): terracotta `#EDB195 / #C7765A / #94492F`, sage `
 - **Avoid:** "boost", "hack", "crush", "optimize", "maximize", "ultimate", "revolutionary", numbers-as-hype ("10x"), exclamation marks, question marks, ALL CAPS in headlines, emoji, streak-shaming or guilt language.
 - **Punctuation:** sentence case, one period at the end of each headline; commas for rhythm ("Sip, then sleep easy."). Labels are uppercase DM Sans without punctuation except a middle dot.
 - **Example headlines (6–10, varied categories):**
-  - Coffee: "Taste each bag at its *peak*." / "Every cup, *savored*."
-  - Sleep: "Sip, then *sleep* easy." / "Drift off a little *softer*."
-  - Meditation: "Ten *quiet* minutes, just for you."
-  - Journaling: "Let the day *settle* on the page."
-  - Habits: "Small steps, *gently* kept."
-  - Cycle / fertility: "Know your rhythm, *kindly*."
-  - Nutrition: "Eat with *ease*, not rules."
-  - Mood: "Notice how you *feel* today."
+  - Coffee: "Taste each bag at its _peak_." / "Every cup, _savored_."
+  - Sleep: "Sip, then _sleep_ easy." / "Drift off a little _softer_."
+  - Meditation: "Ten _quiet_ minutes, just for you."
+  - Journaling: "Let the day _settle_ on the page."
+  - Habits: "Small steps, _gently_ kept."
+  - Cycle / fertility: "Know your rhythm, _kindly_."
+  - Nutrition: "Eat with _ease_, not rules."
+  - Mood: "Notice how you _feel_ today."
 
 ## Per-slide breakdown (mandatory)
 
-### Slide 1 — Hero ("Taste each bag at its *peak*.")
+### Slide 1 — Hero ("Taste each bag at its _peak_.")
+
 - **Background:** oat 3-stop radial + grain 0.45.
 - **Label:** `BLOOM · COFFEE, SLOWLY` DM Sans 34px, centred, top 150px, `--ink-soft`.
 - **Headline:** 168px Fraunces SOFT, centred, top ~236px, 2 lines, `--ink`; "peak." italic `--clay-ink`.
@@ -144,13 +169,15 @@ Tones (`--hi / --base / --lo`): terracotta `#EDB195 / #C7765A / #94492F`, sage `
 - **Decorations (4):** terracotta sun disc 360px behind the arch's right shoulder; 3 rolling hills (sage back, terracotta, sage front) overlapping the phone bottom; bone + plum pebble pair on the front hill with a cast shadow.
 
 ### Slide 2 — Differentiator (arch variant)
+
 - **Background:** sage slide gradient; arch rim in bone, recess in oat (inverse of slide 1).
 - **Label:** feature name in DM Sans 34px `--moss-lo`, centred, top 150px.
-- **Headline:** top ~236px, 170px, `--moss-lo`, emphasis italic `--clay-ink-deep` (e.g. "Every bag has a *window*.").
+- **Headline:** top ~236px, 170px, `--moss-lo`, emphasis italic `--clay-ink-deep` (e.g. "Every bag has a _window_.").
 - **Phone:** 1000px wide, upright in the arch, anchored bottom, showing the product's unique screen (shelf with freshness windows).
 - **Decorations (3):** hill ridge continuing from slide 1 (cross-screen), one bone pebble pair with cast shadow, small terracotta sun (300px) behind the arch's left shoulder — mirror of slide 1 so the pair reads as a spread.
 
-### Slide 3 — Feature (dusk, "Sip, then *sleep* easy.")
+### Slide 3 — Feature (dusk, "Sip, then _sleep_ easy.")
+
 - **Background:** dusk 4-stop linear + horizon glow + grain 0.4.
 - **Phone:** 1000px wide, **−3°** tilt, anchored top (~100px), caffeine screen.
 - **Sun disc:** 760px terracotta, mostly behind the phone, emerging on the right.
@@ -158,10 +185,12 @@ Tones (`--hi / --base / --lo`): terracotta `#EDB195 / #C7765A / #94492F`, sage `
 - **Text on the front hill, left-aligned x=104px:** label `CAFFEINE & SLEEP` (32px `--cream-dim`), headline 164px `--cream` with "sleep" italic `--clay-light`, subhead 40px 2 lines `--cream-dim`.
 
 ### Slide 4 — Feature / proof (upright, no arch)
+
 - **Background:** oat. Phone upright 1000px anchored bottom; headline top. Screen: timer / guided flow.
 - **Decorations (2–3):** a terracotta hill lower-left, a single large bone pebble with cast shadow beside the phone, optional small sage sun top-right. Optional one clay "stat pebble" (bone pebble ≥ 260px with a DM Sans 44px number in `--ink`) — stats must be real.
 
-### Slide 5 — Closer ("Every cup, *savored*.")
+### Slide 5 — Closer ("Every cup, _savored_.")
+
 - **Background:** sage gradient + grain 0.38. **No phone.**
 - **Label + headline** centred at top (184px, `--moss-lo`, "savored." italic `--clay-ink-deep`).
 - **Cairn:** 4 pebbles (terracotta base, bone, plum, sage top) ≥ 900px tall, in front of a 640px bone sun disc, resting on the moss hill ridge with a cast shadow.
@@ -171,14 +200,14 @@ Tones (`--hi / --base / --lo`): terracotta `#EDB195 / #C7765A / #94492F`, sage `
 
 Keep the material and palette; swap only the props' meaning. One prop swap per slide at most.
 
-| Category | Sun disc becomes | Pebbles become | Dusk slide for |
-|---|---|---|---|
-| Meditation / breathing | a rising sun (bone) | a balanced cairn | the evening wind-down session |
-| Sleep | a low moon (bone, cooler `--lo #A89A8A`) | two resting pebbles | the bedtime / sleep-sound screen |
-| Journaling | a warm terracotta sun | a pebble "paperweight" beside the phone | the evening reflection prompt |
-| Habits | sun behind the arch | a row of 3 pebbles, one terracotta = today | streak / evening check-in |
-| Period / fertility | a terracotta sun as a soft "cycle" disc | pebble pair | — (keep light, no dusk) |
-| Nutrition | sun as a plate-like bone disc | sage + terracotta pebbles (produce tones) | — |
+| Category               | Sun disc becomes                         | Pebbles become                             | Dusk slide for                   |
+| ---------------------- | ---------------------------------------- | ------------------------------------------ | -------------------------------- |
+| Meditation / breathing | a rising sun (bone)                      | a balanced cairn                           | the evening wind-down session    |
+| Sleep                  | a low moon (bone, cooler `--lo #A89A8A`) | two resting pebbles                        | the bedtime / sleep-sound screen |
+| Journaling             | a warm terracotta sun                    | a pebble "paperweight" beside the phone    | the evening reflection prompt    |
+| Habits                 | sun behind the arch                      | a row of 3 pebbles, one terracotta = today | streak / evening check-in        |
+| Period / fertility     | a terracotta sun as a soft "cycle" disc  | pebble pair                                | — (keep light, no dusk)          |
+| Nutrition              | sun as a plate-like bone disc            | sage + terracotta pebbles (produce tones)  | —                                |
 
 - Never convert the clay kit into literal clay food, faces, or mascots — the props stay abstract so every app can use them.
 - If the app's brand colour is saturated, use it only inside the screenshot; the slide palette stays earthen.

@@ -13,7 +13,7 @@ feel: high-energy, coached, "lights on, clock running, go"
 
 - **Background is near-black, never pure black and never grey.** Base `#0A0B0D`, built as a 3-stop linear `#17191D → #0E0F12 → #0A0B0D` (172°) plus one cool floodlight radial from a top corner and a faint volt spill behind the phone. A flat `#000` slide is a fail; a slide lighter than `#1D2025` anywhere outside the floodlight is a fail.
 - **ONE accent: volt `#D4FF3A`.** It must show up on every slide in exactly these jobs: the one emphasis word/number in the headline, the phone rim-light, and at most 2 decorative shapes (streak, slash band, bar). A secondary hot orange `#FF5A1F` may be used **once per deck** (a "PB" badge, one pace bar, one dot). Any third hue in the chrome = fail.
-- **Headline = condensed display, UPPERCASE, slanted, huge.** Anton 400 with `transform: skewX(-9deg)` (Anton has no italic; skew the whole block from `transform-origin: 0 100%`), or Barlow Condensed 800 *italic*. Size **230–290 px** at 1320 wide (cap height ≥ 190 px). `line-height: 0.88`, `letter-spacing: -0.005em`. Slant range −8° to −12°. Below 220 px = fail.
+- **Headline = condensed display, UPPERCASE, slanted, huge.** Anton 400 with `transform: skewX(-9deg)` (Anton has no italic; skew the whole block from `transform-origin: 0 100%`), or Barlow Condensed 800 _italic_. Size **230–290 px** at 1320 wide (cap height ≥ 190 px). `line-height: 0.88`, `letter-spacing: -0.005em`. Slant range −8° to −12°. Below 220 px = fail.
 - **Line width ≤ 88% of canvas** (≤ 1160 px) per headline line, measured after skew. Two or three lines; hand-break so every line is one or two words.
 - **Exactly one volt emphasis per headline** — usually the last word or the number. Never two volt words, never a volt full headline.
 - **Phone tilt 6–12°** on every phone-bearing slide, alternating direction across the deck (e.g. −8°, +6°/−6°, −10°). Upright = fail; >12° = fail.
@@ -30,20 +30,20 @@ It is 9 pm, the track floodlights just came on, and the app is your coach. Every
 
 ## Global palette
 
-| Token | Hex | Use |
-|---|---|---|
-| `--night` | `#0A0B0D` | Base bg, darkest stop, text on volt/orange |
-| `--night-top` | `#17191D` | Top gradient stop (floodlit sky) |
-| `--carbon` | `#131519` | Chips, stat cards, split rows fill |
-| `--graphite` | `#1D2025` | Raised cards, bar tracks (`rgba(244,245,240,.08)` alt) |
-| `--hairline` | `rgba(244,245,240,.14)` | Row dividers, chip borders |
-| `--floodlight` | `rgba(226,232,240,.13)` | Cool stadium-light radial from a top corner |
-| `--chalk` | `#F4F5F0` | Headline, primary numerals (never pure `#FFF`) |
-| `--steel` | `#A3A8AF` | Labels, units, body copy (8.2:1 on night) |
-| `--volt` | `#D4FF3A` | The ONE accent: emphasis word, rim-light, streaks, bars |
-| `--volt-deep` | `#9FCC12` | Volt shadow side on slash bands / glow core |
-| `--flare` | `#FF5A1F` | Secondary, max 1× per deck, fill only |
-| `--fringe-a` / `--fringe-b` | `#FF3DA0` / `#3AE7FF` | Chromatic fringe on streaks only, 15–18% opacity |
+| Token                       | Hex                     | Use                                                     |
+| --------------------------- | ----------------------- | ------------------------------------------------------- |
+| `--night`                   | `#0A0B0D`               | Base bg, darkest stop, text on volt/orange              |
+| `--night-top`               | `#17191D`               | Top gradient stop (floodlit sky)                        |
+| `--carbon`                  | `#131519`               | Chips, stat cards, split rows fill                      |
+| `--graphite`                | `#1D2025`               | Raised cards, bar tracks (`rgba(244,245,240,.08)` alt)  |
+| `--hairline`                | `rgba(244,245,240,.14)` | Row dividers, chip borders                              |
+| `--floodlight`              | `rgba(226,232,240,.13)` | Cool stadium-light radial from a top corner             |
+| `--chalk`                   | `#F4F5F0`               | Headline, primary numerals (never pure `#FFF`)          |
+| `--steel`                   | `#A3A8AF`               | Labels, units, body copy (8.2:1 on night)               |
+| `--volt`                    | `#D4FF3A`               | The ONE accent: emphasis word, rim-light, streaks, bars |
+| `--volt-deep`               | `#9FCC12`               | Volt shadow side on slash bands / glow core             |
+| `--flare`                   | `#FF5A1F`               | Secondary, max 1× per deck, fill only                   |
+| `--fringe-a` / `--fringe-b` | `#FF3DA0` / `#3AE7FF`   | Chromatic fringe on streaks only, 15–18% opacity        |
 
 Color philosophy: black + chalk + volt. If a slide looks "colorful" you have used too much volt. Volt on white/light backgrounds is banned (1.1:1). A full-volt slide with night text is allowed as the deck's single inverted slide.
 
@@ -58,16 +58,16 @@ Color philosophy: black + chalk + volt. If a slide looks "colorful" you have use
 
 **Size ladder at 1320 × 2868 (scale by canvas width for other devices):**
 
-| Role | Face | Size | Leading | Tracking | Color |
-|---|---|---|---|---|---|
-| Hero headline (3 lines) | Anton, skew −9° | 250–290 px | 0.88 | −0.005em | chalk + 1 volt word |
-| Slide headline (2 lines) | Anton, skew −9° | 230–250 px | 0.88 | −0.005em | chalk + 1 volt word |
-| Proof numeral | Anton, skew −9° | 170–320 px | 0.90 | 0 | volt (first) / chalk |
-| Numeral unit | Anton, skew −9° | 30% of numeral | 1 | 0 | steel |
-| Splits-row action | Anton, skew −9° | 110–128 px | 1 | 0 | chalk |
-| Eyebrow | Barlow Cond. 700 i | 40–44 px | 1 | 0.14em | volt / steel |
-| Stat label | Barlow Cond. 700 i | 30–34 px | 1.1 | 0.12em | steel |
-| Body line | Barlow 500 | 40–46 px | 1.3 | 0 | steel |
+| Role                     | Face               | Size           | Leading | Tracking | Color                |
+| ------------------------ | ------------------ | -------------- | ------- | -------- | -------------------- |
+| Hero headline (3 lines)  | Anton, skew −9°    | 250–290 px     | 0.88    | −0.005em | chalk + 1 volt word  |
+| Slide headline (2 lines) | Anton, skew −9°    | 230–250 px     | 0.88    | −0.005em | chalk + 1 volt word  |
+| Proof numeral            | Anton, skew −9°    | 170–320 px     | 0.90    | 0        | volt (first) / chalk |
+| Numeral unit             | Anton, skew −9°    | 30% of numeral | 1       | 0        | steel                |
+| Splits-row action        | Anton, skew −9°    | 110–128 px     | 1       | 0        | chalk                |
+| Eyebrow                  | Barlow Cond. 700 i | 40–44 px       | 1       | 0.14em   | volt / steel         |
+| Stat label               | Barlow Cond. 700 i | 30–34 px       | 1.1     | 0.12em   | steel                |
+| Body line                | Barlow 500         | 40–46 px       | 1.3     | 0        | steel                |
 
 Never set display type below 110 px or labels below 30 px — thumbnails eat anything smaller.
 
@@ -90,13 +90,14 @@ Examples: "KNOW YOUR / **NUMBER.**", "TRAIN YOUR / **TASTE.**", "RUN THE / **SPL
 - **Drop shadow:** `drop-shadow(0 70px 90px rgba(0,0,0,.75)) drop-shadow(0 10px 20px rgba(0,0,0,.6))`. On a black bg a tinted shadow is invisible — the rim-light does the separating.
 - **Screenshots:** light or dark UI both work; light UI pops harder. Do not tint the screenshot.
 - **Position:** anchored to the bottom edge (bleed ≤ 10%), one side bleed ≤ 15% of phone width. Headline sits above; stat column or chip may sit beside the phone, never over the screenshot's key metric.
-- **Clearance math for a stat column beside a tilted phone:** with the wrapper rotating around its center, the near bezel edge moves ≈ `tan(tilt) × Δy` px per px of height (≈ 0.105 at 6°, 0.14 at 8°). Tilt so the edge moves *away* from the column as the column descends, or narrow the column; measure the gap at the column's top and bottom.
+- **Clearance math for a stat column beside a tilted phone:** with the wrapper rotating around its center, the near bezel edge moves ≈ `tan(tilt) × Δy` px per px of height (≈ 0.105 at 6°, 0.14 at 8°). Tilt so the edge moves _away_ from the column as the column descends, or narrow the column; measure the gap at the column's top and bottom.
 - **Two-phone slides:** back phone at 85% scale, tilted 4° more than the front one, rim-light at half opacity, offset 180–240 px; never more than two phones.
 - **Screen choice:** pick screens that already contain a big number or a live state (timer, ring, chart, score). The style promises performance; a settings or empty screen breaks it.
 
 ## Background treatment
 
 Layer order (bottom → top):
+
 1. `linear-gradient(172deg, #17191D 0%, #0E0F12 42%, #0A0B0D 100%)`.
 2. Floodlight: `radial-gradient(ellipse 70% 38% at 82% -4%, rgba(226,232,240,.13), rgba(226,232,240,.04) 45%, transparent 72%)` — move the x between 15% and 85% per slide so the light seems to pan.
 3. Volt spill behind the phone: `radial-gradient(ellipse 60% 30% at 70% 60%, rgba(212,255,58,.07), transparent 70%)`.
@@ -106,13 +107,13 @@ Layer order (bottom → top):
 
 **Floodlight choreography across a 5-slide deck** (the light should seem to pan with the camera):
 
-| Slide | Floodlight x | Volt spill (x, y) | Slash band |
-|---|---|---|---|
-| 1 Hero | 85% | 72%, 66% | solid, lower third, behind phone |
-| 2 Differentiator | 20% | 70%, 50% | solid, bottom-left corner |
-| 3 Feature | 60% | 55%, 60% | 10–20% opacity, may cross into 4 |
-| 4 Proof | 50% (or flat volt if inverted) | — | night hairline on volt |
-| 5 Closer | 50% | 30%, 40% | 10% opacity behind headline |
+| Slide            | Floodlight x                   | Volt spill (x, y) | Slash band                       |
+| ---------------- | ------------------------------ | ----------------- | -------------------------------- |
+| 1 Hero           | 85%                            | 72%, 66%          | solid, lower third, behind phone |
+| 2 Differentiator | 20%                            | 70%, 50%          | solid, bottom-left corner        |
+| 3 Feature        | 60%                            | 55%, 60%          | 10–20% opacity, may cross into 4 |
+| 4 Proof          | 50% (or flat volt if inverted) | —                 | night hairline on volt           |
+| 5 Closer         | 50%                            | 30%, 40%          | 10% opacity behind headline      |
 
 Do not add color blobs, bokeh, particles, stars, or gradient meshes. The only light sources are the floodlight and the phone's rim-light.
 
@@ -158,6 +159,7 @@ Polish gates for streaks and bands: two tones (solid + blurred duplicate), textu
 ## Per-slide breakdown (mandatory)
 
 ### Slide 1 — Hero ("the poster")
+
 - **Background:** full stack, floodlight top-right (x 85%).
 - **Eyebrow:** `APP / CORE FEATURE` at (96, 118), 42 px.
 - **Headline:** 3 lines, left-aligned at x 92, top 210, 250–270 px Anton skewed −9°. Volt on the last word.
@@ -167,6 +169,7 @@ Polish gates for streaks and bands: two tones (solid + blurred duplicate), textu
 - **Composition check:** headline block ends around y 880–940; the phone's highest corner may rise to the headline's last-line baseline only on the side opposite the text. No band without headline, phone, or chip taller than 400 px.
 
 ### Slide 2 — Differentiator ("the number")
+
 - **Headline:** 2 lines ("KNOW YOUR / **NUMBER.**"), 230–250 px.
 - **Phone:** tilt the opposite way (+6° to +10°) or −6° with the stat column on the other side; width 960–1000 px.
 - **Stat column** beside the phone: 3 stacked metrics (172 px numerals + 52 px unit + 32 px label + pace bar), 330–350 px apart, left at 78 px. First numeral volt, the rest chalk. The column must clear the tilted bezel by ≥ 24 px at every y.
@@ -175,18 +178,21 @@ Polish gates for streaks and bands: two tones (solid + blurred duplicate), textu
 - **Copy example:** "KNOW YOUR / **NUMBER.**", "READ YOUR / **RECOVERY.**", "WATCH THE / **PACE.**"
 
 ### Slide 3 — Feature (one specific tool)
+
 - **Headline** top, 2–3 lines. Phone centered-right, tilt −10°, a second screen element (a card from the app, a widget PNG) floating off the bezel edge with the stat-chip treatment.
 - **Decorations (3–4):** streak cluster, slash band at 10–20% opacity (seam crossing into slide 4 if used), one chip, grain.
 - **Floating card:** a real UI card (widget, notification, list row) exported from the app, scaled to 520–640 px wide, given the stat-chip frame (carbon fill, volt leading bar, 28 px radius) and rotated with the phone. It overlaps the bezel by 60–120 px, never the screen's focal element.
 - **Copy example:** "SCAN IT. / **BREW IT.**", "LOG EVERY / **REP.**"
 
 ### Slide 4 — Proof (inverted or numeral-led)
+
 - Either the **one inverted slide**: solid volt `#D4FF3A` bg, night headline, night numeral 300 px, phone with a **night** rim instead of volt glow; or a numeral-led night slide where one giant metric (280–320 px) sits above the phone as the headline itself ("**1:15** / TO BLOOM.").
 - **Decorations (3):** night-colored streaks on volt, one hairline band, grain.
 - **Inverted-slide rules:** text is night `#0A0B0D` (17:1 on volt); streaks become night at 70%; the phone keeps the default bezel with a night-tinted shadow `0 60px 90px rgba(10,11,13,.45)` and no glow; grain drops to 6%. Never put chalk or steel text on volt.
 - **Copy example:** "**7H 42M.** / EARNED.", "**5K** / BEFORE WORK."
 
 ### Slide 5 — Closer ("your splits")
+
 - **No phone** (allowed). Headline 2 lines at 238 px at the top.
 - **Splits board:** 5 rows, each 270 px tall, divided by 2 px hairlines: row number (Barlow Condensed 800 italic 44 px volt), action (Anton 118 px skewed, chalk, 2–3 words, e.g. "SCAN THE BAG"), right-aligned metric (Anton 84 px volt) + 32 px steel label, and a skewed pace bar growing row by row (22% → 100%).
 - The single orange `PB` badge may sit after one action.

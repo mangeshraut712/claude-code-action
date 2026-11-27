@@ -28,7 +28,8 @@ import { toSvg } from "html-to-image";
 const SETTLE_POLL_MS = 50;
 const SETTLE_TIMEOUT_MS = 8000;
 const FINGERPRINT_SIZE = 12;
-const BLANK_GIF = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+const BLANK_GIF =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 const SVG_PREFIX = "data:image/svg+xml;charset=utf-8,";
 
 type Box = { x: number; y: number; w: number; h: number };
@@ -40,8 +41,10 @@ export type RenderedSlide = {
   missingImages: number;
 };
 
-const nextFrame = () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
-const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+const nextFrame = () =>
+  new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+const sleep = (ms: number) =>
+  new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -58,7 +61,9 @@ function loadImage(src: string): Promise<HTMLImageElement> {
 }
 
 function intersects(a: DOMRect, b: DOMRect) {
-  return a.right > b.left && a.left < b.right && a.bottom > b.top && a.top < b.bottom;
+  return (
+    a.right > b.left && a.left < b.right && a.bottom > b.top && a.top < b.bottom
+  );
 }
 
 // Same SVG with every <img> pointed at a transparent pixel: what each image
@@ -66,7 +71,10 @@ function intersects(a: DOMRect, b: DOMRect) {
 function blankImages(svg: string) {
   if (!svg.startsWith(SVG_PREFIX)) return null;
   const markup = decodeURIComponent(svg.slice(SVG_PREFIX.length));
-  const blanked = markup.replace(/(<img\b[^>]*?\bsrc=")[^"]*(")/g, `$1${BLANK_GIF}$2`);
+  const blanked = markup.replace(
+    /(<img\b[^>]*?\bsrc=")[^"]*(")/g,
+    `$1${BLANK_GIF}$2`,
+  );
   return SVG_PREFIX + encodeURIComponent(blanked);
 }
 
@@ -74,17 +82,36 @@ function createContext(width: number, height: number, readBack = false) {
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;
-  const ctx = canvas.getContext("2d", readBack ? { willReadFrequently: true } : undefined);
+  const ctx = canvas.getContext(
+    "2d",
+    readBack ? { willReadFrequently: true } : undefined,
+  );
   if (!ctx) throw new Error("Canvas 2D context unavailable");
   return { canvas, ctx };
 }
 
 // Downsampled pixels of each box: cheap to compare, sensitive to "is it there".
-function fingerprint(source: HTMLCanvasElement, boxes: Box[], scratch: CanvasRenderingContext2D) {
+function fingerprint(
+  source: HTMLCanvasElement,
+  boxes: Box[],
+  scratch: CanvasRenderingContext2D,
+) {
   return boxes.map((b) => {
     scratch.clearRect(0, 0, FINGERPRINT_SIZE, FINGERPRINT_SIZE);
-    scratch.drawImage(source, b.x, b.y, b.w, b.h, 0, 0, FINGERPRINT_SIZE, FINGERPRINT_SIZE);
-    return scratch.getImageData(0, 0, FINGERPRINT_SIZE, FINGERPRINT_SIZE).data.join(",");
+    scratch.drawImage(
+      source,
+      b.x,
+      b.y,
+      b.w,
+      b.h,
+      0,
+      0,
+      FINGERPRINT_SIZE,
+      FINGERPRINT_SIZE,
+    );
+    return scratch
+      .getImageData(0, 0, FINGERPRINT_SIZE, FINGERPRINT_SIZE)
+      .data.join(",");
   });
 }
 
@@ -100,8 +127,23 @@ function alphaCoverage(
   if (!w || !h) return "opaque-center";
   const hasAlpha = (sx: number, sy: number, sw: number, sh: number) => {
     scratch.clearRect(0, 0, FINGERPRINT_SIZE, FINGERPRINT_SIZE);
-    scratch.drawImage(image, sx, sy, sw, sh, 0, 0, FINGERPRINT_SIZE, FINGERPRINT_SIZE);
-    const data = scratch.getImageData(0, 0, FINGERPRINT_SIZE, FINGERPRINT_SIZE).data;
+    scratch.drawImage(
+      image,
+      sx,
+      sy,
+      sw,
+      sh,
+      0,
+      0,
+      FINGERPRINT_SIZE,
+      FINGERPRINT_SIZE,
+    );
+    const data = scratch.getImageData(
+      0,
+      0,
+      FINGERPRINT_SIZE,
+      FINGERPRINT_SIZE,
+    ).data;
     for (let i = 3; i < data.length; i += 4) if (data[i] > 8) return true;
     return false;
   };
@@ -123,14 +165,21 @@ export async function renderSlide(
   const root = el.getBoundingClientRect();
   const sx = width / (root.width || width);
   const sy = height / (root.height || height);
-  const isVisible = (node: Element) => intersects(node.getBoundingClientRect(), root);
+  const isVisible = (node: Element) =>
+    intersects(node.getBoundingClientRect(), root);
 
   const visible = Array.from(el.querySelectorAll("img")).filter(
     (image) => !!image.getAttribute("src") && isVisible(image),
   );
-  await Promise.all(visible.map((image) => image.decode().catch(() => undefined)));
+  await Promise.all(
+    visible.map((image) => image.decode().catch(() => undefined)),
+  );
 
-  const { ctx: scratch } = createContext(FINGERPRINT_SIZE, FINGERPRINT_SIZE, true);
+  const { ctx: scratch } = createContext(
+    FINGERPRINT_SIZE,
+    FINGERPRINT_SIZE,
+    true,
+  );
 
   // Inner 60% of each visible image, in canvas pixels. The inset keeps bezels,
   // rounded corners and overlapping frames out of the comparison. An image
@@ -143,7 +192,10 @@ export async function renderSlide(
     .map((image) => {
       const coverage = alphaCoverage(image, scratch);
       if (coverage === "empty") return null;
-      const inset = coverage === "opaque-center" && image.dataset.exportCheck !== "full" ? 0.2 : 0;
+      const inset =
+        coverage === "opaque-center" && image.dataset.exportCheck !== "full"
+          ? 0.2
+          : 0;
       const r = image.getBoundingClientRect();
       const left = Math.max(r.left, root.left);
       const top = Math.max(r.top, root.top);
@@ -187,7 +239,8 @@ export async function renderSlide(
       const cur = fingerprint(canvas, boxes, scratch);
       painted = cur.map((fp, i) => fp !== baseline[i]);
       const stable = prev !== null && cur.every((fp, i) => fp === prev![i]);
-      if ((stable && painted.every(Boolean)) || performance.now() > deadline) break;
+      if ((stable && painted.every(Boolean)) || performance.now() > deadline)
+        break;
       prev = cur;
       await nextFrame();
       await sleep(SETTLE_POLL_MS);

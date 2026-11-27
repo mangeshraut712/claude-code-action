@@ -27,20 +27,32 @@ export async function POST(req: Request) {
   // This route WRITES A FILE to disk. See lib/request-guard.ts.
   const blocked = rejectCrossSiteWrite(req);
   if (blocked) {
-    return NextResponse.json({ ok: false, error: blocked.error }, { status: blocked.status });
+    return NextResponse.json(
+      { ok: false, error: blocked.error },
+      { status: blocked.status },
+    );
   }
   let body: { dataUrl?: string };
   try {
     body = (await req.json()) as { dataUrl?: string };
   } catch {
-    return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: "Invalid JSON" },
+      { status: 400 },
+    );
   }
   if (!body?.dataUrl || typeof body.dataUrl !== "string") {
-    return NextResponse.json({ ok: false, error: "Missing dataUrl" }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: "Missing dataUrl" },
+      { status: 400 },
+    );
   }
   const parsed = parseDataUrl(body.dataUrl);
   if (!parsed) {
-    return NextResponse.json({ ok: false, error: "Unsupported data URL" }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: "Unsupported data URL" },
+      { status: 400 },
+    );
   }
   const ext = MIME_EXT[parsed.mime];
   if (!ext) {
@@ -59,10 +71,16 @@ export async function POST(req: Request) {
     );
   }
   if (parsed.bytes.byteLength > 8 * 1024 * 1024) {
-    return NextResponse.json({ ok: false, error: "Image too large (>8MB)" }, { status: 413 });
+    return NextResponse.json(
+      { ok: false, error: "Image too large (>8MB)" },
+      { status: 413 },
+    );
   }
 
-  const hash = createHash("sha1").update(parsed.bytes).digest("hex").slice(0, 16);
+  const hash = createHash("sha1")
+    .update(parsed.bytes)
+    .digest("hex")
+    .slice(0, 16);
   const filename = `${hash}.${ext}`;
   const absDir = path.join(process.cwd(), UPLOAD_DIR_REL);
   const absFile = path.join(absDir, filename);
@@ -74,7 +92,10 @@ export async function POST(req: Request) {
     } catch {
       await fs.writeFile(absFile, parsed.bytes);
     }
-    return NextResponse.json({ ok: true, path: `${PUBLIC_PREFIX}/${filename}` });
+    return NextResponse.json({
+      ok: true,
+      path: `${PUBLIC_PREFIX}/${filename}`,
+    });
   } catch (e) {
     return NextResponse.json(
       { ok: false, error: e instanceof Error ? e.message : String(e) },

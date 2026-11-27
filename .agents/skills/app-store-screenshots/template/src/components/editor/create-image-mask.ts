@@ -1,6 +1,8 @@
 import type { ImageElement } from "@/lib/types";
 
-export function createImageMask(fade: ImageElement["fade"]): string | undefined {
+export function createImageMask(
+  fade: ImageElement["fade"],
+): string | undefined {
   if (!fade || fade.amount <= 0) return undefined;
 
   const amount = Math.max(1, Math.min(100, fade.amount));

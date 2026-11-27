@@ -69,14 +69,14 @@ The toolbar arrows, `⌘Z` / `Ctrl+Z` and `⇧⌘Z` / `Ctrl+Shift+Z` (or `Ctrl+Y
 
 ## Customizing
 
-| Where | What |
-|-------|------|
-| `src/lib/constants.ts` | Canvas dimensions, export sizes, frame ratios, themes, screenshot fonts, locales |
-| `app-store-screenshots.json` | Canonical starter project: app name, current device, connected-canvas mode, slide copy, screenshots, and transforms |
-| `src/lib/defaults.ts` | Fallback/reset state used when no project file or local cache exists |
-| `src/components/editor/slide-canvas.tsx` | Add new layouts and connected-canvas element rendering |
-| `src/components/editor/device-frames.tsx` | Tweak device chrome (bezel radii, camera dots) |
-| `src/app/layout.tsx` | Swap the font (`next/font/google`) |
+| Where                                     | What                                                                                                                |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `src/lib/constants.ts`                    | Canvas dimensions, export sizes, frame ratios, themes, screenshot fonts, locales                                    |
+| `app-store-screenshots.json`              | Canonical starter project: app name, current device, connected-canvas mode, slide copy, screenshots, and transforms |
+| `src/lib/defaults.ts`                     | Fallback/reset state used when no project file or local cache exists                                                |
+| `src/components/editor/slide-canvas.tsx`  | Add new layouts and connected-canvas element rendering                                                              |
+| `src/components/editor/device-frames.tsx` | Tweak device chrome (bezel radii, camera dots)                                                                      |
+| `src/app/layout.tsx`                      | Swap the font (`next/font/google`)                                                                                  |
 
 ## Notes
 

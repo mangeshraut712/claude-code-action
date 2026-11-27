@@ -14,7 +14,13 @@ const ACCENT_CONTRAST = 3;
 function parseHex(hex: string): [number, number, number] | null {
   const m = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(hex.trim());
   if (!m) return null;
-  const h = m[1].length === 3 ? m[1].split("").map((c) => c + c).join("") : m[1];
+  const h =
+    m[1].length === 3
+      ? m[1]
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : m[1];
   const n = parseInt(h, 16);
   return [(n >> 16) & 0xff, (n >> 8) & 0xff, n & 0xff];
 }
@@ -37,8 +43,14 @@ export function contrastRatio(a: string, b: string): number {
   return (hi + 0.05) / (lo + 0.05);
 }
 
-function firstReadable(bg: string, candidates: (string | undefined)[], min: number) {
-  return candidates.find((c): c is string => !!c && contrastRatio(c, bg) >= min);
+function firstReadable(
+  bg: string,
+  candidates: (string | undefined)[],
+  min: number,
+) {
+  return candidates.find(
+    (c): c is string => !!c && contrastRatio(c, bg) >= min,
+  );
 }
 
 export type SlideColors = {
@@ -57,18 +69,35 @@ export type SlideColors = {
  * white, whichever contrasts more. Colours a user picked explicitly on a text
  * element are never passed through here.
  */
-export function slideColors(theme: Theme, slide: Pick<Slide, "inverted" | "backgroundColor">): SlideColors {
+export function slideColors(
+  theme: Theme,
+  slide: Pick<Slide, "inverted" | "backgroundColor">,
+): SlideColors {
   const inverted = !!slide.inverted;
   const themeFg = inverted ? theme.fgAlt : theme.fg;
-  const themeAccent = inverted ? theme.accentAlt ?? theme.accent : theme.accent;
+  const themeAccent = inverted
+    ? (theme.accentAlt ?? theme.accent)
+    : theme.accent;
   const bg = slide.backgroundColor;
   if (!bg || relativeLuminance(bg) === null) {
     return { fg: themeFg, accent: themeAccent, dark: inverted };
   }
   const dark = (relativeLuminance(bg) ?? 1) < 0.18;
-  const fallback = contrastRatio(DARK_TEXT, bg) >= contrastRatio(LIGHT_TEXT, bg) ? DARK_TEXT : LIGHT_TEXT;
-  const fg = firstReadable(bg, [themeFg, inverted ? theme.fg : theme.fgAlt], TEXT_CONTRAST) ?? fallback;
+  const fallback =
+    contrastRatio(DARK_TEXT, bg) >= contrastRatio(LIGHT_TEXT, bg)
+      ? DARK_TEXT
+      : LIGHT_TEXT;
+  const fg =
+    firstReadable(
+      bg,
+      [themeFg, inverted ? theme.fg : theme.fgAlt],
+      TEXT_CONTRAST,
+    ) ?? fallback;
   const accent =
-    firstReadable(bg, [themeAccent, inverted ? theme.accent : theme.accentAlt], ACCENT_CONTRAST) ?? fg;
+    firstReadable(
+      bg,
+      [themeAccent, inverted ? theme.accent : theme.accentAlt],
+      ACCENT_CONTRAST,
+    ) ?? fg;
   return { fg, accent, dark };
 }

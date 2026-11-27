@@ -1,13 +1,26 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { DEFAULT_SCREENSHOT_FONT_ID, PROJECT_SCHEMA_VERSION, SCREENSHOT_FONTS, STORAGE_KEY } from "./constants";
+import {
+  DEFAULT_SCREENSHOT_FONT_ID,
+  PROJECT_SCHEMA_VERSION,
+  SCREENSHOT_FONTS,
+  STORAGE_KEY,
+} from "./constants";
 import { cleanHexColor } from "./clean-hex-color";
 import { cleanImportedFont } from "./clean-imported-font";
 import { DEFAULT_PROJECT } from "./defaults";
 import { coerceLocalized } from "./locale";
 import { projectValidationError } from "./project-validation";
 import { cleanTypography } from "./typography";
-import type { Device, ElementTransform, ImageElement, ProjectState, ScreenshotFontId, Slide, TextElement } from "./types";
+import type {
+  Device,
+  ElementTransform,
+  ImageElement,
+  ProjectState,
+  ScreenshotFontId,
+  Slide,
+  TextElement,
+} from "./types";
 
 const HISTORY_LIMIT = 50;
 // Coalesce rapid edits (typing, slider drags) into a single undo step.
@@ -19,7 +32,8 @@ function cleanTransform(value: unknown): ElementTransform | undefined {
   if (!value || typeof value !== "object") return undefined;
   const raw = value as Partial<ElementTransform>;
   const required = [raw.x, raw.y, raw.width, raw.height];
-  if (!required.every((n) => typeof n === "number" && Number.isFinite(n))) return undefined;
+  if (!required.every((n) => typeof n === "number" && Number.isFinite(n)))
+    return undefined;
   return {
     x: raw.x!,
     y: raw.y!,
@@ -60,7 +74,12 @@ function cleanTextElement(value: unknown): TextElement | undefined {
 function cleanImageElement(value: unknown): ImageElement | undefined {
   if (!value || typeof value !== "object") return undefined;
   const raw = value as Partial<ImageElement>;
-  if (typeof raw.id !== "string" || !raw.id.trim() || typeof raw.src !== "string") return undefined;
+  if (
+    typeof raw.id !== "string" ||
+    !raw.id.trim() ||
+    typeof raw.src !== "string"
+  )
+    return undefined;
   const transform = cleanTransform(raw.transform);
   if (!transform) return undefined;
   return {
@@ -84,14 +103,21 @@ function cleanImageElement(value: unknown): ImageElement | undefined {
 }
 
 // Early builds had a "Classic Serif" that rendered exactly like Georgia.
-const LEGACY_FONT_IDS: Record<string, ScreenshotFontId> = { "classic-serif": "template-serif" };
+const LEGACY_FONT_IDS: Record<string, ScreenshotFontId> = {
+  "classic-serif": "template-serif",
+};
 
-function cleanFontId(value: unknown, hasImportedFont: boolean): ScreenshotFontId {
+function cleanFontId(
+  value: unknown,
+  hasImportedFont: boolean,
+): ScreenshotFontId {
   if (typeof value !== "string") return DEFAULT_SCREENSHOT_FONT_ID;
   const id = LEGACY_FONT_IDS[value] ?? value;
-  if (!Object.prototype.hasOwnProperty.call(SCREENSHOT_FONTS, id)) return DEFAULT_SCREENSHOT_FONT_ID;
+  if (!Object.prototype.hasOwnProperty.call(SCREENSHOT_FONTS, id))
+    return DEFAULT_SCREENSHOT_FONT_ID;
   // "Imported font" without a file behind it would render the fallback.
-  if (id === "self-hosted" && !hasImportedFont) return DEFAULT_SCREENSHOT_FONT_ID;
+  if (id === "self-hosted" && !hasImportedFont)
+    return DEFAULT_SCREENSHOT_FONT_ID;
   return id as ScreenshotFontId;
 }
 
@@ -107,10 +133,14 @@ function migrateSlide(slide: Slide): Slide {
       )
     : undefined;
   const textElements = Array.isArray(slide.textElements)
-    ? slide.textElements.map(cleanTextElement).filter((t): t is TextElement => !!t)
+    ? slide.textElements
+        .map(cleanTextElement)
+        .filter((t): t is TextElement => !!t)
     : undefined;
   const imageElements = Array.isArray(slide.imageElements)
-    ? slide.imageElements.map(cleanImageElement).filter((image): image is ImageElement => !!image)
+    ? slide.imageElements
+        .map(cleanImageElement)
+        .filter((image): image is ImageElement => !!image)
     : undefined;
 
   return {
@@ -119,9 +149,15 @@ function migrateSlide(slide: Slide): Slide {
     headline: coerceLocalized(slide.headline as unknown),
     typography: cleanTypography(slide.typography),
     ...(backgroundColor ? { backgroundColor } : { backgroundColor: undefined }),
-    ...(transforms && Object.keys(transforms).length > 0 ? { transforms } : { transforms: undefined }),
-    ...(textElements && textElements.length > 0 ? { textElements } : { textElements: undefined }),
-    ...(imageElements && imageElements.length > 0 ? { imageElements } : { imageElements: undefined }),
+    ...(transforms && Object.keys(transforms).length > 0
+      ? { transforms }
+      : { transforms: undefined }),
+    ...(textElements && textElements.length > 0
+      ? { textElements }
+      : { textElements: undefined }),
+    ...(imageElements && imageElements.length > 0
+      ? { imageElements }
+      : { imageElements: undefined }),
   };
 }
 
@@ -142,7 +178,9 @@ function mergeWithDefaults(parsed: Partial<ProjectState>): ProjectState {
     ? Object.fromEntries(
         Object.entries(parsed.slidesByDevice).map(([device, slides]) => [
           device,
-          Array.isArray(slides) ? slides.map((slide) => migrateSlide(slide as Slide)) : [],
+          Array.isArray(slides)
+            ? slides.map((slide) => migrateSlide(slide as Slide))
+            : [],
         ]),
       )
     : {};
@@ -184,20 +222,32 @@ function loadFromLocalStorage(): ProjectState | null {
 async function loadFromFile(): Promise<
   { ok: true; state: ProjectState | null } | { ok: false; error: string }
 > {
-  if (typeof window === "undefined") return { ok: false, error: "Window is not available" };
+  if (typeof window === "undefined")
+    return { ok: false, error: "Window is not available" };
   try {
     const resp = await fetch("/api/project", { cache: "no-store" });
     if (!resp.ok) return { ok: false, error: `HTTP ${resp.status}` };
-    const json = (await resp.json()) as { ok: boolean; state: Partial<ProjectState> | null };
+    const json = (await resp.json()) as {
+      ok: boolean;
+      state: Partial<ProjectState> | null;
+    };
     if (!json.ok) return { ok: false, error: "Project response was not ok" };
     if (!json.state) return { ok: true, state: null };
     return { ok: true, state: mergeWithDefaults(json.state) };
   } catch (error) {
-    return { ok: false, error: error instanceof Error ? error.message : "Project file could not be loaded" };
+    return {
+      ok: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : "Project file could not be loaded",
+    };
   }
 }
 
-function saveToLocalStorage(state: ProjectState): { ok: true } | { ok: false; error: string } {
+function saveToLocalStorage(
+  state: ProjectState,
+): { ok: true } | { ok: false; error: string } {
   if (typeof window === "undefined") return { ok: true };
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
@@ -208,7 +258,9 @@ function saveToLocalStorage(state: ProjectState): { ok: true } | { ok: false; er
   }
 }
 
-async function saveToFile(state: ProjectState): Promise<{ ok: true } | { ok: false; error: string }> {
+async function saveToFile(
+  state: ProjectState,
+): Promise<{ ok: true } | { ok: false; error: string }> {
   if (typeof window === "undefined") return { ok: true };
   try {
     const resp = await fetch("/api/project", {
@@ -319,24 +371,27 @@ export function useProject() {
   // an edit, so it neither takes an undo step nor clears redo. Undo still
   // restores the snapshot's device, which takes you to the deck the undone
   // edit was made on.
-  const setState = useCallback((updater: Updater, options?: { history?: boolean }) => {
-    const prev = stateRef.current;
-    const next = applyUpdater(updater, prev);
-    if (next === prev) return;
-    if (options?.history === false) {
-      // Navigation is a boundary: edits to another deck must not coalesce.
-      lastPushAt.current = 0;
-    } else {
-      const now = Date.now();
-      if (now - lastPushAt.current > COALESCE_MS) {
-        pastRef.current.push(prev);
-        if (pastRef.current.length > HISTORY_LIMIT) pastRef.current.shift();
+  const setState = useCallback(
+    (updater: Updater, options?: { history?: boolean }) => {
+      const prev = stateRef.current;
+      const next = applyUpdater(updater, prev);
+      if (next === prev) return;
+      if (options?.history === false) {
+        // Navigation is a boundary: edits to another deck must not coalesce.
+        lastPushAt.current = 0;
+      } else {
+        const now = Date.now();
+        if (now - lastPushAt.current > COALESCE_MS) {
+          pastRef.current.push(prev);
+          if (pastRef.current.length > HISTORY_LIMIT) pastRef.current.shift();
+        }
+        futureRef.current.length = 0;
+        lastPushAt.current = now;
       }
-      futureRef.current.length = 0;
-      lastPushAt.current = now;
-    }
-    commit(next);
-  }, [commit]);
+      commit(next);
+    },
+    [commit],
+  );
 
   const undo = useCallback(() => {
     const prev = pastRef.current.pop();
@@ -358,15 +413,18 @@ export function useProject() {
     setState(DEFAULT_PROJECT);
   }, [setState]);
 
-  const resetDevice = useCallback((device: Device) => {
-    setState((prev) => ({
-      ...prev,
-      slidesByDevice: {
-        ...prev.slidesByDevice,
-        [device]: DEFAULT_PROJECT.slidesByDevice[device],
-      },
-    }));
-  }, [setState]);
+  const resetDevice = useCallback(
+    (device: Device) => {
+      setState((prev) => ({
+        ...prev,
+        slidesByDevice: {
+          ...prev.slidesByDevice,
+          [device]: DEFAULT_PROJECT.slidesByDevice[device],
+        },
+      }));
+    },
+    [setState],
+  );
 
   return {
     state,

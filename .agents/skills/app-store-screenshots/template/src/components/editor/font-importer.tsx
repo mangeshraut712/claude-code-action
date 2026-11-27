@@ -26,53 +26,61 @@ async function fileToBase64(file: File): Promise<string> {
 // Hidden file input behind the toolbar's "Import font…" menu item. The server
 // validates the file by its magic bytes and stores it under
 // public/fonts/imported/<hash>.<ext>.
-export const FontImporter = React.forwardRef<FontImporterHandle, Props>(function FontImporter(
-  { onImported, onUploadingChange },
-  ref,
-) {
-  const inputRef = React.useRef<HTMLInputElement>(null);
-  React.useImperativeHandle(ref, () => ({ open: () => inputRef.current?.click() }), []);
+export const FontImporter = React.forwardRef<FontImporterHandle, Props>(
+  function FontImporter({ onImported, onUploadingChange }, ref) {
+    const inputRef = React.useRef<HTMLInputElement>(null);
+    React.useImperativeHandle(
+      ref,
+      () => ({ open: () => inputRef.current?.click() }),
+      [],
+    );
 
-  async function importFont(file: File) {
-    onUploadingChange?.(true);
-    try {
-      if (file.size > MAX_FONT_BYTES) throw new Error("Font file is too large (16MB maximum).");
-      const response = await fetch("/api/upload-font", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ data: await fileToBase64(file) }),
-      });
-      const data = (await response.json().catch(() => ({ ok: false }))) as {
-        ok: boolean;
-        error?: string;
-        font?: ImportedFont;
-      };
-      if (!data.ok || !data.font) throw new Error(data.error || "Could not import that font.");
-      const name = cleanFontName(file.name.replace(/\.[^.]+$/, ""));
-      onImported({ ...data.font, ...(name ? { name } : {}) });
-      toast.success(`Imported ${name ?? "font"}`);
-    } catch (caught) {
-      toast.error("Font import failed", {
-        description: caught instanceof Error ? caught.message : "Could not import that font.",
-      });
-    } finally {
-      onUploadingChange?.(false);
+    async function importFont(file: File) {
+      onUploadingChange?.(true);
+      try {
+        if (file.size > MAX_FONT_BYTES)
+          throw new Error("Font file is too large (16MB maximum).");
+        const response = await fetch("/api/upload-font", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ data: await fileToBase64(file) }),
+        });
+        const data = (await response.json().catch(() => ({ ok: false }))) as {
+          ok: boolean;
+          error?: string;
+          font?: ImportedFont;
+        };
+        if (!data.ok || !data.font)
+          throw new Error(data.error || "Could not import that font.");
+        const name = cleanFontName(file.name.replace(/\.[^.]+$/, ""));
+        onImported({ ...data.font, ...(name ? { name } : {}) });
+        toast.success(`Imported ${name ?? "font"}`);
+      } catch (caught) {
+        toast.error("Font import failed", {
+          description:
+            caught instanceof Error
+              ? caught.message
+              : "Could not import that font.",
+        });
+      } finally {
+        onUploadingChange?.(false);
+      }
     }
-  }
 
-  return (
-    <input
-      ref={inputRef}
-      type="file"
-      accept=".woff2,.woff,.ttf,.otf,font/woff2,font/woff,font/ttf,font/otf"
-      className="sr-only"
-      tabIndex={-1}
-      aria-hidden
-      onChange={(event) => {
-        const file = event.target.files?.[0];
-        if (file) void importFont(file);
-        event.target.value = "";
-      }}
-    />
-  );
-});
+    return (
+      <input
+        ref={inputRef}
+        type="file"
+        accept=".woff2,.woff,.ttf,.otf,font/woff2,font/woff,font/ttf,font/otf"
+        className="sr-only"
+        tabIndex={-1}
+        aria-hidden
+        onChange={(event) => {
+          const file = event.target.files?.[0];
+          if (file) void importFont(file);
+          event.target.value = "";
+        }}
+      />
+    );
+  },
+);

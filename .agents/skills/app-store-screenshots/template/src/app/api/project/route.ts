@@ -36,17 +36,26 @@ export async function POST(req: Request) {
   // This route OVERWRITES a git-tracked file. See lib/request-guard.ts.
   const blocked = rejectCrossSiteWrite(req);
   if (blocked) {
-    return NextResponse.json({ ok: false, error: blocked.error }, { status: blocked.status });
+    return NextResponse.json(
+      { ok: false, error: blocked.error },
+      { status: blocked.status },
+    );
   }
   let body: unknown;
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: "Invalid JSON" },
+      { status: 400 },
+    );
   }
   const validationError = projectValidationError(body);
   if (validationError) {
-    return NextResponse.json({ ok: false, error: validationError }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: validationError },
+      { status: 400 },
+    );
   }
   const temporary = `${filePath()}.${randomUUID()}.tmp`;
   try {

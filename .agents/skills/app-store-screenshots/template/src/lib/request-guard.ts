@@ -57,7 +57,13 @@ export function rejectCrossSiteWrite(req: Request): GuardFailure | null {
   // 1. Content-Type must be application/json. Not CORS-simple, so a
   //    cross-origin caller is forced into a preflight that fails.
   const contentType = req.headers.get("content-type") || "";
-  if (!contentType.toLowerCase().split(";")[0].trim().startsWith("application/json")) {
+  if (
+    !contentType
+      .toLowerCase()
+      .split(";")[0]
+      .trim()
+      .startsWith("application/json")
+  ) {
     return { error: "Content-Type must be application/json", status: 415 };
   }
 
@@ -69,7 +75,12 @@ export function rejectCrossSiteWrite(req: Request): GuardFailure | null {
 
   // 3. Sec-Fetch-Site, when present, must not be cross-site.
   const site = req.headers.get("sec-fetch-site");
-  if (site && site !== "same-origin" && site !== "same-site" && site !== "none") {
+  if (
+    site &&
+    site !== "same-origin" &&
+    site !== "same-site" &&
+    site !== "none"
+  ) {
     return { error: "Cross-site write rejected", status: 403 };
   }
 
@@ -77,15 +88,28 @@ export function rejectCrossSiteWrite(req: Request): GuardFailure | null {
 }
 
 /** Magic-byte sniff. Returns the real type, or null if it is neither. */
-export function sniffImageType(bytes: Buffer): "image/png" | "image/jpeg" | null {
+export function sniffImageType(
+  bytes: Buffer,
+): "image/png" | "image/jpeg" | null {
   if (
     bytes.length >= 8 &&
-    bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47 &&
-    bytes[4] === 0x0d && bytes[5] === 0x0a && bytes[6] === 0x1a && bytes[7] === 0x0a
+    bytes[0] === 0x89 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x4e &&
+    bytes[3] === 0x47 &&
+    bytes[4] === 0x0d &&
+    bytes[5] === 0x0a &&
+    bytes[6] === 0x1a &&
+    bytes[7] === 0x0a
   ) {
     return "image/png";
   }
-  if (bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) {
+  if (
+    bytes.length >= 3 &&
+    bytes[0] === 0xff &&
+    bytes[1] === 0xd8 &&
+    bytes[2] === 0xff
+  ) {
     return "image/jpeg";
   }
   return null;

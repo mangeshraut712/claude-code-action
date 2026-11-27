@@ -19,8 +19,15 @@ type Props = {
 };
 
 export function BackgroundControls({ slide, theme, onChange }: Props) {
-  const mode = slide.backgroundColor ? "custom" : slide.inverted ? "alternate" : "theme";
-  const customColor = cleanHexColor(slide.backgroundColor) || cleanHexColor(theme.bg) || "#FFFFFF";
+  const mode = slide.backgroundColor
+    ? "custom"
+    : slide.inverted
+      ? "alternate"
+      : "theme";
+  const customColor =
+    cleanHexColor(slide.backgroundColor) ||
+    cleanHexColor(theme.bg) ||
+    "#FFFFFF";
   // Keep partial hex input local so typing "#0B" or clearing the field doesn't
   // write an invalid color into the slide (or drop it out of custom mode).
   const [draft, setDraft] = React.useState(customColor);
@@ -32,12 +39,17 @@ export function BackgroundControls({ slide, theme, onChange }: Props) {
       <Select
         value={mode}
         onValueChange={(nextMode) => {
-          if (nextMode === "theme") onChange({ inverted: false, backgroundColor: undefined });
-          if (nextMode === "alternate") onChange({ inverted: true, backgroundColor: undefined });
-          if (nextMode === "custom") onChange({ inverted: false, backgroundColor: customColor });
+          if (nextMode === "theme")
+            onChange({ inverted: false, backgroundColor: undefined });
+          if (nextMode === "alternate")
+            onChange({ inverted: true, backgroundColor: undefined });
+          if (nextMode === "custom")
+            onChange({ inverted: false, backgroundColor: customColor });
         }}
       >
-        <SelectTrigger><SelectValue /></SelectTrigger>
+        <SelectTrigger>
+          <SelectValue />
+        </SelectTrigger>
         <SelectContent>
           <SelectItem value="theme">Theme background</SelectItem>
           <SelectItem value="alternate">Theme alternate</SelectItem>
@@ -49,7 +61,9 @@ export function BackgroundControls({ slide, theme, onChange }: Props) {
           <input
             type="color"
             value={customColor}
-            onChange={(event) => onChange({ backgroundColor: event.target.value.toUpperCase() })}
+            onChange={(event) =>
+              onChange({ backgroundColor: event.target.value.toUpperCase() })
+            }
             className="h-8 w-10 cursor-pointer rounded border bg-transparent p-0.5"
             aria-label="Custom background color"
           />
@@ -70,7 +84,8 @@ export function BackgroundControls({ slide, theme, onChange }: Props) {
       )}
       {mode === "custom" && (
         <p className="text-[11px] text-muted-foreground">
-          Caption text switches to a readable colour when the theme&apos;s colours would be too faint.
+          Caption text switches to a readable colour when the theme&apos;s
+          colours would be too faint.
         </p>
       )}
     </div>

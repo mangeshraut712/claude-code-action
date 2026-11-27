@@ -26,29 +26,29 @@ feel: precise, fast, expensive, "built by people who care about milliseconds"
 
 ## Vibe summary
 
-Midnight Glow Pro is the launch page of a tool made by people who care about milliseconds. The room is dark — not moody-dark, *studio*-dark — with a faint engineering dot grid that fades out into nothing. A single cool beam of indigo light falls from above the frame, passes behind a crisp, white, tightly-tracked headline, and lands on the phone, catching the top of the bezel like a stage light on hardware. Around it float a few pieces of dark glass: a status chip, a keycap shortcut, a ⌘K command palette. Everything is aligned, quiet and exact. The copy is short and confident — a statement, then a precise fact. It should feel fast without moving, premium without gold, and technical without code.
+Midnight Glow Pro is the launch page of a tool made by people who care about milliseconds. The room is dark — not moody-dark, _studio_-dark — with a faint engineering dot grid that fades out into nothing. A single cool beam of indigo light falls from above the frame, passes behind a crisp, white, tightly-tracked headline, and lands on the phone, catching the top of the bezel like a stage light on hardware. Around it float a few pieces of dark glass: a status chip, a keycap shortcut, a ⌘K command palette. Everything is aligned, quiet and exact. The copy is short and confident — a statement, then a precise fact. It should feel fast without moving, premium without gold, and technical without code.
 
 ## Global palette
 
-| Token | Hex / value | Use |
-|---|---|---|
-| `--void` | `#07080B` | Base background, editor `bg` |
-| `--void-top` | `#0B0D13` | Top gradient stop (a hair cooler) |
-| `--void-deep` | `#050608` | Bottom gradient stop, keycap drop edge |
-| `--panel` | `#11131A` | Glass card base (use at 80–86% alpha) |
-| `--panel-hi` | `#181A24` | Glass card top stop, keycap top |
-| `--hairline` | `rgba(255,255,255,.08)` | Dividers inside cards |
-| `--text` | `#F4F5F8` | Card titles, keycap labels on dark (18.4:1) |
-| `--text-2` | `#B4B9C6` | Sublines, descriptions (10.2:1 on void, 9.5:1 on panel) |
-| `--text-3` | `#8B91A0` | Meta, mono timestamps (6.4:1 void / 5.9:1 panel) |
-| `--eyebrow` | `#A7ACBA` | Mono eyebrow (8.8:1) |
-| `--head-end` | `#B9BDC9` | Bottom stop of headline gradient (10.7:1 on void) |
-| `--beam` | `#8F8CFF` | Beam core, glows, progress fills — **not for text on the beam** |
-| `--beam-2` | `#A77BFF` | Violet shoulder of the beam cone |
-| `--beam-lit` | `#B3AFFF` | Lit-word darkest stop, lavender tokens (10.0:1) |
-| `--beam-hi` | `#E2E0FF` | Lit-word top stop, horizon core, comet head |
-| `--beam-deep` | `#5B57E8` | Progress-bar start, selected icon tile |
-| `--rim` | `rgba(200,196,255,.95)` | Phone halo, lit border edge |
+| Token         | Hex / value             | Use                                                             |
+| ------------- | ----------------------- | --------------------------------------------------------------- |
+| `--void`      | `#07080B`               | Base background, editor `bg`                                    |
+| `--void-top`  | `#0B0D13`               | Top gradient stop (a hair cooler)                               |
+| `--void-deep` | `#050608`               | Bottom gradient stop, keycap drop edge                          |
+| `--panel`     | `#11131A`               | Glass card base (use at 80–86% alpha)                           |
+| `--panel-hi`  | `#181A24`               | Glass card top stop, keycap top                                 |
+| `--hairline`  | `rgba(255,255,255,.08)` | Dividers inside cards                                           |
+| `--text`      | `#F4F5F8`               | Card titles, keycap labels on dark (18.4:1)                     |
+| `--text-2`    | `#B4B9C6`               | Sublines, descriptions (10.2:1 on void, 9.5:1 on panel)         |
+| `--text-3`    | `#8B91A0`               | Meta, mono timestamps (6.4:1 void / 5.9:1 panel)                |
+| `--eyebrow`   | `#A7ACBA`               | Mono eyebrow (8.8:1)                                            |
+| `--head-end`  | `#B9BDC9`               | Bottom stop of headline gradient (10.7:1 on void)               |
+| `--beam`      | `#8F8CFF`               | Beam core, glows, progress fills — **not for text on the beam** |
+| `--beam-2`    | `#A77BFF`               | Violet shoulder of the beam cone                                |
+| `--beam-lit`  | `#B3AFFF`               | Lit-word darkest stop, lavender tokens (10.0:1)                 |
+| `--beam-hi`   | `#E2E0FF`               | Lit-word top stop, horizon core, comet head                     |
+| `--beam-deep` | `#5B57E8`               | Progress-bar start, selected icon tile                          |
+| `--rim`       | `rgba(200,196,255,.95)` | Phone halo, lit border edge                                     |
 
 Color philosophy: black, three greys, one hue. The beam hue may change per brand (see Adapting), but there is never a second hue in the chrome. The screenshot is the only place warm or brand color appears.
 
@@ -60,28 +60,46 @@ Color philosophy: black, three greys, one hue. The beam hue may change per brand
 - Load with `display=block` so exports never capture fallback faces.
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=Geist+Mono:wght@400;500&family=JetBrains+Mono:wght@400;500&display=block"
+  rel="stylesheet"
+/>
 ```
 
 ```ts
 // template/src/app/layout.tsx
 import { Inter, Inter_Tight, Geist_Mono } from "next/font/google";
-const display = Inter_Tight({ subsets: ["latin"], weight: ["500", "600", "700"], display: "block", variable: "--font-display" });
-const body = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], display: "block", variable: "--font-body" });
-const mono = Geist_Mono({ subsets: ["latin"], weight: ["400", "500"], display: "block", variable: "--font-mono" });
+const display = Inter_Tight({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "block",
+  variable: "--font-display",
+});
+const body = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "block",
+  variable: "--font-body",
+});
+const mono = Geist_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "block",
+  variable: "--font-mono",
+});
 // <body className={`${display.variable} ${body.variable} ${mono.variable}`}>
 ```
 
-| Role | Face | Size @1320 | Leading | Tracking | Color |
-|---|---|---|---|---|---|
-| Hero headline (2 lines) | Inter Tight 600 | 150–160 px | 1.02 | −0.035em | gradient white → `#B9BDC9` |
-| Slide headline | Inter Tight 600 | 140–150 px | 1.02 | −0.035em | same |
-| Subline (1 line) | Inter 400 | 40–44 px | 1.32 | −0.01em | `#B4B9C6` |
-| Eyebrow | Geist Mono 500 | 26–30 px | 1 | 0.14–0.16em | `#A7ACBA` + 1 lavender token |
-| Card title | Inter Tight 600 | 44–48 px | 1.1 | −0.02em | `#F4F5F8` |
-| Card row / description | Inter 400–500 | 32–36 px | 1.25 | −0.005em | `#B4B9C6` / `#D9DCE4` |
-| Keycap label | Geist Mono 500 | 22–28 px | 1 | 0 | `#D5D8E2` |
-| Card meta / footer | Geist Mono 500 | 22–26 px | 1 | 0.08–0.1em | `#8B91A0` |
+| Role                    | Face            | Size @1320 | Leading | Tracking    | Color                        |
+| ----------------------- | --------------- | ---------- | ------- | ----------- | ---------------------------- |
+| Hero headline (2 lines) | Inter Tight 600 | 150–160 px | 1.02    | −0.035em    | gradient white → `#B9BDC9`   |
+| Slide headline          | Inter Tight 600 | 140–150 px | 1.02    | −0.035em    | same                         |
+| Subline (1 line)        | Inter 400       | 40–44 px   | 1.32    | −0.01em     | `#B4B9C6`                    |
+| Eyebrow                 | Geist Mono 500  | 26–30 px   | 1       | 0.14–0.16em | `#A7ACBA` + 1 lavender token |
+| Card title              | Inter Tight 600 | 44–48 px   | 1.1     | −0.02em     | `#F4F5F8`                    |
+| Card row / description  | Inter 400–500   | 32–36 px   | 1.25    | −0.005em    | `#B4B9C6` / `#D9DCE4`        |
+| Keycap label            | Geist Mono 500  | 22–28 px   | 1       | 0           | `#D5D8E2`                    |
+| Card meta / footer      | Geist Mono 500  | 22–26 px   | 1       | 0.08–0.1em  | `#8B91A0`                    |
 
 Nothing under 22 px anywhere. The headline never goes bold 700+ — 600 with tight tracking is the look.
 
@@ -90,11 +108,23 @@ Nothing under 22 px anywhere. The headline never goes bold 700+ — 600 with tig
 The whole headline is lit from above (white top → cool grey bottom); one word is lit **by the beam** (lavender). Same face, same weight, same size — only the fill changes.
 
 ```css
-.h1{font:600 150px/1.02 'Inter Tight',sans-serif;letter-spacing:-.035em;padding-bottom:.08em;
-  background:linear-gradient(180deg,#FFFFFF 0%,#FFFFFF 38%,#B9BDC9 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent}
-.h1 .lit{background:linear-gradient(180deg,#E2E0FF 0%,#C2BFFF 55%,#B3AFFF 100%);
-  -webkit-background-clip:text;background-clip:text;color:transparent}
+.h1 {
+  font:
+    600 150px/1.02 "Inter Tight",
+    sans-serif;
+  letter-spacing: -0.035em;
+  padding-bottom: 0.08em;
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 38%, #b9bdc9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.h1 .lit {
+  background: linear-gradient(180deg, #e2e0ff 0%, #c2bfff 55%, #b3afff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 ```
 
 - The gradient spans the **whole block**, so line 2 is visibly greyer than line 1 — that falloff is the point.
@@ -110,14 +140,49 @@ The whole headline is lit from above (white top → cool grey bottom); one word 
 - **Rim-light stack** (all inside a wrapper with `aspect-ratio:1022/2082`):
 
 ```css
-.halo{position:absolute;inset:-5px;border-radius:13.4%/6.6%;filter:blur(9px);
-  background:linear-gradient(180deg,rgba(200,196,255,.95) 0%,rgba(160,156,255,.55) 6%,rgba(143,140,255,0) 26%)} /* behind phone; 200deg when the beam comes from top-right */
-.rimtint{position:absolute;inset:0;z-index:1;mix-blend-mode:screen;   /* between bezel (z1) and screen (z2) */
-  -webkit-mask:url(/mockup.png) center/100% 100% no-repeat;mask:url(/mockup.png) center/100% 100% no-repeat;
-  background:linear-gradient(180deg,rgba(200,196,255,.75) 0%,rgba(150,146,255,.22) 5%,transparent 14%)}
-.phone-bloom{position:absolute;left:10%;right:10%;top:-120px;height:420px;filter:blur(70px);
-  background:radial-gradient(ellipse at 50% 60%,rgba(143,140,255,.55),transparent 70%)}
-.phone{filter:drop-shadow(0 60px 70px rgba(0,0,0,.8)) drop-shadow(0 8px 16px rgba(0,0,0,.6))}
+.halo {
+  position: absolute;
+  inset: -5px;
+  border-radius: 13.4%/6.6%;
+  filter: blur(9px);
+  background: linear-gradient(
+    180deg,
+    rgba(200, 196, 255, 0.95) 0%,
+    rgba(160, 156, 255, 0.55) 6%,
+    rgba(143, 140, 255, 0) 26%
+  );
+} /* behind phone; 200deg when the beam comes from top-right */
+.rimtint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  mix-blend-mode: screen; /* between bezel (z1) and screen (z2) */
+  -webkit-mask: url(/mockup.png) center/100% 100% no-repeat;
+  mask: url(/mockup.png) center/100% 100% no-repeat;
+  background: linear-gradient(
+    180deg,
+    rgba(200, 196, 255, 0.75) 0%,
+    rgba(150, 146, 255, 0.22) 5%,
+    transparent 14%
+  );
+}
+.phone-bloom {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: -120px;
+  height: 420px;
+  filter: blur(70px);
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    rgba(143, 140, 255, 0.55),
+    transparent 70%
+  );
+}
+.phone {
+  filter: drop-shadow(0 60px 70px rgba(0, 0, 0, 0.8))
+    drop-shadow(0 8px 16px rgba(0, 0, 0, 0.6));
+}
 ```
 
 - **Floor + reflection (floor-standing phones):** a 2 px floor line across the canvas at the phone's bottom y (`linear-gradient(90deg,transparent 4%,rgba(185,182,255,.45) 30%,rgba(210,208,255,.7) 50%,…,transparent 96%)`), an ellipse glow 1200×200 px centered under the phone (`rgba(124,120,255,.30)`, blur 20 px), and a vertically flipped copy of the phone at 16% opacity masked to its first 6% (`mask: linear-gradient(0deg,#000 0%,transparent 6%)`).
@@ -129,25 +194,117 @@ The whole headline is lit from above (white top → cool grey bottom); one word 
 Layer order (bottom → top), all `position:absolute; inset:0; pointer-events:none`:
 
 ```css
-.base{background:linear-gradient(180deg,#0B0D13 0%,#08090D 38%,#07080B 70%,#050608 100%)}
-.grid{background-image:radial-gradient(circle at 1.5px 1.5px,rgba(255,255,255,.13) 1.3px,transparent 1.9px);
-  background-size:44px 44px;background-position:22px 10px;
+.base {
+  background: linear-gradient(
+    180deg,
+    #0b0d13 0%,
+    #08090d 38%,
+    #07080b 70%,
+    #050608 100%
+  );
+}
+.grid {
+  background-image: radial-gradient(
+    circle at 1.5px 1.5px,
+    rgba(255, 255, 255, 0.13) 1.3px,
+    transparent 1.9px
+  );
+  background-size: 44px 44px;
+  background-position: 22px 10px;
   /* fade radially from the light, AND cut a hole under the text band (y 250–700 on the hero) */
-  -webkit-mask:radial-gradient(ellipse 62% 42% at 50% 30%,#000 10%,rgba(0,0,0,.35) 55%,transparent 80%),
-               linear-gradient(180deg,#000 0,#000 220px,transparent 250px,transparent 700px,#000 740px);
-  -webkit-mask-composite:source-in;mask-composite:intersect}
-.horizon{top:0;height:2px;background:linear-gradient(90deg,transparent 8%,rgba(185,182,255,.35) 30%,rgba(230,228,255,.95) 50%,rgba(185,182,255,.35) 70%,transparent 92%)}
-.horizon-bloom{left:-200px;right:-200px;top:-260px;height:520px;filter:blur(30px);
-  background:radial-gradient(ellipse 34% 50% at 50% 50%,rgba(130,124,255,.55),rgba(130,124,255,.12) 55%,transparent 75%)}
+  -webkit-mask:
+    radial-gradient(
+      ellipse 62% 42% at 50% 30%,
+      #000 10%,
+      rgba(0, 0, 0, 0.35) 55%,
+      transparent 80%
+    ),
+    linear-gradient(
+      180deg,
+      #000 0,
+      #000 220px,
+      transparent 250px,
+      transparent 700px,
+      #000 740px
+    );
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.horizon {
+  top: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 8%,
+    rgba(185, 182, 255, 0.35) 30%,
+    rgba(230, 228, 255, 0.95) 50%,
+    rgba(185, 182, 255, 0.35) 70%,
+    transparent 92%
+  );
+}
+.horizon-bloom {
+  left: -200px;
+  right: -200px;
+  top: -260px;
+  height: 520px;
+  filter: blur(30px);
+  background: radial-gradient(
+    ellipse 34% 50% at 50% 50%,
+    rgba(130, 124, 255, 0.55),
+    rgba(130, 124, 255, 0.12) 55%,
+    transparent 75%
+  );
+}
 /* beam: element is inset:-240px so the blur never shows an edge; origin = slide (660,-180) => (900px,60px) */
-.beam{position:absolute;inset:-240px;mix-blend-mode:screen}
-.beam.wide{filter:blur(46px);background:conic-gradient(from 160deg at 900px 60px,transparent 0deg,
-  rgba(110,106,255,.10) 9deg,rgba(150,120,255,.22) 20deg,rgba(110,106,255,.10) 31deg,transparent 40deg);
-  -webkit-mask:linear-gradient(180deg,rgba(0,0,0,.55) 0%,#000 30%,#000 55%,transparent 88%)}
-.beam.core{filter:blur(16px);background:conic-gradient(from 173.5deg at 900px 60px,transparent 0deg,
-  rgba(150,146,255,.20) 4deg,rgba(196,188,255,.30) 6.5deg,rgba(150,146,255,.20) 9deg,transparent 13deg);
-  -webkit-mask:linear-gradient(180deg,rgba(0,0,0,.28) 0px,rgba(0,0,0,.34) 860px,#000 1010px,#000 1500px,transparent 2300px)}
-.vig{background:radial-gradient(ellipse 120% 80% at 50% 38%,transparent 55%,rgba(0,0,0,.55) 100%)}
+.beam {
+  position: absolute;
+  inset: -240px;
+  mix-blend-mode: screen;
+}
+.beam.wide {
+  filter: blur(46px);
+  background: conic-gradient(
+    from 160deg at 900px 60px,
+    transparent 0deg,
+    rgba(110, 106, 255, 0.1) 9deg,
+    rgba(150, 120, 255, 0.22) 20deg,
+    rgba(110, 106, 255, 0.1) 31deg,
+    transparent 40deg
+  );
+  -webkit-mask: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    #000 30%,
+    #000 55%,
+    transparent 88%
+  );
+}
+.beam.core {
+  filter: blur(16px);
+  background: conic-gradient(
+    from 173.5deg at 900px 60px,
+    transparent 0deg,
+    rgba(150, 146, 255, 0.2) 4deg,
+    rgba(196, 188, 255, 0.3) 6.5deg,
+    rgba(150, 146, 255, 0.2) 9deg,
+    transparent 13deg
+  );
+  -webkit-mask: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.28) 0px,
+    rgba(0, 0, 0, 0.34) 860px,
+    #000 1010px,
+    #000 1500px,
+    transparent 2300px
+  );
+}
+.vig {
+  background: radial-gradient(
+    ellipse 120% 80% at 50% 38%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
 /* + .grain at opacity .05, mix-blend-mode:overlay (fractal noise SVG) */
 ```
 
@@ -160,24 +317,97 @@ Layer order (bottom → top), all `position:absolute; inset:0; pointer-events:no
 Density: **2–4 per slide**, each doing a job. Recipes:
 
 ```css
-.glass{position:absolute;border-radius:28px;
-  background:linear-gradient(180deg,rgba(24,26,36,.86),rgba(15,17,24,.80));
-  backdrop-filter:blur(26px) saturate(140%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 0 0 1px rgba(0,0,0,.55),
-             0 40px 80px -20px rgba(0,0,0,.85),0 0 60px -10px rgba(124,120,255,.22)}
-.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;pointer-events:none;
-  background:var(--edge,linear-gradient(180deg,rgba(206,202,255,.95) 0%,rgba(255,255,255,.14) 38%,rgba(255,255,255,.05) 100%));
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;mask-composite:exclude}   /* rotate --edge toward the beam */
-.kbd{display:inline-flex;align-items:center;justify-content:center;min-width:58px;height:58px;padding:0 16px;
-  border-radius:13px;font:500 28px/1 'Geist Mono',monospace;color:#D5D8E2;
-  background:linear-gradient(180deg,#262A35,#171A22);border:1px solid rgba(255,255,255,.10);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -4px 0 rgba(0,0,0,.45),0 2px 0 #040507,0 8px 18px rgba(0,0,0,.55)}
-.kbd.lit{color:#0B0C12;background:linear-gradient(180deg,#D3D1FF,#9F9BFF);border-color:rgba(255,255,255,.5);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -4px 0 rgba(60,50,180,.45),0 2px 0 #2B2780,0 0 28px rgba(143,140,255,.55)}
-.comet{position:absolute;height:2px;background:linear-gradient(90deg,transparent,rgba(185,182,255,.15) 35%,rgba(210,208,255,.75) 88%,#F2F1FF)}
-.comet::after{content:"";position:absolute;right:-8px;top:-7px;width:16px;height:16px;border-radius:50%;background:#F2F1FF;
-  box-shadow:0 0 10px 3px rgba(200,196,255,.95),0 0 44px 12px rgba(143,140,255,.55)}
+.glass {
+  position: absolute;
+  border-radius: 28px;
+  background: linear-gradient(
+    180deg,
+    rgba(24, 26, 36, 0.86),
+    rgba(15, 17, 24, 0.8)
+  );
+  backdrop-filter: blur(26px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.55),
+    0 40px 80px -20px rgba(0, 0, 0, 0.85),
+    0 0 60px -10px rgba(124, 120, 255, 0.22);
+}
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  pointer-events: none;
+  background: var(
+    --edge,
+    linear-gradient(
+      180deg,
+      rgba(206, 202, 255, 0.95) 0%,
+      rgba(255, 255, 255, 0.14) 38%,
+      rgba(255, 255, 255, 0.05) 100%
+    )
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+} /* rotate --edge toward the beam */
+.kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  height: 58px;
+  padding: 0 16px;
+  border-radius: 13px;
+  font:
+    500 28px/1 "Geist Mono",
+    monospace;
+  color: #d5d8e2;
+  background: linear-gradient(180deg, #262a35, #171a22);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -4px 0 rgba(0, 0, 0, 0.45),
+    0 2px 0 #040507,
+    0 8px 18px rgba(0, 0, 0, 0.55);
+}
+.kbd.lit {
+  color: #0b0c12;
+  background: linear-gradient(180deg, #d3d1ff, #9f9bff);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -4px 0 rgba(60, 50, 180, 0.45),
+    0 2px 0 #2b2780,
+    0 0 28px rgba(143, 140, 255, 0.55);
+}
+.comet {
+  position: absolute;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(185, 182, 255, 0.15) 35%,
+    rgba(210, 208, 255, 0.75) 88%,
+    #f2f1ff
+  );
+}
+.comet::after {
+  content: "";
+  position: absolute;
+  right: -8px;
+  top: -7px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f2f1ff;
+  box-shadow:
+    0 0 10px 3px rgba(200, 196, 255, 0.95),
+    0 0 44px 12px rgba(143, 140, 255, 0.55);
+}
 ```
 
 1. **Glow chip** (status card) — 520–600 px wide, 28 px radius, padding 34/36 px: mono status line (`● AT PEAK` lavender + `DAY 16` grey, 24 px), a 44 px Inter Tight title, a 10 px progress track with a `#5B57E8 → #B9B6FF` fill + `0 0 18px` beam glow, mono labels under it. Overlaps a phone bezel edge by 300–400 px, never the screenshot's focal row.
@@ -192,19 +422,19 @@ Polish gates for every accent: two tones (gradient fill + lit edge), volume (ins
 
 All values at 1320 × 2868.
 
-| Zone | Rectangle (x, y, w, h) | Rule |
-|---|---|---|
-| Outer margin | 84–96 px left/right, 150 px top | Text never inside the margin |
-| Eyebrow / announcement pill | (0–1320, 150–230) | Centered (hero/closer) or left at x 96 (feature) |
-| Headline block | (88, 240, 1144, ≤ 340) | 2 lines, ends ≤ y 610 |
-| Subline | (88, 590–700, 1144, 60) | One line, ≥ 16 px below headline |
-| Dim-beam text band | y 240–700 | Beam ≤ 30% peak, no grid, no decorations |
-| Phone box (floor) | (170, 760–800, 980, to y 2780) | Floor line at phone bottom ± 2 px |
-| Phone box (bleed) | (300–360, 800–880, 1060–1080, to canvas bottom) | Bleed 4–8% bottom, ≤ 10% one side |
-| Decoration lanes | (40–640, 1400–2800) left, (840–1300, 780–1000 and 2100–2700) right | Chips overlap bezel 300–400 px max |
-| No-go | Screenshot focal row (hero metric, timer ring, primary CTA) | Nothing overlaps it |
-| Palette (closer) | (84, 640, 1152, ≈1490) | Ends ≤ y 2160 |
-| Lockup (closer) | (0, 2300–2520, 1320) | Icon 168 px + wordmark 78 px tall |
+| Zone                        | Rectangle (x, y, w, h)                                             | Rule                                             |
+| --------------------------- | ------------------------------------------------------------------ | ------------------------------------------------ |
+| Outer margin                | 84–96 px left/right, 150 px top                                    | Text never inside the margin                     |
+| Eyebrow / announcement pill | (0–1320, 150–230)                                                  | Centered (hero/closer) or left at x 96 (feature) |
+| Headline block              | (88, 240, 1144, ≤ 340)                                             | 2 lines, ends ≤ y 610                            |
+| Subline                     | (88, 590–700, 1144, 60)                                            | One line, ≥ 16 px below headline                 |
+| Dim-beam text band          | y 240–700                                                          | Beam ≤ 30% peak, no grid, no decorations         |
+| Phone box (floor)           | (170, 760–800, 980, to y 2780)                                     | Floor line at phone bottom ± 2 px                |
+| Phone box (bleed)           | (300–360, 800–880, 1060–1080, to canvas bottom)                    | Bleed 4–8% bottom, ≤ 10% one side                |
+| Decoration lanes            | (40–640, 1400–2800) left, (840–1300, 780–1000 and 2100–2700) right | Chips overlap bezel 300–400 px max               |
+| No-go                       | Screenshot focal row (hero metric, timer ring, primary CTA)        | Nothing overlaps it                              |
+| Palette (closer)            | (84, 640, 1152, ≈1490)                                             | Ends ≤ y 2160                                    |
+| Lockup (closer)             | (0, 2300–2520, 1320)                                               | Icon 168 px + wordmark 78 px tall                |
 
 No empty band > 400 px (14%) on any slide; measured worst on the sample deck is ~370 px below the closer lockup.
 
@@ -240,6 +470,7 @@ No empty band > 400 px (14%) on any slide; measured worst on the sample deck is 
 ## Per-slide breakdown (mandatory)
 
 ### Slide 1 — Hero ("the launch page")
+
 - **Background:** full stack, beam straight down from (660, −180), horizon peak centered, grid centered at 50% 30% with the text-band hole y 250–700.
 - **Eyebrow:** glass announcement pill centered at top 150, height 76 px: glowing 14 px dot, `NEW` (27 px mono, `#D2D5DF`), 1 px divider, `Peak windows, per bag →` (`#A7ACBA`).
 - **Headline:** centered, top 268, 150–160 px, e.g. "Brew at **peak.** / Every bag." Subline centered at top 618, 42 px: "Roast date in. Freshness window out."
@@ -248,6 +479,7 @@ No empty band > 400 px (14%) on any slide; measured worst on the sample deck is 
 - **Must be true:** at 220 px wide you read the headline, see the lavender word and a big lit phone.
 
 ### Slide 2 — Differentiator ("the number")
+
 - **Background:** beam from top-left (x 20%), horizon peak at 20%, grid center 25% 25%.
 - **Eyebrow:** `01 / FRESHNESS` left at (96, 176), 30 px mono, `01` lavender.
 - **Headline:** left at (88, 246), 150 px: "Know the day / it **peaks.**" Subline (96, 596): the one proof fact.
@@ -256,6 +488,7 @@ No empty band > 400 px (14%) on any slide; measured worst on the sample deck is 
 - **Must be true:** the numeral in the chip is identical to one in the screenshot.
 
 ### Slide 3 — Feature ("the tool")
+
 - **Background:** beam from top-right (1150, −160), wide `from 173deg`, core `from 187deg`, horizon peak at 86%.
 - **Eyebrow:** `02 / BREW TIMER` at (96, 176).
 - **Headline:** left at (88, 246), 150 px, full lit second line: "Every pour, / **called on time.**" Subline (96, 596), single line.
@@ -264,6 +497,7 @@ No empty band > 400 px (14%) on any slide; measured worst on the sample deck is 
 - **Must be true:** the palette does not cover the screenshot's main label ("Second Pour") or ring.
 
 ### Slide 4 — Feature ("in the flow")
+
 - **Background:** beam straight down but offset to x 60%; grid center 60% 28%.
 - **Headline:** centered, top 250, 140 px: "Scan a bag. / **Details fill in.**"
 - **Phone:** 1000 px centered on the floor line (bottom 2780).
@@ -271,6 +505,7 @@ No empty band > 400 px (14%) on any slide; measured worst on the sample deck is 
 - **Must be true:** the card's fields are real UI fields; beam lands on the phone's top edge, not on the card.
 
 ### Slide 5 — Proof / ecosystem ("everywhere")
+
 - **Background:** beam straight down; floor line at y 2600.
 - **Headline:** centered, top 250, 140 px: "Glance. / **Already synced.**"
 - **Composition:** two upright phones on one floor line — front 960 px (home/lock-screen widgets), back 845 px offset 240 px left, rim at 50% — OR one phone + 2 widget PNGs framed as glass chips (360–520 w) standing on the floor beside it.
@@ -278,6 +513,7 @@ No empty band > 400 px (14%) on any slide; measured worst on the sample deck is 
 - **Must be true:** both phones upright and on the same floor; front phone ≥ 68% canvas height.
 
 ### Slide 6 — Closer ("⌘K")
+
 - **Background:** beam straight down onto the palette's top edge; bloom `rgba(143,140,255,.55)` 800×360 behind the palette top.
 - **Eyebrow:** `EVERYTHING IN BLOOM` centered at top 170 (app name lavender).
 - **Headline:** centered, top 238, 140 px: "Built for the way / you brew. **Fast.**"
@@ -287,15 +523,15 @@ No empty band > 400 px (14%) on any slide; measured worst on the sample deck is 
 
 ## Adapting to other app categories
 
-| Category | Beam hue (core / lit stop) | Motif swap | Copy angle |
-|---|---|---|---|
-| AI assistant | indigo `#8F8CFF` / `#B3AFFF` (default) | palette = prompt box with streaming answer row | "Ask once. Done in seconds." |
-| Dev tool / CI | cyan `#4FD1E8` / `#8FE6F5` | palette = commands, mono log line in chip | "Ship on Friday. Sleep anyway." |
-| Finance / budgeting | emerald `#3FD69B` / `#8BEBC4` | glow chip = balance + sparkline | "Every dollar, accounted for." |
-| Crypto dashboard | amber `#F5B544` / `#F8CF7F` | keycap chip = `⌘ B` buy; chip = price ticker | "Markets move. You're faster." |
-| Email / calendar | blue `#5C9DFF` / `#9CC3FF` | palette = triage shortcuts (E, R, ⌘⇧A) | "Inbox zero. By 9 AM." |
-| Notes / PKM | rose-violet `#C084FC` / `#DDB8FF` | palette = search results with highlights | "Think it. Find it instantly." |
-| Fitness data | teal `#34D3C0` / `#86E8DC` | chip = metric + mono unit | "Every rep, measured." |
+| Category            | Beam hue (core / lit stop)             | Motif swap                                     | Copy angle                      |
+| ------------------- | -------------------------------------- | ---------------------------------------------- | ------------------------------- |
+| AI assistant        | indigo `#8F8CFF` / `#B3AFFF` (default) | palette = prompt box with streaming answer row | "Ask once. Done in seconds."    |
+| Dev tool / CI       | cyan `#4FD1E8` / `#8FE6F5`             | palette = commands, mono log line in chip      | "Ship on Friday. Sleep anyway." |
+| Finance / budgeting | emerald `#3FD69B` / `#8BEBC4`          | glow chip = balance + sparkline                | "Every dollar, accounted for."  |
+| Crypto dashboard    | amber `#F5B544` / `#F8CF7F`            | keycap chip = `⌘ B` buy; chip = price ticker   | "Markets move. You're faster."  |
+| Email / calendar    | blue `#5C9DFF` / `#9CC3FF`             | palette = triage shortcuts (E, R, ⌘⇧A)         | "Inbox zero. By 9 AM."          |
+| Notes / PKM         | rose-violet `#C084FC` / `#DDB8FF`      | palette = search results with highlights       | "Think it. Find it instantly."  |
+| Fitness data        | teal `#34D3C0` / `#86E8DC`             | chip = metric + mono unit                      | "Every rep, measured."          |
 
 Rule when swapping: replace every `rgba(143,140,255,…)`/`#8F8CFF` family value with the new hue at the same alpha, re-measure the lit stop ≥ 4.5:1 against the brightest beam pixel under the headline, and keep everything else (void, greys, glass) unchanged.
 
@@ -339,15 +575,15 @@ Rule when swapping: replace every `rgba(143,140,255,…)`/`#8F8CFF` family value
 
 ## Common failure modes
 
-1. **Neon creep** — glow on all sides of the phone, glowing letters, saturated violet blobs. *Fix:* one beam, rim on the lit side only, no text-shadow/glow on type; if it looks like a club flyer, halve every glow alpha.
-2. **Lit word fails contrast on the beam** — using `#8F8CFF` or a mid violet for the emphasis where the beam is brightest (measured 3.4–3.8:1). *Fix:* lit stops `#E2E0FF → #B3AFFF` only, and dim the beam core in the text band with the px mask.
-3. **Grid under text** — dot grid pixels become the worst contrast point and make headlines look dirty. *Fix:* intersect the grid mask with a band hole around the caption.
-4. **Grey-card syndrome** — cards as flat `#1A1A1A` rectangles with a 1 px grey border. *Fix:* use the `.glass` recipe: translucent gradient fill, blur, lit 2 px gradient border, inset highlight, deep contact shadow.
-5. **Beam that goes nowhere** — a vertical glow stripe that ends in empty space or hits the headline only. *Fix:* aim the cone (angle math above) so its brightest part meets the phone's top edge; add the phone-top bloom.
-6. **Descenders clipped** — `background-clip:text` without bottom padding chops p/y/g. *Fix:* `padding-bottom: .08em` on the headline element.
-7. **Small phone on a big dark void** — a 800 px phone centered with dark bands above and below. *Fix:* 980–1080 px, floor at y 2760–2790 or bleed the bottom.
-8. **Liquid-glass confusion** — white frosted cards or pastel beams make it look like style 07. *Fix:* all glass is dark `#11131A`-family; the only light-colored surfaces are the screenshot and lit keycaps.
-9. **Fake shortcuts everywhere** — keycaps on every element. *Fix:* max one keycap chip per slide outside the palette; one lit keycap per slide.
+1. **Neon creep** — glow on all sides of the phone, glowing letters, saturated violet blobs. _Fix:_ one beam, rim on the lit side only, no text-shadow/glow on type; if it looks like a club flyer, halve every glow alpha.
+2. **Lit word fails contrast on the beam** — using `#8F8CFF` or a mid violet for the emphasis where the beam is brightest (measured 3.4–3.8:1). _Fix:_ lit stops `#E2E0FF → #B3AFFF` only, and dim the beam core in the text band with the px mask.
+3. **Grid under text** — dot grid pixels become the worst contrast point and make headlines look dirty. _Fix:_ intersect the grid mask with a band hole around the caption.
+4. **Grey-card syndrome** — cards as flat `#1A1A1A` rectangles with a 1 px grey border. _Fix:_ use the `.glass` recipe: translucent gradient fill, blur, lit 2 px gradient border, inset highlight, deep contact shadow.
+5. **Beam that goes nowhere** — a vertical glow stripe that ends in empty space or hits the headline only. _Fix:_ aim the cone (angle math above) so its brightest part meets the phone's top edge; add the phone-top bloom.
+6. **Descenders clipped** — `background-clip:text` without bottom padding chops p/y/g. _Fix:_ `padding-bottom: .08em` on the headline element.
+7. **Small phone on a big dark void** — a 800 px phone centered with dark bands above and below. _Fix:_ 980–1080 px, floor at y 2760–2790 or bleed the bottom.
+8. **Liquid-glass confusion** — white frosted cards or pastel beams make it look like style 07. _Fix:_ all glass is dark `#11131A`-family; the only light-colored surfaces are the screenshot and lit keycaps.
+9. **Fake shortcuts everywhere** — keycaps on every element. _Fix:_ max one keycap chip per slide outside the palette; one lit keycap per slide.
 
 ## What this style is NOT
 

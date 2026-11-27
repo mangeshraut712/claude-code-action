@@ -28,43 +28,46 @@ Liquid Glass Aurora looks like the keynote slide right after "and it's all built
 
 ## Global palette
 
-| Token | Hex | Use |
-|---|---|---|
-| `--ink` | `#16131F` | Headline + glass labels (15–17:1 on the aurora) |
-| `--ink-2` | `#4A4660` | Subhead, glass meta text (≥ 5.3:1 worst case) |
-| `--mist` | `#F4F1FB` | Solid fallback bg / editor theme bg |
-| `--base-1` | `#EFE9FD` | Aurora base stop 0% (lavender mist) |
-| `--base-2` | `#E6EEFC` | Aurora base stop ~38% (ice blue) |
-| `--base-3` | `#F7ECF3` | Aurora base stop ~68% (blush) |
-| `--base-4` | `#FDEBDF` | Aurora base stop 100% (apricot cream) |
-| `--lav` | `#CDBBFF` | Bloom — lavender |
-| `--sky` | `#AFD5FF` | Bloom — sky |
-| `--peach` | `#FFCDB2` | Bloom — peach/apricot |
-| `--rose` | `#FFC4D6` | Bloom — rose (optional 4th) |
-| `--mint` | `#C6F0E4` | Bloom — mint (optional, small, max 1 per slide) |
-| `--au-1` | `#1D46B8` | Aurora text stop — deep cobalt |
-| `--au-2` | `#4A2FC0` | Aurora text stop — deep violet |
-| `--au-3` | `#9A2250` | Aurora text stop — deep raspberry |
-| `--glass-hi` | `rgba(255,255,255,.62)` | Glass fill, top |
-| `--glass-lo` | `rgba(255,255,255,.30)` | Glass fill, middle |
-| `--glass-shade` | `rgba(70,55,140,.16)` | Glass bottom inner edge, track fills |
-| `--shadow` | `rgba(86,70,170,.30)` | Violet-tinted soft shadow under glass + phone |
+| Token           | Hex                     | Use                                             |
+| --------------- | ----------------------- | ----------------------------------------------- |
+| `--ink`         | `#16131F`               | Headline + glass labels (15–17:1 on the aurora) |
+| `--ink-2`       | `#4A4660`               | Subhead, glass meta text (≥ 5.3:1 worst case)   |
+| `--mist`        | `#F4F1FB`               | Solid fallback bg / editor theme bg             |
+| `--base-1`      | `#EFE9FD`               | Aurora base stop 0% (lavender mist)             |
+| `--base-2`      | `#E6EEFC`               | Aurora base stop ~38% (ice blue)                |
+| `--base-3`      | `#F7ECF3`               | Aurora base stop ~68% (blush)                   |
+| `--base-4`      | `#FDEBDF`               | Aurora base stop 100% (apricot cream)           |
+| `--lav`         | `#CDBBFF`               | Bloom — lavender                                |
+| `--sky`         | `#AFD5FF`               | Bloom — sky                                     |
+| `--peach`       | `#FFCDB2`               | Bloom — peach/apricot                           |
+| `--rose`        | `#FFC4D6`               | Bloom — rose (optional 4th)                     |
+| `--mint`        | `#C6F0E4`               | Bloom — mint (optional, small, max 1 per slide) |
+| `--au-1`        | `#1D46B8`               | Aurora text stop — deep cobalt                  |
+| `--au-2`        | `#4A2FC0`               | Aurora text stop — deep violet                  |
+| `--au-3`        | `#9A2250`               | Aurora text stop — deep raspberry               |
+| `--glass-hi`    | `rgba(255,255,255,.62)` | Glass fill, top                                 |
+| `--glass-lo`    | `rgba(255,255,255,.30)` | Glass fill, middle                              |
+| `--glass-shade` | `rgba(70,55,140,.16)`   | Glass bottom inner edge, track fills            |
+| `--shadow`      | `rgba(86,70,170,.30)`   | Violet-tinted soft shadow under glass + phone   |
 
 Colour philosophy: the only saturated colour on the slide is the aurora-gradient word and small gradient accents inside glass (a progress fill, a ring, an icon stroke). Blooms are always pastel. No pure `#FFFFFF` backgrounds, no pure `#000` text.
 
 ## Typography
 
 **Headline (primary):**
+
 - Google Fonts: **Inter Tight 700** (preferred, closest to SF Pro Display) or **Geist 700**. Load 500/600/700.
 - Commercial alternates: SF Pro Display Bold (Apple marketing only), Söhne Halbfett, Neue Haas Grotesk Display 65.
 - 150–175px; `letter-spacing: -0.032em`; `line-height: 0.98`. Colour `--ink`.
 - Centered on hero and closer; left-aligned at a 104px margin on feature slides for rhythm.
 
 **Subhead:**
+
 - Inter Tight 500, **46–50px**, `letter-spacing: -0.012em`, `line-height: 1.28`, colour `--ink-2`.
 - One sentence, hand-broken into two balanced lines. Never a single-word widow.
 
 **Glass labels (inside cards/chips):**
+
 - Title: Inter Tight 600, 40–54px, `--ink`, tracking -0.01em.
 - Meta: Inter Tight 500, 28–36px, `--ink-2`.
 - Eyebrow (optional): Inter Tight 600, 28px, uppercase, `letter-spacing: .08em`, `--ink-2`.
@@ -89,6 +92,7 @@ Colour philosophy: the only saturated colour on the slide is the aurora-gradient
 ## Background treatment
 
 Build in this order (all `position:absolute`, inside the slide):
+
 1. **Base**: `linear-gradient(172deg, #EFE9FD 0%, #E6EEFC 38%, #F7ECF3 68%, #FDEBDF 100%)`. Rotate 170–185° per slide for variety; keep stop colours.
 2. **Blooms**: 3–5 ellipses, 800–1100px, `border-radius: 50%`, `filter: blur(140px)`, opacity .8–.95. Place one lavender top-left, one sky mid-right (behind the phone's upper half), one peach lower-left, optional rose lower-right. Blooms may bleed off-canvas by up to 40%.
 3. **Headline halo**: one white ellipse (~800×560px, opacity .55, blur 120px) behind the headline to guarantee contrast.
@@ -98,6 +102,7 @@ Build in this order (all `position:absolute`, inside the slide):
 ## Decorative accents
 
 The ONLY decorations are liquid-glass objects. **2–4 per slide.** Types:
+
 - **Glass slab** (Live Activity / notification): 900–1150px wide, 300–400px tall, radius 80–88px. App icon (128px, radius 30px) + title + meta + a gradient progress bar with a white knob.
 - **Glass pill chip**: 400–480px × 150px, radius 75px. 76–82px icon or gradient ring + two-line label.
 - **Glass panel / list**: 560–1100px wide, radius 72–88px, 3–5 rows with 2px `rgba(70,55,140,.10)` dividers.
@@ -106,16 +111,57 @@ The ONLY decorations are liquid-glass objects. **2–4 per slide.** Types:
 Glass recipe (copy exactly):
 
 ```css
-.glass{position:absolute;isolation:isolate;
-  background:linear-gradient(165deg,rgba(255,255,255,.62),rgba(255,255,255,.30) 55%,rgba(255,255,255,.40));
-  backdrop-filter:blur(34px) saturate(185%);-webkit-backdrop-filter:blur(34px) saturate(185%);
-  box-shadow:inset 0 2px 0 rgba(255,255,255,.95), inset 0 -2px 0 rgba(70,55,140,.16),
-    inset 0 0 28px rgba(255,255,255,.45), 0 40px 80px -18px rgba(86,70,170,.30), 0 10px 24px rgba(60,48,120,.12)}
-.glass::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;pointer-events:none;
-  background:linear-gradient(155deg,#fff 0%,rgba(255,255,255,.25) 32%,transparent 55%,rgba(170,150,255,.35) 85%,rgba(255,255,255,.7));
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
-.glass::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
-  background:radial-gradient(120% 70% at 30% 0%,rgba(255,255,255,.38),transparent 60%)}
+.glass {
+  position: absolute;
+  isolation: isolate;
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.62),
+    rgba(255, 255, 255, 0.3) 55%,
+    rgba(255, 255, 255, 0.4)
+  );
+  backdrop-filter: blur(34px) saturate(185%);
+  -webkit-backdrop-filter: blur(34px) saturate(185%);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -2px 0 rgba(70, 55, 140, 0.16),
+    inset 0 0 28px rgba(255, 255, 255, 0.45),
+    0 40px 80px -18px rgba(86, 70, 170, 0.3),
+    0 10px 24px rgba(60, 48, 120, 0.12);
+}
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  pointer-events: none;
+  background: linear-gradient(
+    155deg,
+    #fff 0%,
+    rgba(255, 255, 255, 0.25) 32%,
+    transparent 55%,
+    rgba(170, 150, 255, 0.35) 85%,
+    rgba(255, 255, 255, 0.7)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 70% at 30% 0%,
+    rgba(255, 255, 255, 0.38),
+    transparent 60%
+  );
+}
 ```
 
 Icons inside glass: SF-Symbols-like line icons, 4.5–5.5px stroke, round caps/joins, stroked in `--ink` or with the aurora gradient (`stroke="url(#au)"`). Never filled clip-art, never emoji.
@@ -160,6 +206,7 @@ Render the slide once with the caption hidden, sample the darkest background pix
 ## Per-slide breakdown (mandatory)
 
 ### Slide 1 — Hero (main benefit)
+
 - **Background**: base 172°; blooms lavender TL, sky mid-right, peach lower-left, rose lower-right; white halo behind headline.
 - **Headline**: centered, top 190px, 160–165px, two lines ("Every bag. / At its **peak**.").
 - **Subhead**: centered, top ~560px, 48px, two balanced lines.
@@ -169,12 +216,14 @@ Render the slide once with the caption hidden, sample the darkest background pix
 - **Avoid**: covering the screen's headline card or tab bar; a third glass element on the hero.
 
 ### Slide 2 — Differentiator
+
 - **Background**: base rotated 180°, sky bloom top-right, lavender left.
 - **Headline**: left-aligned at 104px, one line + aurora line ("Knows your **beans**.").
 - **Phone**: offset right (left 268px), width 1000px, flush bottom, showing the differentiating screen.
 - **Glass (2–3)**: a pill chip on the left edge + a round badge; optional cross-screen bloom continuing from slide 1.
 
 ### Slide 3 — Feature
+
 - **Background**: base 185°, sky TR, lavender left, peach lower-right, mint lower-left.
 - **Headline**: left-aligned, 170px ("Every pour, / **guided**."), subhead 48px two lines.
 - **Phone**: offset right, width 1000px, top 800px.
@@ -183,12 +232,14 @@ Render the slide once with the caption hidden, sample the darkest background pix
 - **Avoid**: letting the panel's edge cut through a UI label or button; resize or move the panel until labels are either fully covered or fully clear.
 
 ### Slide 4 — Feature / proof
+
 - **Background**: base 175°, peach TR, lavender lower-left.
 - **Headline**: centered ("Sleep, **on schedule**.").
 - **Phone**: centered, width 1000px.
 - **Glass (2–3)**: stat slab with one big number (Inter Tight 700, 96px) + meta; optional widget PNG set inside a glass tile.
 
 ### Slide 5 — Closer (no phone allowed)
+
 - **Background**: base 175°, blooms in all four quadrants + 2 refraction orbs crossing the panel edges.
 - **Glass icon tile**: 292px, centered, top 190px.
 - **Headline**: centered, top ~590px, 140–150px ("All your coffee. / **Beautifully** kept.").

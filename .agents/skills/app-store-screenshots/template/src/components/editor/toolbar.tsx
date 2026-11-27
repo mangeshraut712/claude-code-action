@@ -1,6 +1,16 @@
 "use client";
 import * as React from "react";
-import { AlertTriangle, Check, Cloud, Download, Redo2, RotateCcw, Undo2, UnfoldHorizontal, Upload } from "lucide-react";
+import {
+  AlertTriangle,
+  Check,
+  Cloud,
+  Download,
+  Redo2,
+  RotateCcw,
+  Undo2,
+  UnfoldHorizontal,
+  Upload,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -29,7 +39,14 @@ import {
   themeById,
 } from "@/lib/constants";
 import { detectPlatform } from "@/lib/defaults";
-import type { Device, ImportedFont, Orientation, Platform, ScreenshotFontId, Theme } from "@/lib/types";
+import type {
+  Device,
+  ImportedFont,
+  Orientation,
+  Platform,
+  ScreenshotFontId,
+  Theme,
+} from "@/lib/types";
 import { FontImporter, type FontImporterHandle } from "./font-importer";
 
 const IMPORT_FONT_ACTION = "__import-font__";
@@ -93,9 +110,13 @@ export function Toolbar(props: Props) {
     (id) => id !== "self-hosted" || !!props.importedFont,
   );
   const fontLabel = (id: ScreenshotFontId) =>
-    id === "self-hosted" && props.importedFont?.name ? props.importedFont.name : SCREENSHOT_FONTS[id].name;
+    id === "self-hosted" && props.importedFont?.name
+      ? props.importedFont.name
+      : SCREENSHOT_FONTS[id].name;
   const fontPreviewFamily = (id: ScreenshotFontId) =>
-    id === "self-hosted" ? `"${IMPORTED_FONT_FAMILY}", sans-serif` : SCREENSHOT_FONTS[id].family;
+    id === "self-hosted"
+      ? `"${IMPORTED_FONT_FAMILY}", sans-serif`
+      : SCREENSHOT_FONTS[id].family;
 
   return (
     <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 border-b bg-card/40 px-4 py-2">
@@ -129,8 +150,16 @@ export function Toolbar(props: Props) {
         {props.connectedCanvas ? "Connected" : "Isolated"}
       </Button>
 
-      <Select value={activeTheme.id} onValueChange={props.setThemeId} disabled={props.busy}>
-        <SelectTrigger className="h-8 w-40 text-xs" title="Theme" aria-label="Theme">
+      <Select
+        value={activeTheme.id}
+        onValueChange={props.setThemeId}
+        disabled={props.busy}
+      >
+        <SelectTrigger
+          className="h-8 w-40 text-xs"
+          title="Theme"
+          aria-label="Theme"
+        >
           <SelectValue>
             <ThemeOption theme={activeTheme} />
           </SelectValue>
@@ -152,15 +181,23 @@ export function Toolbar(props: Props) {
         }}
         disabled={props.busy || importingFont}
       >
-        <SelectTrigger className="h-8 w-36 text-xs" title="Screenshot font" aria-label="Screenshot font">
+        <SelectTrigger
+          className="h-8 w-36 text-xs"
+          title="Screenshot font"
+          aria-label="Screenshot font"
+        >
           <SelectValue placeholder="Font">
-            <span className="truncate">{importingFont ? "Importing font…" : fontLabel(props.fontId)}</span>
+            <span className="truncate">
+              {importingFont ? "Importing font…" : fontLabel(props.fontId)}
+            </span>
           </SelectValue>
         </SelectTrigger>
         <SelectContent>
           {fontIds.map((id) => (
             <SelectItem key={id} value={id}>
-              <span style={{ fontFamily: fontPreviewFamily(id) }}>{fontLabel(id)}</span>
+              <span style={{ fontFamily: fontPreviewFamily(id) }}>
+                {fontLabel(id)}
+              </span>
             </SelectItem>
           ))}
           <SelectSeparator />
@@ -172,7 +209,11 @@ export function Toolbar(props: Props) {
           </SelectItem>
         </SelectContent>
       </Select>
-      <FontImporter ref={fontImporter} onImported={props.setImportedFont} onUploadingChange={setImportingFont} />
+      <FontImporter
+        ref={fontImporter}
+        onImported={props.setImportedFont}
+        onUploadingChange={setImportingFont}
+      />
 
       <span aria-hidden className="mx-1 h-5 w-px bg-border" />
 
@@ -185,13 +226,25 @@ export function Toolbar(props: Props) {
         }}
       >
         <TabsList className="h-8 p-0.5">
-          <TabsTrigger value="ios" className="h-7 px-3 text-xs" disabled={props.busy}>
+          <TabsTrigger
+            value="ios"
+            className="h-7 px-3 text-xs"
+            disabled={props.busy}
+          >
             iOS
           </TabsTrigger>
-          <TabsTrigger value="macos" className="h-7 px-3 text-xs" disabled={props.busy}>
+          <TabsTrigger
+            value="macos"
+            className="h-7 px-3 text-xs"
+            disabled={props.busy}
+          >
             Mac
           </TabsTrigger>
-          <TabsTrigger value="android" className="h-7 px-3 text-xs" disabled={props.busy}>
+          <TabsTrigger
+            value="android"
+            className="h-7 px-3 text-xs"
+            disabled={props.busy}
+          >
             Android
           </TabsTrigger>
         </TabsList>
@@ -204,12 +257,18 @@ export function Toolbar(props: Props) {
           onValueChange={(v) => props.setDevice(v as Device)}
           disabled={props.busy}
         >
-          <SelectTrigger className="h-8 w-36 text-xs" aria-label="Device" title="Device">
+          <SelectTrigger
+            className="h-8 w-36 text-xs"
+            aria-label="Device"
+            title="Device"
+          >
             <SelectValue placeholder="Device">{deviceLabel}</SelectValue>
           </SelectTrigger>
           <SelectContent>
             {platformDevices.map((d) => (
-              <SelectItem key={d} value={d}>{DEVICE_LABEL[d]}</SelectItem>
+              <SelectItem key={d} value={d}>
+                {DEVICE_LABEL[d]}
+              </SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -232,7 +291,11 @@ export function Toolbar(props: Props) {
       )}
 
       {showLocale && (
-        <Select value={props.locale} onValueChange={props.setLocale} disabled={props.busy}>
+        <Select
+          value={props.locale}
+          onValueChange={props.setLocale}
+          disabled={props.busy}
+        >
           <SelectTrigger className="h-8 w-20 text-xs" aria-label="Locale">
             <SelectValue />
           </SelectTrigger>
@@ -301,11 +364,18 @@ export function Toolbar(props: Props) {
           <DialogHeader>
             <DialogTitle>Reset to defaults?</DialogTitle>
             <DialogDescription>
-              Choose whether to reset just <span className="font-medium">{deviceLabel}</span> or every device deck. Your canvas edits, uploaded screenshots, and copy will be lost.
+              Choose whether to reset just{" "}
+              <span className="font-medium">{deviceLabel}</span> or every device
+              deck. Your canvas edits, uploaded screenshots, and copy will be
+              lost.
             </DialogDescription>
           </DialogHeader>
           <div className="flex flex-wrap justify-end gap-2">
-            <Button variant="ghost" size="sm" onClick={() => setResetOpen(false)}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setResetOpen(false)}
+            >
               Cancel
             </Button>
             <Button
@@ -351,7 +421,13 @@ function ThemeOption({ theme }: { theme: Theme }) {
   );
 }
 
-function SaveStatus({ savedAt, saveError }: { savedAt: number | null; saveError: string | null }) {
+function SaveStatus({
+  savedAt,
+  saveError,
+}: {
+  savedAt: number | null;
+  saveError: string | null;
+}) {
   const [, setTick] = React.useState(0);
   React.useEffect(() => {
     const t = setInterval(() => setTick((x) => x + 1), 60_000);
@@ -371,8 +447,12 @@ function SaveStatus({ savedAt, saveError }: { savedAt: number | null; saveError:
 
   if (!savedAt) {
     return (
-      <span className="flex items-center gap-1 text-xs text-muted-foreground" title="Not saved yet">
-        <Cloud className="h-3.5 w-3.5" /> <span className="hidden 2xl:inline">not saved yet</span>
+      <span
+        className="flex items-center gap-1 text-xs text-muted-foreground"
+        title="Not saved yet"
+      >
+        <Cloud className="h-3.5 w-3.5" />{" "}
+        <span className="hidden 2xl:inline">not saved yet</span>
       </span>
     );
   }
@@ -386,8 +466,12 @@ function SaveStatus({ savedAt, saveError }: { savedAt: number | null; saveError:
           ? `saved ${Math.round(seconds / 60)}m ago`
           : `saved ${Math.round(seconds / 3600)}h ago`;
   return (
-    <span className="flex items-center gap-1 text-xs text-muted-foreground" title={`Project ${label}`}>
-      <Check className="h-3.5 w-3.5 text-green-500" /> <span className="hidden 2xl:inline">{label}</span>
+    <span
+      className="flex items-center gap-1 text-xs text-muted-foreground"
+      title={`Project ${label}`}
+    >
+      <Check className="h-3.5 w-3.5 text-green-500" />{" "}
+      <span className="hidden 2xl:inline">{label}</span>
     </span>
   );
 }

@@ -12,7 +12,13 @@ import {
   themeById,
 } from "@/lib/constants";
 import { detectPlatform, nid } from "@/lib/defaults";
-import { imageElementKey, isBuiltInElementId, isImageElementId, isTextElementId, textElementKey } from "@/lib/elements";
+import {
+  imageElementKey,
+  isBuiltInElementId,
+  isImageElementId,
+  isTextElementId,
+  textElementKey,
+} from "@/lib/elements";
 import { renderSlide } from "@/lib/export-render";
 import { exportAssetPaths } from "@/lib/export-assets";
 import { didFail, preloadImages } from "@/lib/image-cache";
@@ -36,20 +42,39 @@ import { DeckCanvas, getCanvas } from "./slide-canvas";
 import { Toolbar } from "./toolbar";
 
 export function ScreenshotEditor() {
-  const { state, setState, hydrated, savedAt, saveError, reset, resetDevice, undo, redo, canUndo, canRedo } = useProject();
+  const {
+    state,
+    setState,
+    hydrated,
+    savedAt,
+    saveError,
+    reset,
+    resetDevice,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
+  } = useProject();
   const [activeSlideId, setActiveSlideId] = React.useState<string | null>(null);
-  const [selectedElement, setSelectedElement] = React.useState<SelectedElement | null>(null);
+  const [selectedElement, setSelectedElement] =
+    React.useState<SelectedElement | null>(null);
   const [exporting, setExporting] = React.useState<string | null>(null);
   const [ready, setReady] = React.useState(false);
-  const [exportLocaleOverride, setExportLocaleOverride] = React.useState<string | null>(null);
+  const [exportLocaleOverride, setExportLocaleOverride] = React.useState<
+    string | null
+  >(null);
   const [exportSlideIndex, setExportSlideIndex] = React.useState(0);
   const exportInProgress = React.useRef(false);
-  const [exportProject, setExportProject] = React.useState<ProjectState | null>(null);
+  const [exportProject, setExportProject] = React.useState<ProjectState | null>(
+    null,
+  );
   const exportRef = React.useRef<HTMLDivElement | null>(null);
 
   const currentSlides = state.slidesByDevice[state.device] || [];
   const activeSlide =
-    currentSlides.find((s) => s.id === activeSlideId) || currentSlides[0] || null;
+    currentSlides.find((s) => s.id === activeSlideId) ||
+    currentSlides[0] ||
+    null;
   const theme = themeById(state.themeId);
   const fontId = state.fontId || DEFAULT_SCREENSHOT_FONT_ID;
   const fontFamily = SCREENSHOT_FONTS[fontId].family;
@@ -93,13 +118,15 @@ export function ScreenshotEditor() {
       for (const raw of [s.screenshot, s.screenshotSecondary]) {
         if (!raw || raw.startsWith("data:")) continue;
         if (raw.includes("{locale}")) {
-          for (const loc of state.locales) paths.add(resolveScreenshot(raw, loc));
+          for (const loc of state.locales)
+            paths.add(resolveScreenshot(raw, loc));
         } else {
           paths.add(raw);
         }
       }
       for (const imageElement of s.imageElements || []) {
-        if (imageElement.src && !imageElement.src.startsWith("data:")) paths.add(imageElement.src);
+        if (imageElement.src && !imageElement.src.startsWith("data:"))
+          paths.add(imageElement.src);
       }
     }
     return Array.from(paths).sort();
@@ -179,7 +206,10 @@ export function ScreenshotEditor() {
         const cur = prev.slidesByDevice[dev] || [];
         return {
           ...prev,
-          slidesByDevice: { ...prev.slidesByDevice, [dev]: cur.filter((s) => s.id !== id) },
+          slidesByDevice: {
+            ...prev.slidesByDevice,
+            [dev]: cur.filter((s) => s.id !== id),
+          },
         };
       });
       setActiveSlideId((cur) => (cur === id ? fallback?.id || null : cur));
@@ -235,35 +265,39 @@ export function ScreenshotEditor() {
         ...prev,
         slidesByDevice: {
           ...prev.slidesByDevice,
-          [prev.device]: (prev.slidesByDevice[prev.device] || []).map((slide) => {
-            if (slide.id !== slideId) return slide;
-            if (isTextElementId(elementId)) {
-              const textId = textElementKey(elementId);
+          [prev.device]: (prev.slidesByDevice[prev.device] || []).map(
+            (slide) => {
+              if (slide.id !== slideId) return slide;
+              if (isTextElementId(elementId)) {
+                const textId = textElementKey(elementId);
+                return {
+                  ...slide,
+                  textElements: (slide.textElements || []).map((element) =>
+                    element.id === textId ? { ...element, transform } : element,
+                  ),
+                };
+              }
+              if (isImageElementId(elementId)) {
+                const imageId = imageElementKey(elementId);
+                return {
+                  ...slide,
+                  imageElements: (slide.imageElements || []).map((element) =>
+                    element.id === imageId
+                      ? { ...element, transform }
+                      : element,
+                  ),
+                };
+              }
+              if (!isBuiltInElementId(elementId)) return slide;
               return {
                 ...slide,
-                textElements: (slide.textElements || []).map((element) =>
-                  element.id === textId ? { ...element, transform } : element,
-                ),
+                transforms: {
+                  ...(slide.transforms || {}),
+                  [elementId]: transform,
+                } as Partial<Record<BuiltInElementId, ElementTransform>>,
               };
-            }
-            if (isImageElementId(elementId)) {
-              const imageId = imageElementKey(elementId);
-              return {
-                ...slide,
-                imageElements: (slide.imageElements || []).map((element) =>
-                  element.id === imageId ? { ...element, transform } : element,
-                ),
-              };
-            }
-            if (!isBuiltInElementId(elementId)) return slide;
-            return {
-              ...slide,
-              transforms: {
-                ...(slide.transforms || {}),
-                [elementId]: transform,
-              } as Partial<Record<BuiltInElementId, ElementTransform>>,
-            };
-          }),
+            },
+          ),
         },
       }));
     },
@@ -276,17 +310,25 @@ export function ScreenshotEditor() {
         ...prev,
         slidesByDevice: {
           ...prev.slidesByDevice,
-          [prev.device]: (prev.slidesByDevice[prev.device] || []).map((slide) =>
-            slide.id === slideId
-              ? {
-                  ...slide,
-                  textElements: (slide.textElements || []).map((element) =>
-                    element.id === textId
-                      ? { ...element, text: writeLocalized(element.text, prev.locale, value) }
-                      : element,
-                  ),
-                }
-              : slide,
+          [prev.device]: (prev.slidesByDevice[prev.device] || []).map(
+            (slide) =>
+              slide.id === slideId
+                ? {
+                    ...slide,
+                    textElements: (slide.textElements || []).map((element) =>
+                      element.id === textId
+                        ? {
+                            ...element,
+                            text: writeLocalized(
+                              element.text,
+                              prev.locale,
+                              value,
+                            ),
+                          }
+                        : element,
+                    ),
+                  }
+                : slide,
           ),
         },
       }));
@@ -310,7 +352,10 @@ export function ScreenshotEditor() {
           headline: { ...src.headline },
           transforms: src.transforms
             ? Object.fromEntries(
-                Object.entries(src.transforms).map(([key, value]) => [key, { ...value }]),
+                Object.entries(src.transforms).map(([key, value]) => [
+                  key,
+                  { ...value },
+                ]),
               )
             : undefined,
           textElements: src.textElements?.map((element) => ({
@@ -319,13 +364,19 @@ export function ScreenshotEditor() {
             text: { ...element.text },
             transform: { ...element.transform },
           })),
-          imageElements: src.imageElements?.map((element): ImageElement => ({
-            ...element,
-            id: nid(),
-            transform: { ...element.transform },
-          })),
+          imageElements: src.imageElements?.map(
+            (element): ImageElement => ({
+              ...element,
+              id: nid(),
+              transform: { ...element.transform },
+            }),
+          ),
         };
-        const next = [...slides.slice(0, idx + 1), copy, ...slides.slice(idx + 1)];
+        const next = [
+          ...slides.slice(0, idx + 1),
+          copy,
+          ...slides.slice(idx + 1),
+        ];
         return {
           ...prev,
           slidesByDevice: { ...prev.slidesByDevice, [prev.device]: next },
@@ -343,20 +394,32 @@ export function ScreenshotEditor() {
       const target = e.target as HTMLElement | null;
       const inTextField = isTextEditable(target);
       const inControl =
-        inTextField || (!!target && (target.tagName === "INPUT" || target.tagName === "SELECT"));
+        inTextField ||
+        (!!target &&
+          (target.tagName === "INPUT" || target.tagName === "SELECT"));
       if (exportInProgress.current || e.defaultPrevented) return;
       // Radix menus/dialogs and dnd-kit own keyboard navigation while active.
-      if (target?.closest('[role="dialog"], [role="alertdialog"], [role="menu"], [role="listbox"], [role="combobox"], [role="tablist"], [aria-roledescription="sortable"]')) return;
+      if (
+        target?.closest(
+          '[role="dialog"], [role="alertdialog"], [role="menu"], [role="listbox"], [role="combobox"], [role="tablist"], [aria-roledescription="sortable"]',
+        )
+      )
+        return;
 
       if (e.key === "Escape") {
         setSelectedElement(null);
-        if (target && "blur" in target && typeof target.blur === "function") target.blur();
+        if (target && "blur" in target && typeof target.blur === "function")
+          target.blur();
         return;
       }
 
       // Undo/redo belongs to the text field while one is focused.
       const mod = e.metaKey || e.ctrlKey;
-      if (mod && !e.altKey && (e.key === "z" || e.key === "Z" || e.key === "y" || e.key === "Y")) {
+      if (
+        mod &&
+        !e.altKey &&
+        (e.key === "z" || e.key === "Z" || e.key === "y" || e.key === "Y")
+      ) {
         if (inTextField) return;
         e.preventDefault();
         if (e.key === "y" || e.key === "Y" || e.shiftKey) redo();
@@ -368,12 +431,20 @@ export function ScreenshotEditor() {
       if (inControl) return;
 
       if (!currentSlides.length) return;
-      const idx = activeSlide ? currentSlides.findIndex((s) => s.id === activeSlide.id) : -1;
-      if (e.key === "ArrowDown" || (e.key === "j" && !e.metaKey && !e.ctrlKey)) {
+      const idx = activeSlide
+        ? currentSlides.findIndex((s) => s.id === activeSlide.id)
+        : -1;
+      if (
+        e.key === "ArrowDown" ||
+        (e.key === "j" && !e.metaKey && !e.ctrlKey)
+      ) {
         e.preventDefault();
         const next = currentSlides[Math.min(currentSlides.length - 1, idx + 1)];
         if (next) setActiveSlideId(next.id);
-      } else if (e.key === "ArrowUp" || (e.key === "k" && !e.metaKey && !e.ctrlKey)) {
+      } else if (
+        e.key === "ArrowUp" ||
+        (e.key === "k" && !e.metaKey && !e.ctrlKey)
+      ) {
         e.preventDefault();
         const next = currentSlides[Math.max(0, idx - 1)];
         if (next) setActiveSlideId(next.id);
@@ -382,7 +453,10 @@ export function ScreenshotEditor() {
           e.preventDefault();
           duplicateSlide(activeSlide.id);
         }
-      } else if ((e.key === "Backspace" || e.key === "Delete") && (e.metaKey || e.ctrlKey)) {
+      } else if (
+        (e.key === "Backspace" || e.key === "Delete") &&
+        (e.metaKey || e.ctrlKey)
+      ) {
         if (activeSlide) {
           e.preventDefault();
           deleteSlide(activeSlide.id);
@@ -391,7 +465,15 @@ export function ScreenshotEditor() {
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [activeSlide, currentSlides, duplicateSlide, deleteSlide, exporting, undo, redo]);
+  }, [
+    activeSlide,
+    currentSlides,
+    duplicateSlide,
+    deleteSlide,
+    exporting,
+    undo,
+    redo,
+  ]);
 
   // ---------- Export ----------
 
@@ -438,13 +520,18 @@ export function ScreenshotEditor() {
     await preloadImages(exportPaths, { retryFailed: true });
     const missingPaths = exportPaths.filter(didFail);
     if (missingPaths.length) {
-      throw new Error(`Images could not be loaded: ${missingPaths.slice(0, 3).join(", ")}`);
+      throw new Error(
+        `Images could not be loaded: ${missingPaths.slice(0, 3).join(", ")}`,
+      );
     }
     await waitForPaint();
 
     const missingScreens = currentSlides
       .map((slide, index) => ({ slide, index }))
-      .filter(({ slide }) => slideNeedsScreenshot(state.device, slide) && !slide.screenshot);
+      .filter(
+        ({ slide }) =>
+          slideNeedsScreenshot(state.device, slide) && !slide.screenshot,
+      );
     const reusedBackScreens = currentSlides
       .map((slide, index) => ({ slide, index }))
       .filter(
@@ -471,14 +558,21 @@ export function ScreenshotEditor() {
 
     // Make sure custom fonts are loaded before snapshot so typography in PNG
     // matches what's on screen.
-    if (typeof document !== "undefined" && document.fonts && document.fonts.ready) {
+    if (
+      typeof document !== "undefined" &&
+      document.fonts &&
+      document.fonts.ready
+    ) {
       try {
         // fonts.ready only covers faces already requested; explicitly load an
         // imported font so a not-yet-used face can't export as the fallback.
-        if (fontId === "self-hosted") await document.fonts.load(`64px ${fontFamily}`);
+        if (fontId === "self-hosted")
+          await document.fonts.load(`64px ${fontFamily}`);
         await document.fonts.ready;
       } catch {
-        throw new Error("The screenshot font could not be loaded. Check the imported font file.");
+        throw new Error(
+          "The screenshot font could not be loaded. Check the imported font file.",
+        );
       }
     }
 
@@ -516,7 +610,8 @@ export function ScreenshotEditor() {
         let written = 0;
         try {
           const rendered = await captureSlide(el, cW, cH);
-          if (rendered.missingImages > 0) incomplete.push(`${locale} screen ${i + 1}`);
+          if (rendered.missingImages > 0)
+            incomplete.push(`${locale} screen ${i + 1}`);
           for (const size of sizes) {
             const base64 = rendered.toPng(size.w, size.h).split(",")[1] || "";
             const path = `${platform}/${state.device}/${size.w}x${size.h}/${locale}/${filename}`;
@@ -572,7 +667,11 @@ export function ScreenshotEditor() {
     }
   }
 
-  async function captureSlide(el: HTMLElement, sourceW: number, sourceH: number) {
+  async function captureSlide(
+    el: HTMLElement,
+    sourceW: number,
+    sourceH: number,
+  ) {
     // html-to-image needs the node at (0,0) and untransformed. Each export size
     // is a scaled draw of this one render, so aspect ratios that differ by a few
     // pixels are cover-scaled rather than leaving transparent gutters.
@@ -629,18 +728,28 @@ export function ScreenshotEditor() {
         themeId={state.themeId}
         setThemeId={(v) => setState((p) => ({ ...p, themeId: v }))}
         connectedCanvas={state.connectedCanvas}
-        setConnectedCanvas={(v) => setState((p) => ({ ...p, connectedCanvas: v }))}
+        setConnectedCanvas={(v) =>
+          setState((p) => ({ ...p, connectedCanvas: v }))
+        }
         fontId={fontId}
         setFontId={(v) => setState((p) => ({ ...p, fontId: v }))}
         importedFont={state.importedFont}
-        setImportedFont={(importedFont) => setState((p) => ({ ...p, fontId: "self-hosted", importedFont }))}
+        setImportedFont={(importedFont) =>
+          setState((p) => ({ ...p, fontId: "self-hosted", importedFont }))
+        }
         locale={state.locale}
-        setLocale={(v) => setState((p) => ({ ...p, locale: v }), { history: false })}
+        setLocale={(v) =>
+          setState((p) => ({ ...p, locale: v }), { history: false })
+        }
         locales={state.locales}
         device={state.device}
-        setDevice={(v) => setState((p) => ({ ...p, device: v }), { history: false })}
+        setDevice={(v) =>
+          setState((p) => ({ ...p, device: v }), { history: false })
+        }
         orientation={state.orientation}
-        setOrientation={(v) => setState((p) => ({ ...p, orientation: v }), { history: false })}
+        setOrientation={(v) =>
+          setState((p) => ({ ...p, orientation: v }), { history: false })
+        }
         onExport={exportAll}
         onResetAll={() => {
           reset();
@@ -662,7 +771,11 @@ export function ScreenshotEditor() {
         busy={busy}
       />
 
-      <div inert={busy} aria-busy={busy} className="flex flex-1 overflow-hidden md:flex-row flex-col">
+      <div
+        inert={busy}
+        aria-busy={busy}
+        className="flex flex-1 overflow-hidden md:flex-row flex-col"
+      >
         <aside className="md:w-72 w-full shrink-0 border-r bg-card md:max-h-none max-h-64 overflow-hidden">
           <Sidebar
             slides={currentSlides}
@@ -700,7 +813,9 @@ export function ScreenshotEditor() {
               selectedElement={selectedElement}
               onActiveSlideChange={setActiveSlideId}
               onLabelChange={(slide, v) => patchLocalized(slide, "label", v)}
-              onHeadlineChange={(slide, v) => patchLocalized(slide, "headline", v)}
+              onHeadlineChange={(slide, v) =>
+                patchLocalized(slide, "headline", v)
+              }
               onTextElementTextChange={patchTextElementText}
               onElementChange={patchElementTransform}
               onSelectElement={setSelectedElement}
@@ -723,7 +838,9 @@ export function ScreenshotEditor() {
               theme={theme}
               locale={state.locale}
               selectedElementId={
-                selectedElement?.slideId === activeSlide.id ? selectedElement.elementId : null
+                selectedElement?.slideId === activeSlide.id
+                  ? selectedElement.elementId
+                  : null
               }
               onChange={(patch) => patchSlide(activeSlide.id, patch)}
               onUpdate={(update) => updateSlide(activeSlide.id, update)}
@@ -736,7 +853,9 @@ export function ScreenshotEditor() {
           ) : (
             <div className="flex h-full flex-col items-center justify-center gap-2 p-6 text-center text-sm text-muted-foreground">
               <p className="font-medium text-foreground">Nothing to inspect</p>
-              <p className="text-xs">Screen settings will appear here once you add or select one.</p>
+              <p className="text-xs">
+                Screen settings will appear here once you add or select one.
+              </p>
             </div>
           )}
         </aside>
@@ -781,7 +900,11 @@ export function ScreenshotEditor() {
                 locale={exportLocaleOverride ?? exportState.locale}
                 appName={exportState.appName}
                 appIcon={exportState.appIcon}
-                fontFamily={SCREENSHOT_FONTS[exportState.fontId || DEFAULT_SCREENSHOT_FONT_ID].family}
+                fontFamily={
+                  SCREENSHOT_FONTS[
+                    exportState.fontId || DEFAULT_SCREENSHOT_FONT_ID
+                  ].family
+                }
                 connectedCanvas={exportState.connectedCanvas}
                 hideEmpty
               />
@@ -796,12 +919,27 @@ export function ScreenshotEditor() {
 // Text fields and contenteditable text keep their native undo/redo, selection,
 // and deletion. Sliders, colour pickers, checkboxes and buttons have no text
 // history of their own, so the editor's shortcuts still apply while they're focused.
-const NON_TEXT_INPUT_TYPES = new Set(["range", "color", "checkbox", "radio", "button", "submit", "reset", "file"]);
+const NON_TEXT_INPUT_TYPES = new Set([
+  "range",
+  "color",
+  "checkbox",
+  "radio",
+  "button",
+  "submit",
+  "reset",
+  "file",
+]);
 
 function isTextEditable(target: HTMLElement | null) {
   if (!target) return false;
-  if (target.isContentEditable || target.tagName === "TEXTAREA" || target.tagName === "SELECT") return true;
-  if (target.tagName === "INPUT") return !NON_TEXT_INPUT_TYPES.has((target as HTMLInputElement).type);
+  if (
+    target.isContentEditable ||
+    target.tagName === "TEXTAREA" ||
+    target.tagName === "SELECT"
+  )
+    return true;
+  if (target.tagName === "INPUT")
+    return !NON_TEXT_INPUT_TYPES.has((target as HTMLInputElement).type);
   return false;
 }
 

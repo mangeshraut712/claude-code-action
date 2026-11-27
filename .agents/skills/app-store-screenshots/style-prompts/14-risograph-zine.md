@@ -29,34 +29,35 @@ This is the flyer stapled to the record-shop corkboard, the zine at the café ti
 
 ## Global palette
 
-| Token | Hex | Use |
-|---|---|---|
-| `--paper` | `#F4F0E6` | Slide background (newsprint), knockout letters, tab stock |
-| `--paper-shade` | `#E6DFCF` | Fibre tint (never a flat fill) |
-| `--pink` | `#FF48B0` | Ink 1 (Riso "Fluorescent Pink"): misreg plates, halftones, arrows, stars. **Never text on paper** |
-| `--blue` | `#3255A4` | Ink 2 (Riso "Medium Blue"): key plate for ALL text on paper, floods, knockout blocks, stamps |
-| `--violet` | `#321871` | Overprint pink × blue (multiply result, not painted). Reads as the "type colour" |
-| `--yellow` | `#FFE800` | Optional ink 3: ticket stock, one swatch, one halftone. Never a slide bg |
-| `--olive` | `#324D00` | Overprint blue × yellow (text printed on tickets) |
-| `--red` | `#FF4100` | Overprint pink × yellow (halftone on ticket stubs) |
-| `--shadow-tint` | `rgba(50,24,113,.30)` | Contact shadow under phone, tickets and staples |
-| `--staple` | `#F2F3F5 → #B9BEC6 → #6E747D` | Staple gradient (the only non-ink colour, 96×22px) |
+| Token           | Hex                           | Use                                                                                               |
+| --------------- | ----------------------------- | ------------------------------------------------------------------------------------------------- |
+| `--paper`       | `#F4F0E6`                     | Slide background (newsprint), knockout letters, tab stock                                         |
+| `--paper-shade` | `#E6DFCF`                     | Fibre tint (never a flat fill)                                                                    |
+| `--pink`        | `#FF48B0`                     | Ink 1 (Riso "Fluorescent Pink"): misreg plates, halftones, arrows, stars. **Never text on paper** |
+| `--blue`        | `#3255A4`                     | Ink 2 (Riso "Medium Blue"): key plate for ALL text on paper, floods, knockout blocks, stamps      |
+| `--violet`      | `#321871`                     | Overprint pink × blue (multiply result, not painted). Reads as the "type colour"                  |
+| `--yellow`      | `#FFE800`                     | Optional ink 3: ticket stock, one swatch, one halftone. Never a slide bg                          |
+| `--olive`       | `#324D00`                     | Overprint blue × yellow (text printed on tickets)                                                 |
+| `--red`         | `#FF4100`                     | Overprint pink × yellow (halftone on ticket stubs)                                                |
+| `--shadow-tint` | `rgba(50,24,113,.30)`         | Contact shadow under phone, tickets and staples                                                   |
+| `--staple`      | `#F2F3F5 → #B9BEC6 → #6E747D` | Staple gradient (the only non-ink colour, 96×22px)                                                |
 
 **Measured contrast (WCAG):** blue/paper 6.21 · violet/paper 12.26 · paper/blue 6.21 · olive/yellow 7.64 · blue/yellow 5.65 · pink/paper **2.71 (decoration only)** · blue/pink **2.29 (never text on pink)**.
 
 **Alternate ink sets** (swap both plates together; the key plate must always be ≥ 4.5:1 on paper):
 
-| Set | Key plate (type) | Accent plate | Overprint | Best for |
-|---|---|---|---|---|
-| A (default) | Medium Blue `#3255A4` | Fluoro Pink `#FF48B0` | `#321871` | music, events, social, creative tools |
-| B | Federal Blue `#3D5588` (6.5:1) | Yellow `#FFE800` | `#3D4D00` | bookstores, cafés, libraries |
-| C | Federal Blue `#3D5588` | Bright Red `#F15060` | `#391A33` | news, podcasts, sports clubs |
-| D | Burgundy `#914E72` (5.2:1) | Green `#00A95C` | `#003329` | plants, farmers markets, local community |
-| E | Midnight `#435060` (7.2:1) | Fluoro Orange `#FF7477` | `#43242C` | food trucks, zines, maker tools |
+| Set         | Key plate (type)               | Accent plate            | Overprint | Best for                                 |
+| ----------- | ------------------------------ | ----------------------- | --------- | ---------------------------------------- |
+| A (default) | Medium Blue `#3255A4`          | Fluoro Pink `#FF48B0`   | `#321871` | music, events, social, creative tools    |
+| B           | Federal Blue `#3D5588` (6.5:1) | Yellow `#FFE800`        | `#3D4D00` | bookstores, cafés, libraries             |
+| C           | Federal Blue `#3D5588`         | Bright Red `#F15060`    | `#391A33` | news, podcasts, sports clubs             |
+| D           | Burgundy `#914E72` (5.2:1)     | Green `#00A95C`         | `#003329` | plants, farmers markets, local community |
+| E           | Midnight `#435060` (7.2:1)     | Fluoro Orange `#FF7477` | `#43242C` | food trucks, zines, maker tools          |
 
 ## Typography
 
 **Display (headlines, spine words, lineups):** **Anton** 400 (Google). It is condensed and heavy, and it holds up when misregistered. Always `text-transform: uppercase`.
+
 - Phone slides: 240–280px. Flood slides: 300–340px. Spine words: 180–220px. Lineup rows: 150–200px.
 - `line-height: .9` (knockout blocks use `.86`), `letter-spacing: -0.005em`, `white-space: nowrap` per line, lines broken by hand.
 - Fit rule: Anton caps average ≈ 0.42em. Width ≈ chars × 0.42 × size. Keep it ≤ 1160px, e.g. 272px → at most 10 characters per line.
@@ -64,6 +65,7 @@ This is the flyer stapled to the record-shop corkboard, the zine at the café ti
 - Commercial alternates: **Knockout** (H&Co), **Druk Condensed Super**, **Tungsten Black**, **GT America Compressed Black**.
 
 **Utility (subheads, header strip, descriptors, tabs):** **Archivo** (variable: `wdth` 62–125, `wght` 100–900).
+
 - Subhead: 600, 44px/1.18, `-0.005em`, blue, multiply, ≤ 2 lines, max width 820px.
 - Header strip and ticket caps: `wdth` 125, 800, 30px, uppercase, `letter-spacing: .08em` (ticket line: `wdth` 100, 23px, `.1em`).
 - Flood kicker ("BLOOM PRESENTS"): `wdth` 125, 800, 36–40px, `letter-spacing: .14–.3em`.
@@ -71,15 +73,28 @@ This is the flyer stapled to the record-shop corkboard, the zine at the café ti
 - Commercial alternates: **GT America Extended**, **Monument Extended**, **Söhne Breit**.
 
 ```html
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@62..125,100..900&display=block" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wdth,wght@62..125,100..900&display=block"
+  rel="stylesheet"
+/>
 ```
 
 ```ts
 // template/src/app/layout.tsx
 import { Anton, Archivo } from "next/font/google";
-const display = Anton({ subsets: ["latin"], weight: "400", display: "block", variable: "--font-display" });
-const ui = Archivo({ subsets: ["latin"], axes: ["wdth"], display: "block", variable: "--font-ui" });
+const display = Anton({
+  subsets: ["latin"],
+  weight: "400",
+  display: "block",
+  variable: "--font-display",
+});
+const ui = Archivo({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  display: "block",
+  variable: "--font-ui",
+});
 // <body className={`${display.variable} ${ui.variable}`}>
 ```
 
@@ -89,23 +104,56 @@ Build every headline as two ink plates, then put one word inside a knockout bloc
 
 ```html
 <!-- plate 1 (pink, behind) + plate 2 (blue key). Both multiply, both ink-filtered -->
-<div class="plate ink anton" style="left:73px;top:167px;font-size:272px;color:#FF48B0;rotate:.35deg">DON’T MISS</div>
-<div class="plate ink anton" style="left:64px;top:160px;font-size:272px;color:#3255A4">DON’T MISS</div>
+<div
+  class="plate ink anton"
+  style="left:73px;top:167px;font-size:272px;color:#FF48B0;rotate:.35deg"
+>
+  DON’T MISS
+</div>
+<div
+  class="plate ink anton"
+  style="left:64px;top:160px;font-size:272px;color:#3255A4"
+>
+  DON’T MISS
+</div>
 <!-- knockout word: blue block over a misregistered pink block, paper-coloured letters -->
 <div style="position:absolute;left:432px;top:426px;transform:rotate(-1.5deg)">
-  <div class="plate ink" style="inset:0;background:#FF48B0;transform:translate(-12px,10px) rotate(.7deg)"></div>
-  <div class="plate" style="inset:0;background:#3255A4;filter:url(#flood)"></div>
-  <div class="anton" style="position:relative;font-size:262px;line-height:.86;padding:34px 26px 30px 34px;color:#F4F0E6">PEAK.</div>
+  <div
+    class="plate ink"
+    style="inset:0;background:#FF48B0;transform:translate(-12px,10px) rotate(.7deg)"
+  ></div>
+  <div
+    class="plate"
+    style="inset:0;background:#3255A4;filter:url(#flood)"
+  ></div>
+  <div
+    class="anton"
+    style="position:relative;font-size:262px;line-height:.86;padding:34px 26px 30px 34px;color:#F4F0E6"
+  >
+    PEAK.
+  </div>
 </div>
 ```
 
 ```css
-.plate{position:absolute;mix-blend-mode:multiply;white-space:nowrap}
-.ink{filter:url(#riso)}
-.anton{font-family:var(--font-display),'Anton',sans-serif;text-transform:uppercase;line-height:.9;letter-spacing:-.005em}
+.plate {
+  position: absolute;
+  mix-blend-mode: multiply;
+  white-space: nowrap;
+}
+.ink {
+  filter: url(#riso);
+}
+.anton {
+  font-family: var(--font-display), "Anton", sans-serif;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.005em;
+}
 ```
 
 Rules:
+
 - The knockout word is the payoff: the benefit noun ("PEAK."), the number ("ZERO"), or the verb. Keep it to 1 word, 4–6 letters where possible.
 - Rotate the block −1.5° to +1.5°. Its pink plate shifts in the opposite direction (−12px, +10px), so two sides show a pink fringe.
 - Leave a gap of ≥ 14px between the block (including its pink fringe) and any neighbouring glyphs.
@@ -115,18 +163,65 @@ Rules:
 
 ```html
 <svg width="0" height="0" style="position:absolute">
- <filter id="riso" x="-3%" y="-3%" width="106%" height="106%" color-interpolation-filters="sRGB">
-  <feTurbulence type="fractalNoise" baseFrequency=".55" numOctaves="2" seed="4" result="fine"/>
-  <feColorMatrix in="fine" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -10 7.6" result="speck"/>
-  <feTurbulence type="fractalNoise" baseFrequency=".006" numOctaves="3" seed="9" result="coarse"/>
-  <feColorMatrix in="coarse" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -.5 1.24" result="cover"/>
-  <feComposite in="speck" in2="cover" operator="arithmetic" k1="1" result="mask"/>
-  <feComposite in="SourceGraphic" in2="mask" operator="in" result="inked"/>
-  <feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="2" result="warp"/>
-  <feDisplacementMap in="inked" in2="warp" scale="4" xChannelSelector="R" yChannelSelector="G"/>
- </filter>
- <!-- #flood = same as #riso but cover matrix "-.3 1.13" (coverage .94–1.0, keeps knockout text ≥ 4.5:1) -->
- <!-- #stamp = one turbulence .09/3 octaves/seed 21, alpha "-8 5.75", displacement .07 scale 6 -->
+  <filter
+    id="riso"
+    x="-3%"
+    y="-3%"
+    width="106%"
+    height="106%"
+    color-interpolation-filters="sRGB"
+  >
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency=".55"
+      numOctaves="2"
+      seed="4"
+      result="fine"
+    />
+    <feColorMatrix
+      in="fine"
+      type="matrix"
+      values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -10 7.6"
+      result="speck"
+    />
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency=".006"
+      numOctaves="3"
+      seed="9"
+      result="coarse"
+    />
+    <feColorMatrix
+      in="coarse"
+      type="matrix"
+      values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -.5 1.24"
+      result="cover"
+    />
+    <feComposite
+      in="speck"
+      in2="cover"
+      operator="arithmetic"
+      k1="1"
+      result="mask"
+    />
+    <feComposite in="SourceGraphic" in2="mask" operator="in" result="inked" />
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency=".045"
+      numOctaves="2"
+      seed="2"
+      result="warp"
+    />
+    <feDisplacementMap
+      in="inked"
+      in2="warp"
+      scale="4"
+      xChannelSelector="R"
+      yChannelSelector="G"
+    />
+  </filter>
+  <!-- #flood = same as #riso but cover matrix "-.3 1.13" (coverage .94–1.0, keeps knockout text ≥ 4.5:1) -->
+  <!-- #stamp = one turbulence .09/3 octaves/seed 21, alpha "-8 5.75", displacement .07 scale 6 -->
 </svg>
 ```
 
@@ -141,9 +236,25 @@ Rules:
 - Decorations may overlap the bezel by ≤ 60px. They may overlap the screen only at the outer 50px margin over non-UI pixels.
 
 ```html
-<svg class="plate ink" style="left:0;top:0;clip-path:url(#phShadow)" width="1320" height="2868"><!-- generated dots --></svg>
-<svg width="0" height="0"><clipPath id="phShadow"><rect x="218" y="920" width="1000" height="2037" rx="155"/></clipPath></svg>
-<div class="phone" style="left:262px;top:880px;width:1000px;filter:drop-shadow(0 4px 5px rgba(50,24,113,.30)) drop-shadow(0 18px 24px rgba(50,24,113,.10))">…</div>
+<svg
+  class="plate ink"
+  style="left:0;top:0;clip-path:url(#phShadow)"
+  width="1320"
+  height="2868"
+>
+  <!-- generated dots -->
+</svg>
+<svg width="0" height="0">
+  <clipPath id="phShadow">
+    <rect x="218" y="920" width="1000" height="2037" rx="155" />
+  </clipPath>
+</svg>
+<div
+  class="phone"
+  style="left:262px;top:880px;width:1000px;filter:drop-shadow(0 4px 5px rgba(50,24,113,.30)) drop-shadow(0 18px 24px rgba(50,24,113,.10))"
+>
+  …
+</div>
 ```
 
 ## Background treatment
@@ -152,9 +263,15 @@ Rules:
 2. **Fibre and flecks** (one div, `mix-blend-mode: multiply`, `inset: 0`). Maximum darkening is 14%, which keeps the worst pixel under blue text ≥ 4.8:1:
 
 ```css
-.fibre{position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;background-image:
- url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.025 .06' numOctaves='3' seed='5'/><feColorMatrix values='0 0 0 0 .62 0 0 0 0 .57 0 0 0 0 .48 0 0 0 1.6 -.72'/></filter><rect width='100%' height='100%' filter='url(%23f)' opacity='.16'/></svg>"),
- url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='500'><filter id='k'><feTurbulence type='fractalNoise' baseFrequency='.45' seed='11'/><feColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .44 0 0 0 14 -10.3'/></filter><rect width='100%' height='100%' filter='url(%23k)' opacity='.4'/></svg>")}
+.fibre {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='.025 .06' numOctaves='3' seed='5'/><feColorMatrix values='0 0 0 0 .62 0 0 0 0 .57 0 0 0 0 .48 0 0 0 1.6 -.72'/></filter><rect width='100%' height='100%' filter='url(%23f)' opacity='.16'/></svg>"),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='500'><filter id='k'><feTurbulence type='fractalNoise' baseFrequency='.45' seed='11'/><feColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .44 0 0 0 14 -10.3'/></filter><rect width='100%' height='100%' filter='url(%23k)' opacity='.4'/></svg>");
+}
 ```
 
 3. **Grain:** the shared `.grain` overlay at `opacity: .10` (overlay blend), placed last in the stack.
@@ -162,22 +279,70 @@ Rules:
 
 ```tsx
 // Halftone.tsx: true AM screen, dot area ∝ tone
-export function Halftone({ w, h, cell = 22, angle = 15, color, coverage, gain = 1.12 }:
-  { w: number; h: number; cell?: number; angle?: number; color: string; coverage: (x: number, y: number) => number; gain?: number }) {
-  const a = (angle * Math.PI) / 180, cx = w / 2, cy = h / 2, n = Math.ceil(Math.hypot(w, h) / 2 / cell) + 2;
+export function Halftone({
+  w,
+  h,
+  cell = 22,
+  angle = 15,
+  color,
+  coverage,
+  gain = 1.12,
+}: {
+  w: number;
+  h: number;
+  cell?: number;
+  angle?: number;
+  color: string;
+  coverage: (x: number, y: number) => number;
+  gain?: number;
+}) {
+  const a = (angle * Math.PI) / 180,
+    cx = w / 2,
+    cy = h / 2,
+    n = Math.ceil(Math.hypot(w, h) / 2 / cell) + 2;
   const dots: JSX.Element[] = [];
-  for (let i = -n; i <= n; i++) for (let j = -n; j <= n; j++) {
-    const u = i * cell, v = j * cell;
-    const x = cx + u * Math.cos(a) - v * Math.sin(a), y = cy + u * Math.sin(a) + v * Math.cos(a);
-    if (x < -cell || y < -cell || x > w + cell || y > h + cell) continue;
-    const c = Math.min(1, coverage(x, y)); if (c <= 0.005) continue;
-    const r = cell * Math.sqrt(c / Math.PI) * gain; if (r < 1.1) continue;
-    dots.push(<circle key={`${i}.${j}`} cx={x.toFixed(1)} cy={y.toFixed(1)} r={r.toFixed(1)} />);
-  }
-  return <svg width={w} height={h} style={{ position: "absolute", left: 0, top: 0, mixBlendMode: "multiply", filter: "url(#riso)" }}><g fill={color}>{dots}</g></svg>;
+  for (let i = -n; i <= n; i++)
+    for (let j = -n; j <= n; j++) {
+      const u = i * cell,
+        v = j * cell;
+      const x = cx + u * Math.cos(a) - v * Math.sin(a),
+        y = cy + u * Math.sin(a) + v * Math.cos(a);
+      if (x < -cell || y < -cell || x > w + cell || y > h + cell) continue;
+      const c = Math.min(1, coverage(x, y));
+      if (c <= 0.005) continue;
+      const r = cell * Math.sqrt(c / Math.PI) * gain;
+      if (r < 1.1) continue;
+      dots.push(
+        <circle
+          key={`${i}.${j}`}
+          cx={x.toFixed(1)}
+          cy={y.toFixed(1)}
+          r={r.toFixed(1)}
+        />,
+      );
+    }
+  return (
+    <svg
+      width={w}
+      height={h}
+      style={{
+        position: "absolute",
+        left: 0,
+        top: 0,
+        mixBlendMode: "multiply",
+        filter: "url(#riso)",
+      }}
+    >
+      <g fill={color}>{dots}</g>
+    </svg>
+  );
 }
-export const disc = (cx: number, cy: number, R: number, gamma = 0.85, peak = 1) =>
-  (x: number, y: number) => { const d = Math.hypot(x - cx, y - cy) / R; return d >= 1 ? 0 : peak * (1 - d) ** gamma; };
+export const disc =
+  (cx: number, cy: number, R: number, gamma = 0.85, peak = 1) =>
+  (x: number, y: number) => {
+    const d = Math.hypot(x - cx, y - cy) / R;
+    return d >= 1 ? 0 : peak * (1 - d) ** gamma;
+  };
 ```
 
 For a flat tint, an SVG `<pattern>` is fine: `<pattern id="tint" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(15)"><circle cx="9" cy="9" r="6.4" fill="#3255A4"/></pattern>`. That is 40% coverage.
@@ -188,17 +353,17 @@ For a flat tint, an SVG `<pattern>` is fine: `<pattern id="tint" width="18" heig
 
 Density is **4–7 per slide**. Count each halftone field, ticket, stamp, arrow, registration mark, colour bar and star cluster as one item. At least one must be a halftone field. At least one may be physical (ticket and staple).
 
-| Accent | Size on 1320×2868 | Build | Placement |
-|---|---|---|---|
-| **Halftone sun / field** | R 340–600 | `Halftone` + `disc`, pink 75° or blue 15° | Behind the phone, spilling ≥ 120px into a margin |
-| **Stapled ticket stub** | 540–600 × 200–220 | Yellow stock, 24px notches, pink dot stub at 14px pitch (reads red-orange), perforation `stroke-dasharray: 2 12` in paper colour, "ADMIT ONE" Anton 84px, serial Anton 44px rotated ±90°, staple 96×22 | Rotate 5–12° or −78° (vertical, in a side margin). Needs a contact shadow `drop-shadow(0 3px 3px rgba(50,24,113,.28)) drop-shadow(0 14px 18px rgba(50,24,113,.14))` |
-| **Hand stamp** | 210–250px circle | 8px outer ring + 4px inner ring, `textPath` label Archivo `wdth` 125 800 21px `.2em`, "Nº" 20px + number Anton 92px, `#stamp` filter, blue (paper-coloured on floods, normal blend) | Rotate −14° to +10°, beside the headline or near a corner. Never on screen UI |
-| **Cut-paper arrow** | 300–310px long (polygon `4,58 262,40 250,2 408,86 246,176 258,128 10,136` at scale .6–.76) | Blue fill with a misregistered pink copy (+9, +8, 0.8°), or pink fill with blue halftone in the lower half | In a margin, tip touching the bezel and pointing at the key UI line |
-| **Registration mark** | 80–92px | Circle r 24 plus a 92px cross, two opposite quadrants filled. Drawn twice (pink offset +4/−3, then blue) | One corner per slide at most |
-| **Ink swatch bar** | 4 × 56px squares | pink, blue, pink+blue overprint, yellow | Bottom-left under the subhead, feature slides only |
-| **Lineup stars** | r 30–44 | 8-point star, inner radius 46%, pink, `#riso` | Between lineup words only |
+| Accent                   | Size on 1320×2868                                                                          | Build                                                                                                                                                                                                  | Placement                                                                                                                                                           |
+| ------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Halftone sun / field** | R 340–600                                                                                  | `Halftone` + `disc`, pink 75° or blue 15°                                                                                                                                                              | Behind the phone, spilling ≥ 120px into a margin                                                                                                                    |
+| **Stapled ticket stub**  | 540–600 × 200–220                                                                          | Yellow stock, 24px notches, pink dot stub at 14px pitch (reads red-orange), perforation `stroke-dasharray: 2 12` in paper colour, "ADMIT ONE" Anton 84px, serial Anton 44px rotated ±90°, staple 96×22 | Rotate 5–12° or −78° (vertical, in a side margin). Needs a contact shadow `drop-shadow(0 3px 3px rgba(50,24,113,.28)) drop-shadow(0 14px 18px rgba(50,24,113,.14))` |
+| **Hand stamp**           | 210–250px circle                                                                           | 8px outer ring + 4px inner ring, `textPath` label Archivo `wdth` 125 800 21px `.2em`, "Nº" 20px + number Anton 92px, `#stamp` filter, blue (paper-coloured on floods, normal blend)                    | Rotate −14° to +10°, beside the headline or near a corner. Never on screen UI                                                                                       |
+| **Cut-paper arrow**      | 300–310px long (polygon `4,58 262,40 250,2 408,86 246,176 258,128 10,136` at scale .6–.76) | Blue fill with a misregistered pink copy (+9, +8, 0.8°), or pink fill with blue halftone in the lower half                                                                                             | In a margin, tip touching the bezel and pointing at the key UI line                                                                                                 |
+| **Registration mark**    | 80–92px                                                                                    | Circle r 24 plus a 92px cross, two opposite quadrants filled. Drawn twice (pink offset +4/−3, then blue)                                                                                               | One corner per slide at most                                                                                                                                        |
+| **Ink swatch bar**       | 4 × 56px squares                                                                           | pink, blue, pink+blue overprint, yellow                                                                                                                                                                | Bottom-left under the subhead, feature slides only                                                                                                                  |
+| **Lineup stars**         | r 30–44                                                                                    | 8-point star, inner radius 46%, pink, `#riso`                                                                                                                                                          | Between lineup words only                                                                                                                                           |
 
-Polish gates (_QUALITY_BAR §3) are met through: overprint tones (≥ 2 fills), halftone and speckle texture, contact shadows on physical items, and misregistered contour offsets as the volume cue. **Never** draw clip-art coffee cups, vinyl records or microphones. If you need an object, render a halftone photo silhouette or cut it.
+Polish gates (\_QUALITY_BAR §3) are met through: overprint tones (≥ 2 fills), halftone and speckle texture, contact shadows on physical items, and misregistered contour offsets as the volume cue. **Never** draw clip-art coffee cups, vinyl records or microphones. If you need an object, render a halftone photo silhouette or cut it.
 
 ## Cross-screen moment
 
@@ -216,6 +381,7 @@ Flyer voice. Short, loud, capitalised, a bit cheeky. Write it like a gig poster,
 - **Banned words:** revolutionary, seamless, game-changing, unleash, elevate, effortless, next-level, supercharge, AI-powered (as the headline), "the ultimate", emoji, hashtags, "!!".
 
 Example headlines:
+
 1. Coffee: "DON'T MISS / THE [PEAK]."
 2. Coffee timer: "FOUR POURS. / [ZERO] MATH."
 3. Music / DJ: "EVERY SET. / [LIVE]."
@@ -246,6 +412,7 @@ All values are px on 1320×2868.
 ## Per-slide breakdown (mandatory)
 
 ### Slide 1: Hero ("DON'T MISS THE PEAK.")
+
 - **Background:** paper + fibre + grain. Pink halftone sun `disc(230, 1440, 540, .85)`, cell 22, 75°.
 - **Header:** icon at (72, 64) 76px. "BLOOM · THE FRESHNESS ISSUE" at (170, 84), Archivo `wdth` 125 800 30px blue. Registration mark at (1180, 58).
 - **Headline:** "DON'T MISS" Anton 272px at (64, 160). "THE" at (64, 432). Knockout "PEAK." 262px at (432, 426), rotated −1.5°. Measured widest line 1138px (86%).
@@ -255,6 +422,7 @@ All values are px on 1320×2868.
 - **Must be true:** the knockout word is the brightest thing on the slide at 220px wide, and the pink ghost is visible on every headline letter.
 
 ### Slide 2: Differentiator (flood + phone)
+
 - **Background:** blue flood `y 0–1180` with a pink under-strip and a violet overprint band. Pink halftone sun `disc(1040, 420, 520)` overprints the flood as violet dots.
 - **Headline:** all knockout (paper). Kicker "ONLY ON BLOOM" Archivo `wdth` 125 38px at (72, 110). "EVERY BAG / GETS A / COUNTDOWN." Anton 250px at (64, 180), 3 lines, widest ≤ 1160px.
 - **Phone:** 1020px centred at (150, 930), 0°, bottom bleed 130px, crossing the flood edge so its top third sits on blue. Pink halftone shadow at (+46, +42).
@@ -262,6 +430,7 @@ All values are px on 1320×2868.
 - **Must be true:** the phone bezel reads cleanly against both the blue flood and the paper, and the phone never carries misregistration itself.
 
 ### Slide 3: Feature ("FOUR POURS. ZERO MATH.")
+
 - **Background:** paper. Pink halftone `disc(1236, 1640, 340)` bottom-right behind the phone. Blue `disc(−40, 120, 520, 1, .9)` top-left corner.
 - **Phone:** 1050px at (62, −168), −2°, top bleed. Pink halftone shadow at (−44, +34). Visible 69.4%.
 - **Spine word:** "BREW TIMER" Anton 200px, two plates, rotated 90° at left 1306, top 170 (reads top-to-bottom in `x 1126–1306`).
@@ -270,6 +439,7 @@ All values are px on 1320×2868.
 - **Must be true:** the right margin is clean paper behind the spine word, and no halftone dot sits under any headline glyph.
 
 ### Slide 4: Feature ("BIG NUMBER")
+
 - **Background:** paper. A giant numeral ("128", "19", "8") in Anton 900–1100px, rendered as a **pink halftone** (text used as a `clipPath` over a 75° tint at 60%) with a blue outline plate (4px stroke, offset +10/+8). It sits at the left, partly behind the phone.
 - **Headline:** top, 2 lines: "128 MG. / BED BY [10]." 250px at (64, 150).
 - **Phone:** 1000px at (300, 900), +3°, bottom bleed. Blue halftone shadow at (−46, +40).
@@ -277,6 +447,7 @@ All values are px on 1320×2868.
 - **Must be true:** the halftone numeral is still legible as a number at 220px wide and never passes under headline letters.
 
 ### Slide 5: Proof / ecosystem ("LIVE ON YOUR HOME SCREEN")
+
 - **Background:** paper. A blue halftone sweep from the bottom-left corner (`coverage = 1 − distance/1400`).
 - **Headline:** "LIVE ON / YOUR [HOME] SCREEN." 240px at (64, 150). Subhead lists the surfaces.
 - **Phone:** 1000px at (160, 900), 0°, showing the widgets or lock-screen screenshot.
@@ -284,6 +455,7 @@ All values are px on 1320×2868.
 - **Must be true:** proof numbers are real, and every stapled card keeps its original colours (no multiply on UI images).
 
 ### Slide 6: Closer (lineup poster, no phone)
+
 - **Background:** blue flood `y 0–1420` + pink strip at `y 1390–1434` + pink halftone `disc(1010, 560, 600, .8)` at 24px/75°. Paper below.
 - **Knockout type:** "BLOOM PRESENTS" 40px `.3em` at (72, 110). "SIX ACTS. / ONE CUP." Anton 334px at (64, 190), widest 1138px. "LIVE ON YOUR PHONE — EVERY MORNING" 36px at (72, 850).
 - **Flood accents:** stamp "03" 250px (paper-coloured) at (96, 1030), −10°. Ticket 580×220 at (620, 1060), +7°, "ADMIT ONE / DOORS 6AM · ALL AGES".
@@ -293,15 +465,15 @@ All values are px on 1320×2868.
 
 ## Adapting to other app categories
 
-| Category | Ink set | Motif swap | Copy angle |
-|---|---|---|---|
-| Music, DJ, gig listings | A | Halftone sun becomes halftone waveform bars. Ticket = "ADMIT ONE" | "EVERY SET. LIVE." |
-| Podcasts | C | Stamp = episode number. Spine word "SIDE A / SIDE B" | "NEW EPISODE. EVERY TUESDAY." |
-| Events, ticketing | A | 2 tickets allowed on the proof slide. Tear-off tabs = RSVP | "DOORS AT 8. YOU'RE IN." |
-| Bookstores, libraries, cafés | B | Halftone book-spine stripes. Stamp = "DUE BACK" date | "READ THE ZINE FIRST." |
-| Indie creative tools (design, print, music-making) | A or E | Swatch bar on every slide. Registration marks in 2 corners | "PRINT IT. LOUD." |
-| Local community, markets, clubs | D | Pinned-flyer tear-off tabs on the closer. Arrow points to the map pin | "YOUR BLOCK. YOUR BOARD." |
-| Food trucks, zines, makers | E | Ticket = order number. Halftone photo silhouette of the product | "FRESH ROAST. LOUD FLAVOR. EVERY WEEK." |
+| Category                                           | Ink set | Motif swap                                                            | Copy angle                              |
+| -------------------------------------------------- | ------- | --------------------------------------------------------------------- | --------------------------------------- |
+| Music, DJ, gig listings                            | A       | Halftone sun becomes halftone waveform bars. Ticket = "ADMIT ONE"     | "EVERY SET. LIVE."                      |
+| Podcasts                                           | C       | Stamp = episode number. Spine word "SIDE A / SIDE B"                  | "NEW EPISODE. EVERY TUESDAY."           |
+| Events, ticketing                                  | A       | 2 tickets allowed on the proof slide. Tear-off tabs = RSVP            | "DOORS AT 8. YOU'RE IN."                |
+| Bookstores, libraries, cafés                       | B       | Halftone book-spine stripes. Stamp = "DUE BACK" date                  | "READ THE ZINE FIRST."                  |
+| Indie creative tools (design, print, music-making) | A or E  | Swatch bar on every slide. Registration marks in 2 corners            | "PRINT IT. LOUD."                       |
+| Local community, markets, clubs                    | D       | Pinned-flyer tear-off tabs on the closer. Arrow points to the map pin | "YOUR BLOCK. YOUR BOARD."               |
+| Food trucks, zines, makers                         | E       | Ticket = order number. Halftone photo silhouette of the product       | "FRESH ROAST. LOUD FLAVOR. EVERY WEEK." |
 
 ## Dark / inverted & localization notes
 
@@ -342,15 +514,15 @@ All values are px on 1320×2868.
 
 ## Common failure modes
 
-1. **Pink headline text:** it looks on-brand but measures 2.7:1. *Fix:* pink only as the misregistered plate behind the blue key.
-2. **Opacity "halftone":** uniform dots faded with a gradient mask, which looks like a screen-door. *Fix:* generate dots whose radius follows coverage (`Halftone` component).
-3. **Mush from over-misregistration:** offsets of 15–25px make letters unreadable at thumbnail size. *Fix:* 8–10px x and 6–8px y, with a rotation ≤ 0.8°.
-4. **Blotchy floods:** the `#riso` coverage noise on large floods creates cloudy patches that drop knockout text below 4.5:1. *Fix:* use `#flood` (coverage .94–1.0) for floods and knockout blocks.
-5. **Tinting the screenshot:** a multiply or duotone on the phone screen makes the real UI look broken. *Fix:* the phone renders normally above all ink layers. Only the area around the phone gets ink.
-6. **Grey paper:** stacked fibre, fleck and grain layers push `#F4F0E6` down to ~`#D5D0C6`. *Fix:* check a paper pixel stays ≥ (236, 231, 220) and cap fibre darkening at 14%.
-7. **Clip-art props:** vector coffee cups, vinyl records or microphones read as stock. *Fix:* use print artefacts (tickets, stamps, arrows, swatches, registration marks) or a halftone photo silhouette.
-8. **Swiss-grid drift:** adding grid lines, mono labels and hairline rules turns it into style 08. *Fix:* no hairline grids. Structure comes from ink blocks, tickets and tear-off tabs.
-9. **Candy-pop drift:** flat saturated slide backgrounds, hard black offset shadows and chat bubbles turn it into style 11. *Fix:* the background is always paper (or a blue flood), shadows are halftone dots, and there is no ink-black anywhere.
+1. **Pink headline text:** it looks on-brand but measures 2.7:1. _Fix:_ pink only as the misregistered plate behind the blue key.
+2. **Opacity "halftone":** uniform dots faded with a gradient mask, which looks like a screen-door. _Fix:_ generate dots whose radius follows coverage (`Halftone` component).
+3. **Mush from over-misregistration:** offsets of 15–25px make letters unreadable at thumbnail size. _Fix:_ 8–10px x and 6–8px y, with a rotation ≤ 0.8°.
+4. **Blotchy floods:** the `#riso` coverage noise on large floods creates cloudy patches that drop knockout text below 4.5:1. _Fix:_ use `#flood` (coverage .94–1.0) for floods and knockout blocks.
+5. **Tinting the screenshot:** a multiply or duotone on the phone screen makes the real UI look broken. _Fix:_ the phone renders normally above all ink layers. Only the area around the phone gets ink.
+6. **Grey paper:** stacked fibre, fleck and grain layers push `#F4F0E6` down to ~`#D5D0C6`. _Fix:_ check a paper pixel stays ≥ (236, 231, 220) and cap fibre darkening at 14%.
+7. **Clip-art props:** vector coffee cups, vinyl records or microphones read as stock. _Fix:_ use print artefacts (tickets, stamps, arrows, swatches, registration marks) or a halftone photo silhouette.
+8. **Swiss-grid drift:** adding grid lines, mono labels and hairline rules turns it into style 08. _Fix:_ no hairline grids. Structure comes from ink blocks, tickets and tear-off tabs.
+9. **Candy-pop drift:** flat saturated slide backgrounds, hard black offset shadows and chat bubbles turn it into style 11. _Fix:_ the background is always paper (or a blue flood), shadows are halftone dots, and there is no ink-black anywhere.
 
 ## What this style is NOT
 

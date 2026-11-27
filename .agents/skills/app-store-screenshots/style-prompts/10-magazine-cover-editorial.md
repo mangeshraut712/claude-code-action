@@ -28,25 +28,25 @@ feel: literate, unhurried, expensive paper, "this app has taste and a point of v
 
 ## Vibe summary
 
-Every screenshot is a page from a slow, beautifully printed quarterly. You see warm uncoated stock with a faint tooth, deep near-black ink, and one rich oxblood that looks like it cost extra at the printer. A tracked small-caps masthead runs across the top like the cover line of an independent magazine. Beneath it, an enormous high-contrast serif sets the headline in two sizes, with the emotional word in a swash italic. The phone sits upright on a cropped oxblood block, like the cover photograph, with a small italic figure caption in the margin. Nothing moves fast. The voice is literate, warm and specific ("The ritual, refined."), and it sells the *experience* of using the app, not a feature count. It works best for food, coffee, wine and tea, reading, journaling, travel, and lifestyle subscriptions.
+Every screenshot is a page from a slow, beautifully printed quarterly. You see warm uncoated stock with a faint tooth, deep near-black ink, and one rich oxblood that looks like it cost extra at the printer. A tracked small-caps masthead runs across the top like the cover line of an independent magazine. Beneath it, an enormous high-contrast serif sets the headline in two sizes, with the emotional word in a swash italic. The phone sits upright on a cropped oxblood block, like the cover photograph, with a small italic figure caption in the margin. Nothing moves fast. The voice is literate, warm and specific ("The ritual, refined."), and it sells the _experience_ of using the app, not a feature count. It works best for food, coffee, wine and tea, reading, journaling, travel, and lifestyle subscriptions.
 
 ## Global palette
 
-| Token | Hex | Use |
-|---|---|---|
-| `--paper` | `#F1EBE1` | Default slide ground (uncoated stock) |
-| `--paper-deep` | `#E7DECF` | Alternate ground for a "back section" slide and secondary blocks |
-| `--paper-light` | `rgba(255,250,240,.55)` | Radial lift, top-left of the page (paper tooth, not a gradient look) |
-| `--ink` | `#1A1714` | Headlines, masthead, rules, captions (15:1 on paper) |
-| `--ink-soft` | `#4A423A` | Deks, standfirsts, contents descriptions (8.3:1 on paper) |
-| `--ink-mute` | `#6B6158` | Small metadata only (5.1:1). Never for headline words |
-| `--oxblood` | `#7A2320` | The one accent: italic emphasis, colour block, seal, numerals (8.5:1 on paper) |
-| `--oxblood-deep` | `#5E1917` | Bottom shade of the colour block, pressed-ink edges |
-| `--forest` (alt) | `#2F4A3A` | Alternate accent for travel/tea/outdoors decks. Swap it for oxblood globally |
-| `--cream` | `#F6EFE3` | Type, seal and folio on the colour block (8.8:1 on oxblood) |
-| `--rule` | `#1A1714` | Hairlines at 1.5 px, masthead top rule at 5 px |
-| `--phone-shadow` | `rgba(52,14,10,.38)` | Long bezel shadow (oxblood-tinted), plus a tight `rgba(40,20,10,.28)` contact shadow |
-| `--grain` | `0.06` | Overlay noise opacity (range 0.04–0.06) |
+| Token            | Hex                     | Use                                                                                  |
+| ---------------- | ----------------------- | ------------------------------------------------------------------------------------ |
+| `--paper`        | `#F1EBE1`               | Default slide ground (uncoated stock)                                                |
+| `--paper-deep`   | `#E7DECF`               | Alternate ground for a "back section" slide and secondary blocks                     |
+| `--paper-light`  | `rgba(255,250,240,.55)` | Radial lift, top-left of the page (paper tooth, not a gradient look)                 |
+| `--ink`          | `#1A1714`               | Headlines, masthead, rules, captions (15:1 on paper)                                 |
+| `--ink-soft`     | `#4A423A`               | Deks, standfirsts, contents descriptions (8.3:1 on paper)                            |
+| `--ink-mute`     | `#6B6158`               | Small metadata only (5.1:1). Never for headline words                                |
+| `--oxblood`      | `#7A2320`               | The one accent: italic emphasis, colour block, seal, numerals (8.5:1 on paper)       |
+| `--oxblood-deep` | `#5E1917`               | Bottom shade of the colour block, pressed-ink edges                                  |
+| `--forest` (alt) | `#2F4A3A`               | Alternate accent for travel/tea/outdoors decks. Swap it for oxblood globally         |
+| `--cream`        | `#F6EFE3`               | Type, seal and folio on the colour block (8.8:1 on oxblood)                          |
+| `--rule`         | `#1A1714`               | Hairlines at 1.5 px, masthead top rule at 5 px                                       |
+| `--phone-shadow` | `rgba(52,14,10,.38)`    | Long bezel shadow (oxblood-tinted), plus a tight `rgba(40,20,10,.28)` contact shadow |
+| `--grain`        | `0.06`                  | Overlay noise opacity (range 0.04–0.06)                                              |
 
 **Forest variant:** replace `--oxblood` with `#2F4A3A` and `--oxblood-deep` with `#22372B`, and tint the phone shadow `rgba(20,40,30,.34)`. Everything else stays the same. Forest on paper is 8.2:1.
 
@@ -73,7 +73,7 @@ The headline is a **cover line in two sizes**. A roman line in ink sets the scen
 - Offset the italic line **250–400 px** to the right of the roman line's left edge. Fill the pocket this leaves with the dek (on the left) or a seal (on the right).
 - Words of different sizes sharing a line **share a baseline**. Check it by eye at full size.
 - The full stop belongs to the italic word ("refined.", "peak.", "considered."). A comma may end the roman line.
-- Examples: "The ritual, *refined.*" · "Drink it at its *peak.*" · "Every cup, *considered.*" · "Read a little *slower.*" · "Your kitchen, *annotated.*"
+- Examples: "The ritual, _refined._" · "Drink it at its _peak._" · "Every cup, _considered._" · "Read a little _slower._" · "Your kitchen, _annotated._"
 
 ## Phone / device frame treatment
 
@@ -97,7 +97,7 @@ The headline is a **cover line in two sizes**. A roman line in ink sets the scen
 
 ## Decorative accents
 
-Density: **editorial, 2–4 per slide** (_QUALITY_BAR §9). Choose from this list only:
+Density: **editorial, 2–4 per slide** (\_QUALITY_BAR §9). Choose from this list only:
 
 - **Masthead rules** (always present, and always counted). A double top rule, a small-caps row, and a hairline under it.
 - **Cropped colour block.** This is the "cover photograph" plate behind the phone. One per slide at most.
@@ -110,19 +110,58 @@ Density: **editorial, 2–4 per slide** (_QUALITY_BAR §9). Choose from this lis
 Seal reference markup (250 px viewBox; swap `fill`/`stroke` to cream on the block):
 
 ```html
-<svg width="250" height="250" viewBox="0 0 250 250" style="transform:rotate(-9deg)">
+<svg
+  width="250"
+  height="250"
+  viewBox="0 0 250 250"
+  style="transform:rotate(-9deg)"
+>
   <defs>
-    <path id="ring" d="M125,125 m-92,0 a92,92 0 1,1 184,0 a92,92 0 1,1 -184,0"/>
-    <filter id="ink"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" result="n"/>
-      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2"/></filter>
+    <path
+      id="ring"
+      d="M125,125 m-92,0 a92,92 0 1,1 184,0 a92,92 0 1,1 -184,0"
+    />
+    <filter id="ink">
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency=".9"
+        numOctaves="2"
+        result="n"
+      />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" />
+    </filter>
   </defs>
   <g filter="url(#ink)" fill="none" stroke="#7A2320">
-    <circle cx="125" cy="125" r="120" stroke-width="3.5"/><circle cx="125" cy="125" r="112" stroke-width="1.2"/>
-    <circle cx="125" cy="125" r="70" stroke-width="1.2"/></g>
+    <circle cx="125" cy="125" r="120" stroke-width="3.5" />
+    <circle cx="125" cy="125" r="112" stroke-width="1.2" />
+    <circle cx="125" cy="125" r="70" stroke-width="1.2" />
+  </g>
   <g filter="url(#ink)" fill="#7A2320" font-family="Fraunces">
-    <text font-size="17" font-weight="600" letter-spacing="2"><textPath href="#ring" textLength="574" lengthAdjust="spacing">FRESHNESS, KEPT · THE MORNING EDITION ·</textPath></text>
-    <text x="125" y="112" text-anchor="middle" font-size="16" font-weight="600" letter-spacing="3">ISSUE</text>
-    <text x="125" y="160" text-anchor="middle" font-size="58" font-style="italic">Nº3</text></g>
+    <text font-size="17" font-weight="600" letter-spacing="2">
+      <textPath href="#ring" textLength="574" lengthAdjust="spacing">
+        FRESHNESS, KEPT · THE MORNING EDITION ·
+      </textPath>
+    </text>
+    <text
+      x="125"
+      y="112"
+      text-anchor="middle"
+      font-size="16"
+      font-weight="600"
+      letter-spacing="3"
+    >
+      ISSUE
+    </text>
+    <text
+      x="125"
+      y="160"
+      text-anchor="middle"
+      font-size="58"
+      font-style="italic"
+    >
+      Nº3
+    </text>
+  </g>
 </svg>
 ```
 
@@ -154,18 +193,19 @@ This style crosses the seam **like a magazine spread**:
 - **Figure captions:** 2–6 words, italic, observational, like a photo caption, not a CTA. Examples: "The morning, at a glance." · "Day sixteen, at its best." · "Second pour, thirty seconds."
 - **Contents deks:** each ≤ 36 characters, ending with a full stop.
 - **Example headlines:**
-  - Coffee: "The ritual, *refined.*" / "Drink it at its *peak.*"
-  - Recipes: "Tonight's supper, *sorted.*"
-  - Reading: "Read a little *slower.*"
-  - Journaling: "Your days, *kept.*"
-  - Travel: "The long way, *mapped.*"
-  - Wine: "Every bottle, *remembered.*"
-  - Tea: "Steeped to the *second.*"
-  - Subscription/lifestyle: "Less, but *better.*"
+  - Coffee: "The ritual, _refined._" / "Drink it at its _peak._"
+  - Recipes: "Tonight's supper, _sorted._"
+  - Reading: "Read a little _slower._"
+  - Journaling: "Your days, _kept._"
+  - Travel: "The long way, _mapped._"
+  - Wine: "Every bottle, _remembered._"
+  - Tea: "Steeped to the _second._"
+  - Subscription/lifestyle: "Less, but _better._"
 
 ## Per-slide breakdown (mandatory)
 
 ### Slide 1 — Hero (the cover)
+
 - **Masthead:** `APP · ISSUE Nº 03 · THE MORNING EDITION`.
 - **Headline:** roman line at 212 px, left 80, top about 236. The italic oxblood line at 252 px is indented about 290 px, top about 420.
 - **Dek:** a 3–4-line italic standfirst, 34 px, width about 250 px, placed in the pocket left of the italic line. It carries the plain-language benefit, and must name the product category ("Every bag of coffee, brewed at its peak.").
@@ -176,28 +216,32 @@ This style crosses the seam **like a magazine spread**:
 - **Caption:** a vertical `FIG. 1 — The morning, at a glance` in the 130 px left gutter. The folio "3" goes bottom-left.
 
 ### Slide 2 — Differentiator (the feature spread)
+
 - **Masthead:** `APP · THE SHELF · PAGE 04` (a section name, not the issue).
-- **Headline:** "Drink it" at 212 px, then "at its" at 112 px on the same baseline as a 262 px italic oxblood "*peak.*".
+- **Headline:** "Drink it" at 212 px, then "at its" at 112 px on the same baseline as a 262 px italic oxblood "_peak._".
 - **Drop-cap dek:** top-right column (left 868, width 380), 36 px roman, with a 152 px oxblood drop cap.
 - **Phone:** 1000 px, left about 278 (right-shifted), top about 880. Use the screen that proves the differentiator.
 - **Colour block:** starts at x 0 (continuing slide 1's block), right edge 210 px short of the canvas, top 1250.
 - **Caption:** left column on paper, `FIG. 2`, a hairline, then "Day sixteen, / at its best.". The folio "4" sits in cream on the block, bottom-left.
 
 ### Slide 3 — Feature (the recipe/how-to page)
+
 - Use the `--paper-deep` ground. The phone is centred-left at 1000 px, with the colour block bleeding off the left edge.
 - The headline is right-aligned for once, and the figure caption runs vertically in the right gutter.
-- **Headline example:** "Every pour, / *on cue.*" with a timer or step-by-step screen.
+- **Headline example:** "Every pour, / _on cue._" with a timer or step-by-step screen.
 - The decoration is an oversized italic numeral "III" (400 px, oxblood at 100% on paper) in the upper-left pocket. No seal on this slide.
 
 ### Slide 4 — Feature / proof (the sidebar)
+
 - Use a paper ground. The phone is right-shifted, as on slide 2, but with no block. Use the pull-quote variant instead: a 64 px italic ink quote in the left column, 3 hand-broken lines, attributed in small caps.
 - One hairline rule runs full-width at the phone's top edge (a rule may cross into slide 5 here if slide 2 did not already use the block crossing).
 - Proof lives in the words, not in badges. Use a real review line or the editors' voice. No star ratings, laurels or banners.
 - Notable effect: this is the quietest page in the deck. With no block, the ink quote and the hairline carry it, so keep the quote ≥ 64 px so it survives the thumbnail.
 
 ### Slide 5 — Closer (the contents page)
+
 - **No phone.** The masthead reads `APP · IN THIS ISSUE · Nº 03`.
-- **Headline:** "Every cup," at 200 px, plus "*considered.*" in 236 px oxblood italic, indented about 220 px.
+- **Headline:** "Every cup," at 200 px, plus "_considered._" in 236 px oxblood italic, indented about 220 px.
 - **Contents list:** 5 rows from y about 880, each separated by a 1.5 px ink rule (closed top and bottom). Each row has an italic oxblood page numeral (132 px, in a 230 px column), a feature name (76 px roman), and a one-line italic dek (38 px, `--ink-soft`).
 - **Footer block:** oxblood, top 2330 → bottom. It holds a 76 px cream italic pull-quote in 3 hand-broken lines, a small-caps attribution, a cream seal rotated +8° on the right, and the folio.
 - Check that no empty band exceeds 22%. The gap between the contents list and the footer block must stay ≤ 260 px.
@@ -213,7 +257,7 @@ This style crosses the seam **like a magazine spread**:
 7. **Phone:** use the existing `Phone` component at `width = cW*0.76` (1000/1320), anchored so its bottom sits at `cH + 0–60px`. It has 0° rotation and the two-layer oxblood-tinted `drop-shadow` from the phone treatment section.
 8. **Colour block:** a `div` behind the phone with `top: cH*0.436` (1250/2868) and `bottom: 0`, bleeding off one side and inset `cW*0.10–0.16` on the other. Use `theme.accent`. For the cross-screen spread, give slides 1 and 2 the same `top` and mirror their bleeds.
 9. **Captions, folio, seal:** position these last. Keep them out of the headline's bounding box. Render the seal as inline SVG with `textPath` + `textLength` = 2πr.
-10. **Audit:** run _QUALITY_BAR §10 and §11. Check one accent colour, one italic phrase per slide, 2–4 decorations, and that the phone's visible height is ≥ 68%.
+10. **Audit:** run \_QUALITY_BAR §10 and §11. Check one accent colour, one italic phrase per slide, 2–4 decorations, and that the phone's visible height is ≥ 68%.
 
 11. **Five-slide default order:** cover (block crosses to slide 2), feature spread, recipe page (paper-deep), sidebar (pull-quote), contents closer. For 3-slide decks, use cover, feature spread, contents.
 

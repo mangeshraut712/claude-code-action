@@ -11,7 +11,7 @@ feel: rational, confident, high-contrast, "these people measure things"
 
 ## Hard quality rules (this style)
 
-- **Phone size**: 68–78% of canvas height *visible on the canvas* (≥ 1950px of 2868). Phone width 1040–1120px. Measure after cropping, not the full device.
+- **Phone size**: 68–78% of canvas height _visible on the canvas_ (≥ 1950px of 2868). Phone width 1040–1120px. Measure after cropping, not the full device.
 - **Phone tilt = 0°.** Always upright. Any rotation (even 1°) is a fail. Phones are placed like figures in a grid, not props on a table.
 - **Hard crop is the signature.** Every phone-bearing slide crops the device with at least one slide edge: bottom bleed 4–15% of phone height, top bleed 8–12%, or side bleed 8–12% of phone width. A side bleed of < 60px looks like a mistake — go ≥ 100px or keep the phone fully inside. Never crop through the screenshot's focal UI (the number, the ring, the card the headline talks about).
 - **Grid is visible.** Every slide renders the 12-column hairline grid: 72px outer margins, 100px column pitch (76px column + 24px gutter), 2px lines at `rgba(14,14,12,0.13)` on paper / `rgba(242,241,236,0.14)` on ink, plus a closing line at x = 1248. Zero grid = not this style.
@@ -28,36 +28,37 @@ A Swiss poster that happens to sell an app. The slide is a sheet of paper with i
 
 ## Global palette
 
-| Token | Hex | Use |
-|---|---|---|
-| `--paper` | `#F2F1EC` | Light slide bg (warm off-white, never `#FFFFFF`) |
-| `--ink` | `#0E0E0C` | Dark slide bg, all type on paper, type on orange |
-| `--signal` | `#FF4F00` | The one accent: emphasis block / word / data highlight |
-| `--grey-p` | `#5E5D57` | Secondary mono labels on paper (5.8:1) |
-| `--grey-i` | `#A3A29B` | Secondary mono labels on ink (7.5:1) |
-| `--rule-p` | `rgba(14,14,12,0.13)` | Grid hairlines on paper |
-| `--rule-i` | `rgba(242,241,236,0.14)` | Grid hairlines on ink |
-| `--rule-strong` | `#0E0E0C` / `#F2F1EC` | 3px index rules, table rules |
-| `--row-rule-i` | `rgba(242,241,236,0.30)` | Minor data-table dividers on ink |
+| Token           | Hex                      | Use                                                    |
+| --------------- | ------------------------ | ------------------------------------------------------ |
+| `--paper`       | `#F2F1EC`                | Light slide bg (warm off-white, never `#FFFFFF`)       |
+| `--ink`         | `#0E0E0C`                | Dark slide bg, all type on paper, type on orange       |
+| `--signal`      | `#FF4F00`                | The one accent: emphasis block / word / data highlight |
+| `--grey-p`      | `#5E5D57`                | Secondary mono labels on paper (5.8:1)                 |
+| `--grey-i`      | `#A3A29B`                | Secondary mono labels on ink (7.5:1)                   |
+| `--rule-p`      | `rgba(14,14,12,0.13)`    | Grid hairlines on paper                                |
+| `--rule-i`      | `rgba(242,241,236,0.14)` | Grid hairlines on ink                                  |
+| `--rule-strong` | `#0E0E0C` / `#F2F1EC`    | 3px index rules, table rules                           |
+| `--row-rule-i`  | `rgba(242,241,236,0.30)` | Minor data-table dividers on ink                       |
 
 **Verified contrast pairs** (use only these):
 
-| Foreground | Background | Ratio | Allowed for |
-|---|---|---|---|
-| `#0E0E0C` ink | `#F2F1EC` paper | 17.1:1 | everything |
-| `#F2F1EC` paper | `#0E0E0C` ink | 17.1:1 | everything |
-| `#0E0E0C` ink | `#FF4F00` signal | 5.9:1 | emphasis block text, numerals, labels ≥ 24px |
-| `#FF4F00` signal | `#0E0E0C` ink | 5.9:1 | emphasis word, one highlighted data row |
-| `#5E5D57` grey | `#F2F1EC` paper | 5.8:1 | secondary mono labels |
-| `#A3A29B` grey | `#0E0E0C` ink | 7.5:1 | secondary mono labels |
-| `#F2F1EC` paper | `#FF4F00` signal | 2.9:1 | **never** |
-| `#FF4F00` signal | `#F2F1EC` paper | 2.9:1 | **never as text** (rules/blocks only) |
+| Foreground       | Background       | Ratio  | Allowed for                                  |
+| ---------------- | ---------------- | ------ | -------------------------------------------- |
+| `#0E0E0C` ink    | `#F2F1EC` paper  | 17.1:1 | everything                                   |
+| `#F2F1EC` paper  | `#0E0E0C` ink    | 17.1:1 | everything                                   |
+| `#0E0E0C` ink    | `#FF4F00` signal | 5.9:1  | emphasis block text, numerals, labels ≥ 24px |
+| `#FF4F00` signal | `#0E0E0C` ink    | 5.9:1  | emphasis word, one highlighted data row      |
+| `#5E5D57` grey   | `#F2F1EC` paper  | 5.8:1  | secondary mono labels                        |
+| `#A3A29B` grey   | `#0E0E0C` ink    | 7.5:1  | secondary mono labels                        |
+| `#F2F1EC` paper  | `#FF4F00` signal | 2.9:1  | **never**                                    |
+| `#FF4F00` signal | `#F2F1EC` paper  | 2.9:1  | **never as text** (rules/blocks only)        |
 
 Brand swap: if the app has a strong brand color, it replaces `--signal` only if it clears 4.5:1 against ink (for text on ink) and ink clears 4.5:1 on it (for blocks). Otherwise keep orange and use the brand color nowhere. Never add a second accent.
 
 ## Typography
 
 **Headline / display (Google Fonts first):**
+
 - **Inter Tight 800** (default) / Archivo 800 / Inter Display 800. Commercial alternates: Neue Haas Grotesk Display Black, Söhne Breit Kräftig, Helvetica Now Display Black, GT America Extended Black.
 - Headline 160–190px, line-height 0.88–0.92, letter-spacing -0.045em, word-spacing +0.1em. Sentence case.
 - Giant numeral (proof): 700–860px, letter-spacing -0.05em (tighter than -0.06em makes digits merge), line-height 1.
@@ -69,16 +70,16 @@ Brand swap: if the app has a strong brand color, it replaces `--signal` only if 
 
 **Type scale at 1320 wide** (scale by `cW / 1320`):
 
-| Role | Face | Size | Leading | Tracking |
-|---|---|---|---|---|
-| Giant numeral | Inter Tight 800 | 700–860px | 1.0 | -0.05em |
-| Headline | Inter Tight 800 | 160–190px | 0.88–0.92 | -0.045em |
-| Numeral unit | Inter Tight 800 | 130–160px | 0.9 | -0.045em |
-| Table title | Inter Tight 800 | 90–100px | 1.0 | -0.045em |
-| Statement line | Inter Tight 700 | 56px | 1.0 | -0.02em |
-| Sub-line | Inter Tight 500 | 44–48px | 1.15 | -0.01em |
-| Data value | JetBrains Mono 500 | 40–56px | 1.0 | +0.02em |
-| Index / caption label | JetBrains Mono 500 | 24–30px | 1.0–1.35 | +0.02em, uppercase |
+| Role                  | Face               | Size      | Leading   | Tracking           |
+| --------------------- | ------------------ | --------- | --------- | ------------------ |
+| Giant numeral         | Inter Tight 800    | 700–860px | 1.0       | -0.05em            |
+| Headline              | Inter Tight 800    | 160–190px | 0.88–0.92 | -0.045em           |
+| Numeral unit          | Inter Tight 800    | 130–160px | 0.9       | -0.045em           |
+| Table title           | Inter Tight 800    | 90–100px  | 1.0       | -0.045em           |
+| Statement line        | Inter Tight 700    | 56px      | 1.0       | -0.02em            |
+| Sub-line              | Inter Tight 500    | 44–48px   | 1.15      | -0.01em            |
+| Data value            | JetBrains Mono 500 | 40–56px   | 1.0       | +0.02em            |
+| Index / caption label | JetBrains Mono 500 | 24–30px   | 1.0–1.35  | +0.02em, uppercase |
 
 **Mix rule:** exactly two families — one grotesk, one mono. No serif, no script, no italic anywhere.
 
@@ -115,6 +116,7 @@ Emphasize the measurable part: "the day.", "second.", "19". Never emphasize a ve
 - No texture, no grain, no gradient, no vignette, no photos.
 
 **Grid system (the construction every element snaps to):**
+
 - Columns: 12 × 76px, gutters 24px, margins 72px → column n starts at `x = 72 + 100·(n−1)`, ends at `x = 148 + 100·(n−1)`; content right edge 1248.
 - Key x-positions: 72 (headline, labels), 172 / 272 / 348 (phone left edges), 472 (index-row middle label), 1248 (right-aligned labels, phone right edge).
 - Vertical rhythm: 8px baseline; major y-stops at 92 (index labels), 148 (index rule), ~196 (headline top), ~2090 (bottom headline block rule), ~2760 (registration mark).
@@ -122,7 +124,7 @@ Emphasize the measurable part: "the day.", "second.", "19". Never emphasize a ve
 
 ## Decorative accents
 
-Minimal-style density (_QUALITY_BAR §9): **0 floating decorations**. Only construction marks, max **3 per slide** besides the grid and index row:
+Minimal-style density (\_QUALITY_BAR §9): **0 floating decorations**. Only construction marks, max **3 per slide** besides the grid and index row:
 
 - **Registration mark**: 80px crosshair (circle r = 18 + two 72px strokes), 3px, ink or paper. One per slide, in a corner margin (x 52 or right 52, y ≈ 2700–2760).
 - **Figure caption**: `FIG. N — Screen name` in mono 24–30px, horizontal above the headline block or vertical (`writing-mode: vertical-rl`, rotated 180°) in column 1 beside the phone.
@@ -162,6 +164,7 @@ This style bridges the seam with structure, not illustration.
 ## Per-slide breakdown (mandatory)
 
 ### Slide 1 — Hero (paper)
+
 - **Bg:** `#F2F1EC` + grid.
 - **Index row:** `APP` · `Category / Topic` · `01 / 05`, rule at y = 148.
 - **Headline:** y = 196, Inter Tight 800 188px, 3 lines, last line in the signal block bleeding off the left edge. e.g. "Fresh beans. / Tracked to / the day."
@@ -171,6 +174,7 @@ This style bridges the seam with structure, not illustration.
 - **Check:** headline widest line ≤ 1160px ("Fresh beans." at 188px ≈ 1055px); the signal block must not touch the line above; phone visible ≥ 1950px.
 
 ### Slide 2 — Differentiator (ink)
+
 - **Bg:** `#0E0E0C` + grid.
 - **Phone:** the signature feature screen, left 348, width 1100, top -220 — bleeds off top and right.
 - **Data column:** cols 1–3, ruled mono list of the feature's real values (times, steps, amounts), the current one in `#FF4F00` with `→`.
@@ -180,17 +184,20 @@ This style bridges the seam with structure, not illustration.
 **Bloom example (reference render):** timer screen cropped top + right; data column `0:00 Bloom / 0:45 1st pour / 1:15 2nd pour → / 1:45 Drawdown / 3:30 Done`, row 1:15 in orange; headline "Every pour. / To the second." with "second." orange; sub-line "Guided V60, espresso, AeroPress, cold brew."
 
 ### Slide 3 — Feature (paper)
+
 - **Bg:** paper + grid. Mirror slide 1 but phone anchored right: right bezel edge at x = 1248 or bleeding right; headline top, signal block on the key noun.
 - **Phone:** a list/detail screen (inventory, history, settings of value).
 - **Accents:** a horizontal mono strip of 3–4 measured facts separated by `·` under the headline.
 
 ### Slide 4 — Proof (ink)
+
 - **Bg:** ink + grid.
 - **Numeral:** one real number from the app at 700–860px in paper color, unit beside it at 140px; the signal is a 12–20px orange rule under the numeral OR the unit in orange.
 - **Phone:** optional; if present, bottom-bleed in cols 6–12 with the numeral in cols 1–6, and the numeral must not overlap the phone silhouette.
 - **Caption:** mono 30px stating what the number means ("Caffeine in system · 22:00").
 
 ### Slide 5 — Closer: Index (paper)
+
 - **Bg:** paper + grid, index row `APP · Index · 05 / 05`.
 - **Signal band:** full-bleed orange block y 208–1288 containing a mono label, the giant numeral + unit in ink, and a 56px Inter Tight 700 ink line with `→` flush right.
 - **Index table:** y 1372 →, 5 rows × 228px, 2px ink rules: mono number (34px) in cols 1–2, feature title Inter Tight 800 96px from col 3, mono two-line descriptor right-aligned at x = 1248 in `--grey-p`. 3px closing rule.

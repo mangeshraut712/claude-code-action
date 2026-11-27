@@ -42,7 +42,13 @@ export function Phone({ src, alt = "", style, hideEmpty }: FrameProps) {
           <img
             src={resolved}
             alt={alt}
-            style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+            style={{
+              display: "block",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "top",
+            }}
             draggable={false}
           />
         ) : hideEmpty ? null : (
@@ -63,7 +69,8 @@ export function AndroidPhone({ src, alt = "", style, hideEmpty }: FrameProps) {
           height: "100%",
           borderRadius: "8% / 4%",
           background: "linear-gradient(160deg, #2a2a2e 0%, #18181b 100%)",
-          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 40px rgba(0,0,0,0.55)",
+          boxShadow:
+            "inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 40px rgba(0,0,0,0.55)",
           position: "relative",
           overflow: "hidden",
         }}
@@ -98,7 +105,13 @@ export function AndroidPhone({ src, alt = "", style, hideEmpty }: FrameProps) {
             <img
               src={resolved}
               alt={alt}
-              style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "top",
+              }}
               draggable={false}
             />
           ) : hideEmpty ? null : (
@@ -110,7 +123,12 @@ export function AndroidPhone({ src, alt = "", style, hideEmpty }: FrameProps) {
   );
 }
 
-export function AndroidTabletP({ src, alt = "", style, hideEmpty }: FrameProps) {
+export function AndroidTabletP({
+  src,
+  alt = "",
+  style,
+  hideEmpty,
+}: FrameProps) {
   const resolved = img(src);
   return (
     <div style={{ position: "relative", aspectRatio: "5 / 8", ...style }}>
@@ -120,7 +138,8 @@ export function AndroidTabletP({ src, alt = "", style, hideEmpty }: FrameProps) 
           height: "100%",
           borderRadius: "4.5% / 2.8%",
           background: "linear-gradient(160deg, #2a2a2e 0%, #18181b 100%)",
-          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 48px rgba(0,0,0,0.6)",
+          boxShadow:
+            "inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 48px rgba(0,0,0,0.6)",
           position: "relative",
           overflow: "hidden",
         }}
@@ -154,7 +173,13 @@ export function AndroidTabletP({ src, alt = "", style, hideEmpty }: FrameProps) 
             <img
               src={resolved}
               alt={alt}
-              style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "top",
+              }}
               draggable={false}
             />
           ) : hideEmpty ? null : (
@@ -166,7 +191,12 @@ export function AndroidTabletP({ src, alt = "", style, hideEmpty }: FrameProps) 
   );
 }
 
-export function AndroidTabletL({ src, alt = "", style, hideEmpty }: FrameProps) {
+export function AndroidTabletL({
+  src,
+  alt = "",
+  style,
+  hideEmpty,
+}: FrameProps) {
   const resolved = img(src);
   return (
     <div style={{ position: "relative", aspectRatio: "8 / 5", ...style }}>
@@ -176,7 +206,8 @@ export function AndroidTabletL({ src, alt = "", style, hideEmpty }: FrameProps) 
           height: "100%",
           borderRadius: "2.8% / 4.5%",
           background: "linear-gradient(160deg, #2a2a2e 0%, #18181b 100%)",
-          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 48px rgba(0,0,0,0.6)",
+          boxShadow:
+            "inset 0 0 0 1px rgba(255,255,255,0.08), 0 8px 48px rgba(0,0,0,0.6)",
           position: "relative",
           overflow: "hidden",
         }}
@@ -210,7 +241,13 @@ export function AndroidTabletL({ src, alt = "", style, hideEmpty }: FrameProps) 
             <img
               src={resolved}
               alt={alt}
-              style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "top",
+              }}
               draggable={false}
             />
           ) : hideEmpty ? null : (
@@ -240,7 +277,9 @@ export function MacWindow({ src, alt = "", style, hideEmpty }: FrameProps) {
     />
   );
   return (
-    <div style={{ position: "relative", aspectRatio: `${MAC_RATIO}`, ...style }}>
+    <div
+      style={{ position: "relative", aspectRatio: `${MAC_RATIO}`, ...style }}
+    >
       <div
         style={{
           width: "100%",
@@ -248,7 +287,8 @@ export function MacWindow({ src, alt = "", style, hideEmpty }: FrameProps) {
           // Circular corners: the vertical radius is scaled by the frame aspect.
           borderRadius: `1.1% / ${1.1 * MAC_RATIO}%`,
           background: "#1C1C1E",
-          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.12), 0 18px 60px rgba(0,0,0,0.40)",
+          boxShadow:
+            "inset 0 0 0 1px rgba(255,255,255,0.12), 0 18px 60px rgba(0,0,0,0.40)",
           overflow: "hidden",
           display: "flex",
           flexDirection: "column",
@@ -271,12 +311,25 @@ export function MacWindow({ src, alt = "", style, hideEmpty }: FrameProps) {
           {light("#FEBC2E")}
           {light("#28C840")}
         </div>
-        <div style={{ flex: 1, overflow: "hidden", background: "#111", minHeight: 0 }}>
+        <div
+          style={{
+            flex: 1,
+            overflow: "hidden",
+            background: "#111",
+            minHeight: 0,
+          }}
+        >
           {resolved ? (
             <img
               src={resolved}
               alt={alt}
-              style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "top",
+              }}
               draggable={false}
             />
           ) : hideEmpty ? null : (
@@ -300,7 +353,8 @@ export function IPad({ src, alt = "", style, hideEmpty }: FrameProps) {
           background: "linear-gradient(180deg, #2C2C2E 0%, #1C1C1E 100%)",
           position: "relative",
           overflow: "hidden",
-          boxShadow: "inset 0 0 0 1px rgba(255,255,255,0.1), 0 8px 40px rgba(0,0,0,0.6)",
+          boxShadow:
+            "inset 0 0 0 1px rgba(255,255,255,0.1), 0 8px 40px rgba(0,0,0,0.6)",
         }}
       >
         <div
@@ -332,7 +386,13 @@ export function IPad({ src, alt = "", style, hideEmpty }: FrameProps) {
             <img
               src={resolved}
               alt={alt}
-              style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "top",
+              }}
               draggable={false}
             />
           ) : hideEmpty ? null : (
@@ -380,13 +440,20 @@ function EmptySlot() {
 // The screenshot IS the content, so there is no device UI to draw. A thin dark
 // bezel reads as "TV" without competing with the capture. `bare` renders the
 // capture edge-to-edge with no bezel at all.
-export function AppleTV({ src, alt = "", style, hideEmpty, bare }: FrameProps & { bare?: boolean }) {
+export function AppleTV({
+  src,
+  alt = "",
+  style,
+  hideEmpty,
+  bare,
+}: FrameProps & { bare?: boolean }) {
   const resolved = img(src);
   return (
     <div style={{ position: "relative", aspectRatio: "16 / 9", ...style }}>
       <div
         style={{
-          width: "100%", height: "100%",
+          width: "100%",
+          height: "100%",
           borderRadius: bare ? "0.6% / 1.1%" : "1.1% / 2.0%",
           background: bare ? "transparent" : "#0A0A0C",
           padding: bare ? "0" : "0.9%",
@@ -397,12 +464,31 @@ export function AppleTV({ src, alt = "", style, hideEmpty, bare }: FrameProps & 
           overflow: "hidden",
         }}
       >
-        <div style={{ width: "100%", height: "100%", overflow: "hidden", background: "#111",
-                      borderRadius: bare ? "0.6% / 1.1%" : "0.5% / 0.9%" }}>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            overflow: "hidden",
+            background: "#111",
+            borderRadius: bare ? "0.6% / 1.1%" : "0.5% / 0.9%",
+          }}
+        >
           {resolved ? (
-            <img src={resolved} alt={alt} draggable={false}
-                 style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
-          ) : hideEmpty ? null : (<EmptySlot />)}
+            <img
+              src={resolved}
+              alt={alt}
+              draggable={false}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
+          ) : hideEmpty ? null : (
+            <EmptySlot />
+          )}
         </div>
       </div>
     </div>
@@ -418,27 +504,66 @@ export function AppleWatch({ src, alt = "", style, hideEmpty }: FrameProps) {
   return (
     <div style={{ position: "relative", aspectRatio: "422 / 514", ...style }}>
       {/* crown + side button */}
-      <div style={{ position: "absolute", right: "-2.6%", top: "27%", width: "3.4%", height: "12%",
-                    background: "linear-gradient(180deg,#8E8E93,#5A5A5E)", borderRadius: "40%" }} />
-      <div style={{ position: "absolute", right: "-1.8%", top: "45%", width: "2.4%", height: "14%",
-                    background: "linear-gradient(180deg,#6E6E73,#48484A)", borderRadius: "40%" }} />
       <div
         style={{
-          width: "100%", height: "100%",
+          position: "absolute",
+          right: "-2.6%",
+          top: "27%",
+          width: "3.4%",
+          height: "12%",
+          background: "linear-gradient(180deg,#8E8E93,#5A5A5E)",
+          borderRadius: "40%",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          right: "-1.8%",
+          top: "45%",
+          width: "2.4%",
+          height: "14%",
+          background: "linear-gradient(180deg,#6E6E73,#48484A)",
+          borderRadius: "40%",
+        }}
+      />
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
           borderRadius: "26% / 21%",
           background: "#0A0A0C",
           padding: "6.5%",
           boxSizing: "border-box",
-          boxShadow: "0 18px 50px rgba(0,0,0,0.42), inset 0 0 0 1px rgba(255,255,255,0.08)",
+          boxShadow:
+            "0 18px 50px rgba(0,0,0,0.42), inset 0 0 0 1px rgba(255,255,255,0.08)",
           overflow: "hidden",
         }}
       >
-        <div style={{ width: "100%", height: "100%", overflow: "hidden", background: "#000",
-                      borderRadius: "22% / 18%" }}>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            overflow: "hidden",
+            background: "#000",
+            borderRadius: "22% / 18%",
+          }}
+        >
           {resolved ? (
-            <img src={resolved} alt={alt} draggable={false}
-                 style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
-          ) : hideEmpty ? null : (<EmptySlot />)}
+            <img
+              src={resolved}
+              alt={alt}
+              draggable={false}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
+          ) : hideEmpty ? null : (
+            <EmptySlot />
+          )}
         </div>
       </div>
     </div>
@@ -455,21 +580,42 @@ export function CarPlayScreen({ src, alt = "", style, hideEmpty }: FrameProps) {
     <div style={{ position: "relative", aspectRatio: "800 / 480", ...style }}>
       <div
         style={{
-          width: "100%", height: "100%",
+          width: "100%",
+          height: "100%",
           borderRadius: "2.2% / 3.6%",
           background: "#0B0B0D",
           padding: "1.6%",
           boxSizing: "border-box",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.40), inset 0 0 0 1px rgba(255,255,255,0.07)",
+          boxShadow:
+            "0 20px 60px rgba(0,0,0,0.40), inset 0 0 0 1px rgba(255,255,255,0.07)",
           overflow: "hidden",
         }}
       >
-        <div style={{ width: "100%", height: "100%", overflow: "hidden", background: "#000",
-                      borderRadius: "1.4% / 2.3%" }}>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            overflow: "hidden",
+            background: "#000",
+            borderRadius: "1.4% / 2.3%",
+          }}
+        >
           {resolved ? (
-            <img src={resolved} alt={alt} draggable={false}
-                 style={{ display: "block", width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
-          ) : hideEmpty ? null : (<EmptySlot />)}
+            <img
+              src={resolved}
+              alt={alt}
+              draggable={false}
+              style={{
+                display: "block",
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
+          ) : hideEmpty ? null : (
+            <EmptySlot />
+          )}
         </div>
       </div>
     </div>

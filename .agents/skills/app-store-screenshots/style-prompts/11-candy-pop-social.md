@@ -17,7 +17,7 @@ feel: loud, joyful, "the group chat is already talking about this"
 - **Contrast is measured, not guessed.** White text is ONLY allowed on cobalt (`#2B44F0`, 6.6:1). On pink (6.5:1), lime (14:1), tangerine (7.1:1) and yellow (14:1) all text is ink `#16121F`. White on lime/tangerine/pink = 1.3–2.8:1 = instant fail.
 - **Everything graphic gets the "sticker stack":** ink outline (5–7px) OR thick white cut-out outline (14–22px), plus a HARD offset shadow in ink (`8–14px` x, `10–16px` y, 0 blur). Soft blurry drop shadows on decorations = fail (that is style 06 territory).
 - **Phone size:** 70–80% of canvas height (width 980–1040px on 1320 canvas), tilted **4°–10°** (either direction), bleeding 0–8% off the bottom. Two overlapping phones allowed on at most one slide; the front phone still obeys the size rule, the back phone is 820–880px wide, tilted the opposite way.
-- **Decoration count: 8–14 per slide** (_QUALITY_BAR §9 maximalist), with at least one bleeding off an edge — but nothing may overlap the headline block. Decorations live around and on top of the phone, never on the letters.
+- **Decoration count: 8–14 per slide** (\_QUALITY_BAR §9 maximalist), with at least one bleeding off an edge — but nothing may overlap the headline block. Decorations live around and on top of the phone, never on the letters.
 - **Emoji:** max 1 per chat bubble / reaction pill, max 5 per slide total. Never in the headline.
 
 ## Vibe summary
@@ -26,35 +26,36 @@ This is the look of a social app whose marketing lives in the group chat. Every 
 
 ## Global palette
 
-| Token | Hex | Use |
-|---|---|---|
-| `--ink` | `#16121F` | All dark text, outlines, hard offset shadows, sparkles |
-| `--white` | `#FFFFFF` | Bubble fill, sticker cut-out outline, text on cobalt only |
-| `--pink` | `#FF5FA8` | Slide bg A, pill fill on lime/cobalt, heart sticker |
-| `--pink-deep` | `#D63D86` | Phone hard shadow on pink, heart shade side |
-| `--cobalt` | `#2B44F0` | Slide bg B, "you" chat bubbles, pill fill on pink |
-| `--cobalt-deep` | `#1A2BB0` | Phone hard shadow on cobalt, sticker shade side |
-| `--lime` | `#C6F135` | Slide bg C, pill fill on cobalt/tangerine, squiggles on cobalt |
-| `--lime-deep` | `#9CC41A` | Phone hard shadow on lime |
-| `--tangerine` | `#FF7A1F` | Slide bg D, starburst alt fill, cup/object stickers |
-| `--tangerine-deep` | `#D95E0B` | Phone hard shadow on tangerine, sticker shade |
-| `--yellow` | `#FFE23D` | Starbursts, highlight reaction pills, bolt sticker (never a slide bg) |
-| `--yellow-deep` | `#E0B800` | Shade side of yellow stickers |
+| Token              | Hex       | Use                                                                   |
+| ------------------ | --------- | --------------------------------------------------------------------- |
+| `--ink`            | `#16121F` | All dark text, outlines, hard offset shadows, sparkles                |
+| `--white`          | `#FFFFFF` | Bubble fill, sticker cut-out outline, text on cobalt only             |
+| `--pink`           | `#FF5FA8` | Slide bg A, pill fill on lime/cobalt, heart sticker                   |
+| `--pink-deep`      | `#D63D86` | Phone hard shadow on pink, heart shade side                           |
+| `--cobalt`         | `#2B44F0` | Slide bg B, "you" chat bubbles, pill fill on pink                     |
+| `--cobalt-deep`    | `#1A2BB0` | Phone hard shadow on cobalt, sticker shade side                       |
+| `--lime`           | `#C6F135` | Slide bg C, pill fill on cobalt/tangerine, squiggles on cobalt        |
+| `--lime-deep`      | `#9CC41A` | Phone hard shadow on lime                                             |
+| `--tangerine`      | `#FF7A1F` | Slide bg D, starburst alt fill, cup/object stickers                   |
+| `--tangerine-deep` | `#D95E0B` | Phone hard shadow on tangerine, sticker shade                         |
+| `--yellow`         | `#FFE23D` | Starbursts, highlight reaction pills, bolt sticker (never a slide bg) |
+| `--yellow-deep`    | `#E0B800` | Shade side of yellow stickers                                         |
 
 **Pill + text pairing (use exactly):**
 
-| Slide bg | Headline colour | Pill fill / pill text | Squiggle / sparkle ink |
-|---|---|---|---|
-| pink `#FF5FA8` | ink | cobalt / white | ink + white sparkles |
-| cobalt `#2B44F0` | white | lime / ink | lime + white sparkles |
-| lime `#C6F135` | ink | pink / ink | ink |
-| tangerine `#FF7A1F` | ink | ink / lime | ink + white sparkles |
+| Slide bg            | Headline colour | Pill fill / pill text | Squiggle / sparkle ink |
+| ------------------- | --------------- | --------------------- | ---------------------- |
+| pink `#FF5FA8`      | ink             | cobalt / white        | ink + white sparkles   |
+| cobalt `#2B44F0`    | white           | lime / ink            | lime + white sparkles  |
+| lime `#C6F135`      | ink             | pink / ink            | ink                    |
+| tangerine `#FF7A1F` | ink             | ink / lime            | ink + white sparkles   |
 
 Never place two adjacent slides in the same colour. Default 5-slide order: pink → cobalt → lime → tangerine → pink.
 
 ## Typography
 
 **Headline (display):**
+
 - Google (first choice): **Bricolage Grotesque 800** with `font-variation-settings: 'opsz' 96` — chunky, slightly quirky, rounded terminals. Alternates: **Rubik 900**, **Dela Gothic One 400** (already ultra-heavy; drop size ~8%).
 - Commercial alternates: GT Walsheim Black, Cera Pro Black, Gilroy Heavy, Obviously Wide Black (reduce size 12%).
 - Size 200–240px (2 lines), 190–215px (3 lines). `line-height: .9`, `letter-spacing: -0.035em`, `white-space: nowrap` per line, lines hand-broken.
@@ -113,20 +114,68 @@ Polish gates (§3): stickers pass fill tones + hard cast shadow + volume highlig
 ### Component recipes (1320-wide canvas, scale by `cW/1320`)
 
 ```css
-.cp-headline { font: 800 232px/.9 'Bricolage Grotesque'; font-variation-settings: 'opsz' 96;
-  letter-spacing: -0.035em; white-space: nowrap; }
-.cp-pill { display: inline-block; border-radius: 999px; padding: 0 .2em .06em; margin-left: .04em;
-  border: 7px solid #16121F; box-shadow: 12px 14px 0 #16121F; transform: rotate(-3deg); }
-.cp-bubble { font: 700 52px/1.12 Rubik; padding: 30px 42px 32px; border: 6px solid #16121F;
-  border-radius: 56px; box-shadow: 10px 12px 0 #16121F; white-space: nowrap; }
-.cp-bubble.friend { background: #fff; color: #16121F; border-bottom-left-radius: 12px; }
-.cp-bubble.you    { background: #2B44F0; color: #fff; border-bottom-right-radius: 12px; }
-.cp-bubble .who   { display: block; font: 800 30px/1 Rubik; opacity: .72; margin-bottom: 12px; }
-.cp-reaction { font: 800 42px/1 Rubik; background: #fff; color: #16121F; border: 5px solid #16121F;
-  border-radius: 999px; padding: 14px 26px; box-shadow: 6px 7px 0 #16121F; }
-.cp-sticker { filter: drop-shadow(10px 12px 0 #16121F); } /* SVG inside draws a 14–22px white stroke under the fill */
-.cp-tag { display: flex; gap: 18px; align-items: center; background: #fff; border: 6px solid #16121F;
-  border-radius: 999px; padding: 12px 34px 12px 14px; box-shadow: 8px 10px 0 #16121F; font: 800 50px/1 Rubik; }
+.cp-headline {
+  font: 800 232px/0.9 "Bricolage Grotesque";
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+.cp-pill {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0 0.2em 0.06em;
+  margin-left: 0.04em;
+  border: 7px solid #16121f;
+  box-shadow: 12px 14px 0 #16121f;
+  transform: rotate(-3deg);
+}
+.cp-bubble {
+  font: 700 52px/1.12 Rubik;
+  padding: 30px 42px 32px;
+  border: 6px solid #16121f;
+  border-radius: 56px;
+  box-shadow: 10px 12px 0 #16121f;
+  white-space: nowrap;
+}
+.cp-bubble.friend {
+  background: #fff;
+  color: #16121f;
+  border-bottom-left-radius: 12px;
+}
+.cp-bubble.you {
+  background: #2b44f0;
+  color: #fff;
+  border-bottom-right-radius: 12px;
+}
+.cp-bubble .who {
+  display: block;
+  font: 800 30px/1 Rubik;
+  opacity: 0.72;
+  margin-bottom: 12px;
+}
+.cp-reaction {
+  font: 800 42px/1 Rubik;
+  background: #fff;
+  color: #16121f;
+  border: 5px solid #16121f;
+  border-radius: 999px;
+  padding: 14px 26px;
+  box-shadow: 6px 7px 0 #16121f;
+}
+.cp-sticker {
+  filter: drop-shadow(10px 12px 0 #16121f);
+} /* SVG inside draws a 14–22px white stroke under the fill */
+.cp-tag {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background: #fff;
+  border: 6px solid #16121f;
+  border-radius: 999px;
+  padding: 12px 34px 12px 14px;
+  box-shadow: 8px 10px 0 #16121f;
+  font: 800 50px/1 Rubik;
+}
 ```
 
 - **Starburst geometry:** polygon of `2 × points` vertices alternating radius 50 / 40 in a 100-unit viewBox; draw an ink copy offset `(4.5, 5.5)` first, then the coloured copy with a 3.2-unit ink stroke on top.
@@ -135,12 +184,12 @@ Polish gates (§3): stickers pass fill tones + hard cast shadow + volume highlig
 
 ### Layout grid (1320 × 2868)
 
-| Zone | y-range | Contents |
-|---|---|---|
-| Tag band | 90–200 | App tag, 1–2 sparkles, optional starburst (closer) |
-| Headline | 260–760 (2 lines) / 260–900 (3 lines) | Headline + pill; nothing else may enter |
-| Subhead | 770–900 | Rubik 52px, max 2 lines (omit on closer) |
-| Stage | 950–2868 | Phone(s), bubbles, reactions, stickers, squiggle |
+| Zone     | y-range                               | Contents                                           |
+| -------- | ------------------------------------- | -------------------------------------------------- |
+| Tag band | 90–200                                | App tag, 1–2 sparkles, optional starburst (closer) |
+| Headline | 260–760 (2 lines) / 260–900 (3 lines) | Headline + pill; nothing else may enter            |
+| Subhead  | 770–900                               | Rubik 52px, max 2 lines (omit on closer)           |
+| Stage    | 950–2868                              | Phone(s), bubbles, reactions, stickers, squiggle   |
 
 Left margin 84px for tag, headline and subhead. Decorations may bleed on the left/right/bottom edges only.
 
@@ -169,6 +218,7 @@ Left margin 84px for tag, headline and subhead. Decorations may bleed on the lef
 ## Per-slide breakdown (mandatory)
 
 ### Slide 1 — Hero (pink `#FF5FA8`)
+
 - App tag top-left (84, 104), rotated −3°.
 - Headline 2 lines at 230–240px, ink, top 270px; pill word in cobalt/white on line 2.
 - Subhead Rubik 700 52px, 2 lines, ink, ~790px from top.
@@ -176,22 +226,26 @@ Left margin 84px for tag, headline and subhead. Decorations may bleed on the lef
 - Decorations (~12): friend bubble popping off the phone's left edge + `❤️ 12` reaction; "you"/cobalt bubble lower right + `🔥 streak` yellow pill; yellow starburst on the phone's top-right corner; ink squiggle arrow from starburst to a UI card; cobalt heart sticker left; product sticker bleeding off bottom-left; 3–4 sparkles.
 
 ### Slide 2 — Differentiator (cobalt `#2B44F0`)
+
 - White headline, lime/ink pill; subhead white.
 - Two overlapping phones: back phone (list/browse screen) 840–880px, tilt −8°, left edge ≥ 20px; front phone (the differentiating feature, e.g. timer) 1000px, tilt +7°, right side.
 - Decorations (~10): white "you → crew" bubble popping off the front phone's top edge; pink friend bubble crossing both phones (`wait u made this?? 🤯`) + reaction; yellow starburst with a feature spec (`to the gram`); lime squiggle; white/lime sparkles; bolt sticker bottom-left bleed; object sticker bottom-right bleed.
 
 ### Slide 3 — Feature (lime `#C6F135`)
+
 - Ink headline, pink/ink pill.
 - Single phone +5° to +9°, showing a data screen (stats, calendar, map).
 - A floating widget or card PNG (from the app) gets the sticker treatment (white 14px outline + ink hard shadow) and pops out of the phone's side.
 - Decorations: 2 bubbles, 1 reaction, starburst in tangerine, ink squiggle, 2 stickers, sparkles.
 
 ### Slide 4 — Feature / proof (tangerine `#FF7A1F`)
+
 - Ink headline, ink/lime pill.
 - Phone −4° to −8°. Proof via a stack of 3 reaction pills (`⭐ 4.8`, `❤️ 2.1k`, `🔥 obsessed`) only if the numbers are real; otherwise friend quotes in bubbles.
 - Starburst yellow, cobalt heart sticker, ink squiggle.
 
 ### Slide 5 — Closer: the group chat (pink or lime)
+
 - No phone. Headline 3 lines at ~210px (`your brew / crew is / gonna [ask]`).
 - Below: a chat thread of 5–6 bubbles alternating friend (white, left, rotated −2° to −4°) and "you" (cobalt, right, +2° to +3°), 56px text. The "you" replies ARE the feature list (`bloom says when they peak`, `v60, aeropress, cold brew…`, `128mg. bed-ready by 10 😴`).
 - 2–3 reaction pills on bubble corners, a `NEW!` tangerine starburst top-right, and a bottom row: product sticker, the **app icon as a sticker** (210px, 14px white outline, ink hard shadow, rotated −6°) with a squiggle arrow pointing at it, heart sticker bleeding right.
